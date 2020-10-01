@@ -1,4 +1,6 @@
 class Rsvp < ApplicationRecord
     belongs_to :user
     belongs_to :event
+
+    validates_uniqueeness_of :user_id, :scope => :event_id, :message => "has already signed up to this event/waiting list."
 end
