@@ -9,7 +9,7 @@
 .env
 
 # Ignore the default SQLite database.
-/db/seeds.rb
+./db/seeds.rb
 /db/*.sqlite3
 /db/*.sqlite3-journal
 /db/*.sqlite3-*
