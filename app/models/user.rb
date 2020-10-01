@@ -12,4 +12,7 @@ class User < ApplicationRecord
 
     include AccountMethods::InstanceMethods
     extend AccountMethods::ClassMethods
+
+    includes ActiveModel::Validations 
+    validates_with EmailValidator, :on => :create
 end
