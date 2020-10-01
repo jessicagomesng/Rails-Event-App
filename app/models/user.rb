@@ -9,4 +9,7 @@ class User < ApplicationRecord
     validates :birthday, :presence => true, :on => :create
     validates :password_confirmation, :presence => true 
     validates :password, :presence => true, :confirmation => true 
+
+    include AccountMethods::InstanceMethods
+    extend AccountMethods::ClassMethods
 end
