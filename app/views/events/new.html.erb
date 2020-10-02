@@ -1,0 +1,13 @@
+<h2>Create a New Event</h2><br>
+
+<div class="form"> 
+    <%= form_for(@event) do |f| %>
+
+        <%= render :partial => "form", :locals => { f: f } %>
+        <%= f.hidden_field :producer_id %>
+
+        <div class="button">
+            <%= f.submit %>
+        </div>
+    <% end %>
+</div>
