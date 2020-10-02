@@ -12,5 +12,6 @@ class Event < ApplicationRecord
 
     includes ActiveModel::Validations
     validates_with EndDateValidator
+    validates_with MaximumCapacityValidator
     validates_with LocationIdValidator
 end
