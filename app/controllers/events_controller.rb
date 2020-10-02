@@ -13,6 +13,8 @@ class EventsController < ApplicationController
     def create 
         @event = Event.new(event_params)
 
+        set_start_date 
+
         if @event.save 
             flash[:message] = "Event created successfully."
             redirect_to event_path(@event)
@@ -67,5 +69,16 @@ class EventsController < ApplicationController
     private 
     def event_params
         params.require(:event).permit(:filter, :status, :producer_id, :location_id, :name, :price, :image_url, :maximum_capacity, :minimum_age)
+    end 
+
+    def set_start_date 
+        if params[:event][:start_date] != ""
+            event_start_date = params[:event][:start_date].split("-").collect { |attr| attr.to_i }
+            if params[:start_time] != "" 
+                event_start_time = params[:start_time].split(":").collect { |attr| attr.to_i }
+                set_start_datetime = DateTime.new(event_start_date[0], event_start_date[1], event_start_date[2], event_start_time[0], event_start_time[1])
+                @event.assign_attributes(:start_date => set_start_datetime)
+            end 
+        end
     end 
 end
