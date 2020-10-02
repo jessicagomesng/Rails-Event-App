@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+    helper_method :current_user, :admin, :logged_in
 
     private 
     def current_user 
