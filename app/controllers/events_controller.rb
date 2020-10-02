@@ -11,6 +11,14 @@ class EventsController < ApplicationController
     end 
 
     def create 
+        @event = Event.new(event_params)
+
+        if @event.save 
+            flash[:message] = "Event created successfully."
+            redirect_to event_path(@event)
+        else
+            render :new 
+        end 
     end 
 
     def index 
@@ -27,4 +35,9 @@ class EventsController < ApplicationController
 
     def destroy 
     end
+
+    private 
+    def event_params
+        params.require(:event).permit(:filter, :status, :producer_id, :location_id, :name, :price, :image_url, :maximum_capacity, :minimum_age)
+    end 
 end
