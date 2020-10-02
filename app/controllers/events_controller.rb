@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+    before_action :permitted, only: [:new, :create, :edit, :update, :destroy]
+    before_action :set_event, only: [:show, :edit, :update, :destroy]
 
     def new 
     end 
