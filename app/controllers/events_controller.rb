@@ -22,7 +22,14 @@ class EventsController < ApplicationController
     end 
 
     def index 
-        @events = Event.all
+        if params[:location_id]
+            @events = Location.find_by_id(params[:location_id]).events 
+        elsif params[:producer_id]
+            @events = Producer.find_by_id(params[:producer_id]).events
+        elsif params[:user_id]
+            @events = User.find_by_id(params[:user_id]).events
+        else 
+            @events = Event.all
     end
 
     def show 
