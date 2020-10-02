@@ -28,8 +28,22 @@ class EventsController < ApplicationController
             @events = Producer.find_by_id(params[:producer_id]).events
         elsif params[:user_id]
             @events = User.find_by_id(params[:user_id]).events
+
+            if params[:status] == "attending"
+                # @events = @events.attending
+            elsif params[:status] == "waiting"
+                # @events = @events.waiting 
+            end 
+
         else 
             @events = Event.all
+
+            if params[:filter] == "upcoming"
+                @events = @events.upcoming 
+            elsif params[:filter] == "past"
+                @events = @events.past 
+            end 
+        end 
     end
 
     def show 
