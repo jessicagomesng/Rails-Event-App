@@ -9,4 +9,8 @@ class Event < ApplicationRecord
 
     scope :upcoming, -> { where("start_date > ?", DateTime.now) } 
     scope :past, -> { where("end_date < ?", DateTime.now)}
+
+    includes ActiveModel::Validations
+    validates_with EndDateValidator
+    validates_with LocationIdValidator
 end
