@@ -50,7 +50,7 @@ class EventsController < ApplicationController
     end
 
     def show 
-        @users_event = UsersEvent.find_or_initialize_by(:event_id => @event.id, :user_id => current_user.id) 
+        @rsvp = Rsvp.find_or_initialize_by(:event_id => @event.id, :user_id => current_user.id) 
         
         if !@event 
             redirect_to events_path
