@@ -34,13 +34,9 @@ class EventsController < ApplicationController
             @events = user.events
 
             if params[:status] == "attending"
-                # @events = @events.attending
-                #want to be able to go @events = user.events.attending 
-                user = User.find_by_id(params[:id])
+                @events = user.events_attending
             elsif params[:status] == "waiting"
-                # @events = @events.waiting 
-                #want to be able to go @events = user.events.waiting 
-                #for users list, want to be able to go: #event.users.attending and event.users.waiting
+                @events = user.events_waiting
             end 
 
         else 
