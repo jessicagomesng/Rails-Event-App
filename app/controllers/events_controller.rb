@@ -38,15 +38,14 @@ class EventsController < ApplicationController
             elsif params[:status] == "waiting"
                 @events = user.events_waiting
             end 
-
         else 
             @events = Event.all
+        end 
 
-            if params[:filter] == "upcoming"
-                @events = @events.upcoming 
-            elsif params[:filter] == "past"
-                @events = @events.past 
-            end 
+        if params[:filter] == "upcoming"
+            @events = @events.upcoming 
+        elsif params[:filter] == "past"
+            @events = @events.past 
         end 
     end
 
