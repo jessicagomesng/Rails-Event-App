@@ -18,16 +18,15 @@
 
         <%= f.hidden_field :event_id %>
         <%= f.hidden_field :user_id %>
-        <% if @event.full %>
+        <% if @event.full? %>
             <p class="label">Sorry, this event is full! Would you like to join the waiting list?<br>
             There are currently @event.waiting_count users in line.</p>
             <%= f.hidden_field :status, :value => "waiting" %>
-            <%= f.submit "Join the Waiting List %>
         <% else %>
-            <p class="label">Would you like to attending this event?</p>
+            <p class="label">Would you like to attend this event?</p>
             <%= f.hidden_field :status, :value => "attending" %>
-            <%= f.submit "RSVP" %>
         <% end %>
+        <%= f.submit "Yes" %>
     <% end %>
 <% end %>
 

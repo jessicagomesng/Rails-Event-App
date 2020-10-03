@@ -1018,3 +1018,361 @@ Processing by EventsController#index as HTML
 Completed 200 OK in 15ms (Views: 13.3ms | ActiveRecord: 0.2ms | Allocations: 6447)
 
 
+Started GET "/events" for ::1 at 2020-10-03 17:19:45 +0100
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by EventsController#index as HTML
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.3ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/views/events/index.html.erb:5
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_filter.html.erb (Duration: 2.2ms | Allocations: 578)
+  Rendered events/index.html.erb within layouts/application (Duration: 35.4ms | Allocations: 23787)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 87ms (Views: 67.9ms | ActiveRecord: 2.2ms | Allocations: 39391)
+
+
+Started GET "/events/4" for ::1 at 2020-10-03 17:19:47 +0100
+Processing by EventsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mEvent Load (0.4ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/events_controller.rb:76:in `set_event'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mRsvp Load (1.2ms)[0m  [1m[34mSELECT "rsvps".* FROM "rsvps" WHERE "rsvps"."event_id" = ? AND "rsvps"."user_id" = ? LIMIT ?[0m  [["event_id", 4], ["user_id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/events_controller.rb:57:in `show'
+  Rendering events/show.html.erb within layouts/application
+  Rendered events/show.html.erb within layouts/application (Duration: 3.7ms | Allocations: 2088)
+Completed 500 Internal Server Error in 29ms (ActiveRecord: 3.4ms | Allocations: 10568)
+
+
+  
+ActionView::SyntaxErrorInTemplate (Encountered a syntax error while rendering template: check <h2><%= @event.name %></h2><br>
+
+<div class="show">
+    <% if @event.image_url != "" %>
+        <img src="<%= @event.image_url %>" alt="Image for <%= @event.name %>">
+    <% end %><br>
+
+    <p class="label">Venue:</p>
+    <p class="answer"><%= link_to @event.location.name, location_path(@event.location) %></p><br>
+    <p class="label">Address:</p> 
+    <p class="answer"><%= @event.location.address %></p><br>
+    <p class="label">Maximum capacity:</p> 
+    <p class="answer"><%= @event.maximum_capacity %></p><br>
+    <p class="label">Price:</p> 
+    <p class="answer">$<%= @event.price %></p><br>
+    <p class="label">Starts:</p> 
+    <p class="answer"><%= @event.start_date.strftime("%B %e, %Y at %H:%M") %></p><br> 
+    <p class="label">Ends:</p> 
+    <p class="answer"><%= @event.end_date.strftime("%B %e, %Y at %H:%M") %></p><br> 
+    <% if @event.minimum_age %>
+        <p class="label">Minimum age:</p> 
+        <p class="answer"><%= @event.minimum_age %></p>
+    <% end %><br>
+    <% if has_a_waiting_list(@event) %>
+        <p class="label">Waitlist:</p> 
+        <p class="answer"><%= @event.waiting_list_count %></p>
+    <% end %><br>
+
+    Produced by <%= link_to @event.producer.full_name, producer_path(@event.producer) %><br>
+</div><br>
+
+<div class="form">
+    <div class="button">
+        <% if !admin %>
+            <%= render :partial => "events/rsvp" %>
+        <% else %>
+            <%= if author_admin(@event) %>
+                <%= link_to "Edit/Delete Event", edit_event_path(@event), :class => "button" %>
+            <% end %>
+            <%= link_to "See All Users for this Event", event_users_path(@event), :class => 'button' %>
+        <% end %>
+    </div>
+</div>
+):
+1:    <h2><%= @event.name %></h2><br>
+2:    
+3:    <div class="show">
+4:        <% if @event.image_url != "" %>
+5:            <img src="<%= @event.image_url %>" alt="Image for <%= @event.name %>">
+6:        <% end %><br>
+7:    
+8:        <p class="label">Venue:</p>
+9:        <p class="answer"><%= link_to @event.location.name, location_path(@event.location) %></p><br>
+10:        <p class="label">Address:</p> 
+11:        <p class="answer"><%= @event.location.address %></p><br>
+12:        <p class="label">Maximum capacity:</p> 
+13:        <p class="answer"><%= @event.maximum_capacity %></p><br>
+14:        <p class="label">Price:</p> 
+15:        <p class="answer">$<%= @event.price %></p><br>
+16:        <p class="label">Starts:</p> 
+17:        <p class="answer"><%= @event.start_date.strftime("%B %e, %Y at %H:%M") %></p><br> 
+18:        <p class="label">Ends:</p> 
+19:        <p class="answer"><%= @event.end_date.strftime("%B %e, %Y at %H:%M") %></p><br> 
+20:        <% if @event.minimum_age %>
+21:            <p class="label">Minimum age:</p> 
+22:            <p class="answer"><%= @event.minimum_age %></p>
+23:        <% end %><br>
+24:        <% if has_a_waiting_list(@event) %>
+25:            <p class="label">Waitlist:</p> 
+26:            <p class="answer"><%= @event.waiting_list_count %></p>
+27:        <% end %><br>
+28:    
+29:        Produced by <%= link_to @event.producer.full_name, producer_path(@event.producer) %><br>
+30:    </div><br>
+31:    
+32:    <div class="form">
+33:        <div class="button">
+34:            <% if !admin %>
+35:                <%= render :partial => "events/rsvp" %>
+36:            <% else %>
+37:                <%= if author_admin(@event) %>
+38:                    <%= link_to "Edit/Delete Event", edit_event_path(@event), :class => "button" %>
+39:                <% end %>
+40:                <%= link_to "See All Users for this Event", event_users_path(@event), :class => 'button' %>
+41:            <% end %>
+42:        </div>
+43:    </div>
+  
+app/views/events/show.html.erb:37: syntax error, unexpected ')', expecting keyword_then or ';' or '\n'
+app/views/events/show.html.erb:39: syntax error, unexpected keyword_end, expecting ')'
+app/views/events/show.html.erb:41: syntax error, unexpected keyword_end, expecting ')'
+app/views/events/show.html.erb:45: syntax error, unexpected keyword_end, expecting ')'
+app/views/events/show.html.erb:37: syntax error, unexpected ')', expecting keyword_then or ';' or '\n'
+app/views/events/show.html.erb:39: syntax error, unexpected keyword_end, expecting ')'
+app/views/events/show.html.erb:41: syntax error, unexpected keyword_end, expecting ')'
+app/views/events/show.html.erb:45: syntax error, unexpected keyword_end, expecting ')'
+app/views/events/show.html.erb:37: syntax error, unexpected ')', expecting keyword_then or ';' or '\n'
+app/views/events/show.html.erb:39: syntax error, unexpected keyword_end, expecting ')'
+app/views/events/show.html.erb:41: syntax error, unexpected keyword_end, expecting ')'
+app/views/events/show.html.erb:45: syntax error, unexpected keyword_end, expecting ')'
+app/views/events/show.html.erb:37: syntax error, unexpected ')', expecting keyword_then or ';' or '\n'
+app/views/events/show.html.erb:39: syntax error, unexpected keyword_end, expecting ')'
+app/views/events/show.html.erb:41: syntax error, unexpected keyword_end, expecting ')'
+app/views/events/show.html.erb:45: syntax error, unexpected keyword_end, expecting ')'
+app/views/events/show.html.erb:37: syntax error, unexpected ')', expecting keyword_then or ';' or '\n'
+app/views/events/show.html.erb:39: syntax error, unexpected keyword_end, expecting ')'
+app/views/events/show.html.erb:41: syntax error, unexpected keyword_end, expecting ')'
+app/views/events/show.html.erb:45: syntax error, unexpected keyword_end, expecting ')'
+app/views/events/show.html.erb:37: syntax error, unexpected ')', expecting keyword_then or ';' or '\n'
+app/views/events/show.html.erb:39: syntax error, unexpected keyword_end, expecting ')'
+app/views/events/show.html.erb:41: syntax error, unexpected keyword_end, expecting ')'
+app/views/events/show.html.erb:45: syntax error, unexpected keyword_end, expecting ')'
+Started GET "/events/4" for ::1 at 2020-10-03 17:21:17 +0100
+Processing by EventsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/events_controller.rb:76:in `set_event'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mRsvp Load (0.2ms)[0m  [1m[34mSELECT "rsvps".* FROM "rsvps" WHERE "rsvps"."event_id" = ? AND "rsvps"."user_id" = ? LIMIT ?[0m  [["event_id", 4], ["user_id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/events_controller.rb:57:in `show'
+  Rendering events/show.html.erb within layouts/application
+  [1m[36mLocation Load (0.7ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/events/show.html.erb:9
+  Rendered events/show.html.erb within layouts/application (Duration: 183.8ms | Allocations: 90515)
+Completed 500 Internal Server Error in 193ms (ActiveRecord: 1.8ms | Allocations: 93942)
+
+
+  
+ActionView::Template::Error (undefined method `has_a_waiting_list' for #<#<Class:0x00007ff18d824d40>:0x00007ff18d81e580>):
+    21:         <p class="label">Minimum age:</p> 
+    22:         <p class="answer"><%= @event.minimum_age %></p>
+    23:     <% end %><br>
+    24:     <% if has_a_waiting_list(@event) %>
+    25:         <p class="label">Waitlist:</p> 
+    26:         <p class="answer"><%= @event.waiting_list_count %></p>
+    27:     <% end %><br>
+  
+app/views/events/show.html.erb:24
+Started GET "/events/4" for ::1 at 2020-10-03 17:22:21 +0100
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by EventsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/events_controller.rb:76:in `set_event'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mRsvp Load (0.6ms)[0m  [1m[34mSELECT "rsvps".* FROM "rsvps" WHERE "rsvps"."event_id" = ? AND "rsvps"."user_id" = ? LIMIT ?[0m  [["event_id", 4], ["user_id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/events_controller.rb:57:in `show'
+  Rendering events/show.html.erb within layouts/application
+  [1m[36mLocation Load (0.2ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/events/show.html.erb:9
+  [1m[36mRsvp Load (0.3ms)[0m  [1m[34mSELECT "rsvps".* FROM "rsvps" WHERE "rsvps"."event_id" = ? AND "rsvps"."status" = ?[0m  [["event_id", 4], ["status", "waiting"]]
+  ↳ app/models/event.rb:23:in `collect'
+  [1m[36mProducer Load (0.5ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/events/show.html.erb:29
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_rsvp.html.erb (Duration: 1.8ms | Allocations: 1382)
+  Rendered events/show.html.erb within layouts/application (Duration: 37.2ms | Allocations: 22435)
+Completed 500 Internal Server Error in 80ms (ActiveRecord: 4.5ms | Allocations: 51717)
+
+
+  
+ActionView::SyntaxErrorInTemplate (Encountered a syntax error while rendering template: check <% if @rsvp.status != nil %> 
+    <p class="label">You are already <%= @rsvp.status %> this event.<br>
+    Would you like to remove your RSVP/waitlist request?</p>
+
+    <%= button_to "Yes", { :controller => :rsvps, :action => :destroy, :id => current_user.id }, :method => :delete, data: { confirm: "Are you sure? You will forfeit your RSVP/place in line." } %>
+<% else %>
+    <%= form_for(@rsvp) do |f| %>
+        <% if @rsvp.errors.any? %>
+            <div id="error_explanation">
+            <p>Sorry, please fix the listed errors and try again.%></p>
+            <ul>
+                <% @rsvp.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul> 
+            </div>
+        <% end %>
+
+        <%= f.hidden_field :event_id %>
+        <%= f.hidden_field :user_id %>
+        <% if @event.full %>
+            <p class="label">Sorry, this event is full! Would you like to join the waiting list?<br>
+            There are currently @event.waiting_count users in line.</p>
+            <%= f.hidden_field :status, :value => "waiting" %>
+            <%= f.submit "Join the Waiting List %>
+        <% else %>
+            <p class="label">Would you like to attending this event?</p>
+            <%= f.hidden_field :status, :value => "attending" %>
+            <%= f.submit "RSVP" %>
+        <% end %>
+    <% end %>
+<% end %>
+
+
+
+
+):
+1:    <% if @rsvp.status != nil %> 
+2:        <p class="label">You are already <%= @rsvp.status %> this event.<br>
+3:        Would you like to remove your RSVP/waitlist request?</p>
+4:    
+5:        <%= button_to "Yes", { :controller => :rsvps, :action => :destroy, :id => current_user.id }, :method => :delete, data: { confirm: "Are you sure? You will forfeit your RSVP/place in line." } %>
+6:    <% else %>
+7:        <%= form_for(@rsvp) do |f| %>
+8:            <% if @rsvp.errors.any? %>
+9:                <div id="error_explanation">
+10:                <p>Sorry, please fix the listed errors and try again.%></p>
+11:                <ul>
+12:                    <% @rsvp.errors.full_messages.each do |message| %>
+13:                        <li><%= message %></li>
+14:                    <% end %>
+15:                </ul> 
+16:                </div>
+17:            <% end %>
+18:    
+19:            <%= f.hidden_field :event_id %>
+20:            <%= f.hidden_field :user_id %>
+21:            <% if @event.full %>
+22:                <p class="label">Sorry, this event is full! Would you like to join the waiting list?<br>
+23:                There are currently @event.waiting_count users in line.</p>
+24:                <%= f.hidden_field :status, :value => "waiting" %>
+25:                <%= f.submit "Join the Waiting List %>
+26:            <% else %>
+27:                <p class="label">Would you like to attending this event?</p>
+28:                <%= f.hidden_field :status, :value => "attending" %>
+29:                <%= f.submit "RSVP" %>
+30:            <% end %>
+31:        <% end %>
+32:    <% end %>
+  
+app/views/events/_rsvp.html.erb:27: syntax error, unexpected tIDENTIFIER, expecting ')'
+app/views/events/_rsvp.html.erb:28: syntax error, unexpected tIDENTIFIER, expecting ')'
+app/views/events/_rsvp.html.erb:29: syntax error, unexpected tCONSTANT, expecting ')'
+app/views/events/_rsvp.html.erb:38: unterminated string meets end of file
+app/views/events/_rsvp.html.erb:38: syntax error, unexpected end-of-input, expecting ')'
+app/views/events/_rsvp.html.erb:27: syntax error, unexpected tIDENTIFIER, expecting ')'
+app/views/events/_rsvp.html.erb:28: syntax error, unexpected tIDENTIFIER, expecting ')'
+app/views/events/_rsvp.html.erb:29: syntax error, unexpected tCONSTANT, expecting ')'
+app/views/events/_rsvp.html.erb:38: unterminated string meets end of file
+app/views/events/_rsvp.html.erb:38: syntax error, unexpected end-of-input, expecting ')'
+app/views/events/_rsvp.html.erb:27: syntax error, unexpected tIDENTIFIER, expecting ')'
+app/views/events/_rsvp.html.erb:28: syntax error, unexpected tIDENTIFIER, expecting ')'
+app/views/events/_rsvp.html.erb:29: syntax error, unexpected tCONSTANT, expecting ')'
+app/views/events/_rsvp.html.erb:38: unterminated string meets end of file
+app/views/events/_rsvp.html.erb:38: syntax error, unexpected end-of-input, expecting ')'
+app/views/events/_rsvp.html.erb:27: syntax error, unexpected tIDENTIFIER, expecting ')'
+app/views/events/_rsvp.html.erb:28: syntax error, unexpected tIDENTIFIER, expecting ')'
+app/views/events/_rsvp.html.erb:29: syntax error, unexpected tCONSTANT, expecting ')'
+app/views/events/_rsvp.html.erb:38: unterminated string meets end of file
+app/views/events/_rsvp.html.erb:38: syntax error, unexpected end-of-input, expecting ')'
+app/views/events/_rsvp.html.erb:27: syntax error, unexpected tIDENTIFIER, expecting ')'
+app/views/events/_rsvp.html.erb:28: syntax error, unexpected tIDENTIFIER, expecting ')'
+app/views/events/_rsvp.html.erb:29: syntax error, unexpected tCONSTANT, expecting ')'
+app/views/events/_rsvp.html.erb:38: unterminated string meets end of file
+app/views/events/_rsvp.html.erb:38: syntax error, unexpected end-of-input, expecting ')'
+app/views/events/_rsvp.html.erb:27: syntax error, unexpected tIDENTIFIER, expecting ')'
+app/views/events/_rsvp.html.erb:28: syntax error, unexpected tIDENTIFIER, expecting ')'
+app/views/events/_rsvp.html.erb:29: syntax error, unexpected tCONSTANT, expecting ')'
+app/views/events/_rsvp.html.erb:38: unterminated string meets end of file
+app/views/events/_rsvp.html.erb:38: syntax error, unexpected end-of-input, expecting ')'
+app/views/events/show.html.erb:40
+Started GET "/events/4" for ::1 at 2020-10-03 17:23:21 +0100
+Processing by EventsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mEvent Load (0.4ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/events_controller.rb:76:in `set_event'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mRsvp Load (0.1ms)[0m  [1m[34mSELECT "rsvps".* FROM "rsvps" WHERE "rsvps"."event_id" = ? AND "rsvps"."user_id" = ? LIMIT ?[0m  [["event_id", 4], ["user_id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/events_controller.rb:57:in `show'
+  Rendering events/show.html.erb within layouts/application
+  [1m[36mLocation Load (0.2ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/events/show.html.erb:9
+  [1m[36mRsvp Load (0.1ms)[0m  [1m[34mSELECT "rsvps".* FROM "rsvps" WHERE "rsvps"."event_id" = ? AND "rsvps"."status" = ?[0m  [["event_id", 4], ["status", "waiting"]]
+  ↳ app/models/event.rb:23:in `collect'
+  [1m[36mProducer Load (0.1ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/events/show.html.erb:29
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_rsvp.html.erb (Duration: 15.3ms | Allocations: 8206)
+  Rendered events/show.html.erb within layouts/application (Duration: 22.2ms | Allocations: 12063)
+Completed 500 Internal Server Error in 31ms (ActiveRecord: 1.2ms | Allocations: 15506)
+
+
+  
+ActionView::Template::Error (undefined method `full' for #<Event:0x00007ff18be903e8>
+Did you mean?  full?):
+    18: 
+    19:         <%= f.hidden_field :event_id %>
+    20:         <%= f.hidden_field :user_id %>
+    21:         <% if @event.full %>
+    22:             <p class="label">Sorry, this event is full! Would you like to join the waiting list?<br>
+    23:             There are currently @event.waiting_count users in line.</p>
+    24:             <%= f.hidden_field :status, :value => "waiting" %>
+  
+app/views/events/_rsvp.html.erb:21
+app/views/events/_rsvp.html.erb:7
+app/views/events/show.html.erb:40
+Started GET "/events/4" for ::1 at 2020-10-03 17:23:34 +0100
+Processing by EventsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/events_controller.rb:76:in `set_event'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mRsvp Load (0.1ms)[0m  [1m[34mSELECT "rsvps".* FROM "rsvps" WHERE "rsvps"."event_id" = ? AND "rsvps"."user_id" = ? LIMIT ?[0m  [["event_id", 4], ["user_id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/events_controller.rb:57:in `show'
+  Rendering events/show.html.erb within layouts/application
+  [1m[36mLocation Load (0.1ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/events/show.html.erb:9
+  [1m[36mRsvp Load (0.3ms)[0m  [1m[34mSELECT "rsvps".* FROM "rsvps" WHERE "rsvps"."event_id" = ? AND "rsvps"."status" = ?[0m  [["event_id", 4], ["status", "waiting"]]
+  ↳ app/models/event.rb:23:in `collect'
+  [1m[36mProducer Load (0.2ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/events/show.html.erb:29
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mRsvp Load (0.1ms)[0m  [1m[34mSELECT "rsvps".* FROM "rsvps" WHERE "rsvps"."event_id" = ? AND "rsvps"."status" = ?[0m  [["event_id", 4], ["status", "attending"]]
+  ↳ app/models/event.rb:19:in `collect'
+  Rendered events/_rsvp.html.erb (Duration: 2.6ms | Allocations: 1617)
+  Rendered events/show.html.erb within layouts/application (Duration: 11.9ms | Allocations: 5469)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 37ms (Views: 30.8ms | ActiveRecord: 1.1ms | Allocations: 13118)
+
+
