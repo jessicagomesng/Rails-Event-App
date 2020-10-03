@@ -1,0 +1,15 @@
+<h2>Log In</h2><br>
+
+<div class="form">
+    <%= form_with(url: login_path, method: "post") do %>
+        <%= label_tag(:email, "Email:") %>
+        <%= text_field_tag(:email) %><br>
+        <%= label_tag(:password, "Password:") %>
+        <%= password_field_tag(:password) %><br>
+        <%= check_box_tag(:producer, true) %>
+        <%= label_tag(:producer, "I'm a Producer") %><br>
+        <div class="button">    
+            <%= submit_tag("Sign In") %>
+        </div>
+    <% end %>
+</div>
