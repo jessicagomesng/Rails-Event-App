@@ -652,3 +652,369 @@ puma (4.3.6) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
   [1m[36mRsvp Load (0.3ms)[0m  [1m[34mSELECT "rsvps".* FROM "rsvps" WHERE "rsvps"."event_id" = ? AND "rsvps"."status" = ?[0m  [["event_id", 5], ["status", "attending"]]
   [1m[36mRsvp Load (0.4ms)[0m  [1m[34mSELECT "rsvps".* FROM "rsvps" WHERE "rsvps"."event_id" = ? AND "rsvps"."status" = ?[0m  [["event_id", 5], ["status", "attending"]]
   [1m[36mRsvp Load (0.3ms)[0m  [1m[34mSELECT "rsvps".* FROM "rsvps" WHERE "rsvps"."event_id" = ? AND "rsvps"."status" = ?[0m  [["event_id", 5], ["status", "waiting"]]
+Started GET "/events/2" for ::1 at 2020-10-03 17:17:57 +0100
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by EventsController#show as HTML
+  Parameters: {"id"=>"2"}
+Completed 500 Internal Server Error in 10ms (ActiveRecord: 0.0ms | Allocations: 3075)
+
+
+  
+NoMethodError (undefined method `id' for nil:NilClass):
+  
+app/controllers/events_controller.rb:53:in `show'
+Started GET "/events/2" for ::1 at 2020-10-03 17:18:25 +0100
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by EventsController#show as HTML
+  Parameters: {"id"=>"2"}
+Redirected to http://localhost:3000/events
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms | Allocations: 662)
+
+
+Started GET "/events" for ::1 at 2020-10-03 17:18:25 +0100
+Processing by EventsController#index as HTML
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.5ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/views/events/index.html.erb:5
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_filter.html.erb (Duration: 1.5ms | Allocations: 577)
+  Rendered events/index.html.erb within layouts/application (Duration: 39.1ms | Allocations: 23590)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 82ms (Views: 68.2ms | ActiveRecord: 2.3ms | Allocations: 37082)
+
+
+Started GET "/events/5" for ::1 at 2020-10-03 17:18:28 +0100
+Processing by EventsController#show as HTML
+  Parameters: {"id"=>"5"}
+Redirected to http://localhost:3000/events
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms | Allocations: 621)
+
+
+Started GET "/events" for ::1 at 2020-10-03 17:18:28 +0100
+Processing by EventsController#index as HTML
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/views/events/index.html.erb:5
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_filter.html.erb (Duration: 0.3ms | Allocations: 214)
+  Rendered events/index.html.erb within layouts/application (Duration: 3.5ms | Allocations: 1608)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 15ms (Views: 13.1ms | ActiveRecord: 0.4ms | Allocations: 6467)
+
+
+Started GET "/events/4" for ::1 at 2020-10-03 17:18:35 +0100
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by EventsController#show as HTML
+  Parameters: {"id"=>"4"}
+Redirected to http://localhost:3000/events
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms | Allocations: 636)
+
+
+Started GET "/events" for ::1 at 2020-10-03 17:18:35 +0100
+Processing by EventsController#index as HTML
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/views/events/index.html.erb:5
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_filter.html.erb (Duration: 0.2ms | Allocations: 214)
+  Rendered events/index.html.erb within layouts/application (Duration: 27.0ms | Allocations: 21394)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 39ms (Views: 31.9ms | ActiveRecord: 1.5ms | Allocations: 29187)
+
+
+Started GET "/events/4" for ::1 at 2020-10-03 17:18:36 +0100
+Processing by EventsController#show as HTML
+  Parameters: {"id"=>"4"}
+Redirected to http://localhost:3000/events
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms | Allocations: 622)
+
+
+Started GET "/events" for ::1 at 2020-10-03 17:18:36 +0100
+Processing by EventsController#index as HTML
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/views/events/index.html.erb:5
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_filter.html.erb (Duration: 0.4ms | Allocations: 214)
+  Rendered events/index.html.erb within layouts/application (Duration: 3.9ms | Allocations: 1593)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 16ms (Views: 13.8ms | ActiveRecord: 0.3ms | Allocations: 6449)
+
+
+Started GET "/events/4" for ::1 at 2020-10-03 17:18:37 +0100
+Processing by EventsController#show as HTML
+  Parameters: {"id"=>"4"}
+Redirected to http://localhost:3000/events
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms | Allocations: 621)
+
+
+Started GET "/events" for ::1 at 2020-10-03 17:18:37 +0100
+Processing by EventsController#index as HTML
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/views/events/index.html.erb:5
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_filter.html.erb (Duration: 0.3ms | Allocations: 214)
+  Rendered events/index.html.erb within layouts/application (Duration: 3.0ms | Allocations: 1602)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 16ms (Views: 14.1ms | ActiveRecord: 0.2ms | Allocations: 6466)
+
+
+Started GET "/events/4" for ::1 at 2020-10-03 17:18:37 +0100
+Processing by EventsController#show as HTML
+  Parameters: {"id"=>"4"}
+Redirected to http://localhost:3000/events
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms | Allocations: 621)
+
+
+Started GET "/events" for ::1 at 2020-10-03 17:18:37 +0100
+Processing by EventsController#index as HTML
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/views/events/index.html.erb:5
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_filter.html.erb (Duration: 0.3ms | Allocations: 214)
+  Rendered events/index.html.erb within layouts/application (Duration: 3.9ms | Allocations: 1593)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 16ms (Views: 14.1ms | ActiveRecord: 0.4ms | Allocations: 6443)
+
+
+Started GET "/events/4" for ::1 at 2020-10-03 17:18:45 +0100
+Processing by EventsController#show as HTML
+  Parameters: {"id"=>"4"}
+Redirected to http://localhost:3000/events
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms | Allocations: 624)
+
+
+Started GET "/events" for ::1 at 2020-10-03 17:18:45 +0100
+Processing by EventsController#index as HTML
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/views/events/index.html.erb:5
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_filter.html.erb (Duration: 0.3ms | Allocations: 214)
+  Rendered events/index.html.erb within layouts/application (Duration: 2.9ms | Allocations: 1593)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 16ms (Views: 14.3ms | ActiveRecord: 0.3ms | Allocations: 6444)
+
+
+Started GET "/events/4" for ::1 at 2020-10-03 17:18:47 +0100
+Processing by EventsController#show as HTML
+  Parameters: {"id"=>"4"}
+Redirected to http://localhost:3000/events
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms | Allocations: 625)
+
+
+Started GET "/events" for ::1 at 2020-10-03 17:18:47 +0100
+Processing by EventsController#index as HTML
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/views/events/index.html.erb:5
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_filter.html.erb (Duration: 0.3ms | Allocations: 214)
+  Rendered events/index.html.erb within layouts/application (Duration: 4.0ms | Allocations: 1593)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 22ms (Views: 14.5ms | ActiveRecord: 0.4ms | Allocations: 6448)
+
+
+Started GET "/events/4" for ::1 at 2020-10-03 17:18:48 +0100
+Processing by EventsController#show as HTML
+  Parameters: {"id"=>"4"}
+Redirected to http://localhost:3000/events
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms | Allocations: 629)
+
+
+Started GET "/events" for ::1 at 2020-10-03 17:18:48 +0100
+Processing by EventsController#index as HTML
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/views/events/index.html.erb:5
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_filter.html.erb (Duration: 0.3ms | Allocations: 214)
+  Rendered events/index.html.erb within layouts/application (Duration: 3.8ms | Allocations: 1593)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 14ms (Views: 12.3ms | ActiveRecord: 0.3ms | Allocations: 6440)
+
+
+Started GET "/events/4" for ::1 at 2020-10-03 17:18:48 +0100
+Processing by EventsController#show as HTML
+  Parameters: {"id"=>"4"}
+Redirected to http://localhost:3000/events
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms | Allocations: 619)
+
+
+Started GET "/events" for ::1 at 2020-10-03 17:18:48 +0100
+Processing by EventsController#index as HTML
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.4ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/views/events/index.html.erb:5
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_filter.html.erb (Duration: 0.4ms | Allocations: 214)
+  Rendered events/index.html.erb within layouts/application (Duration: 4.0ms | Allocations: 1593)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 14ms (Views: 12.8ms | ActiveRecord: 0.5ms | Allocations: 6451)
+
+
+Started GET "/events/5" for ::1 at 2020-10-03 17:18:50 +0100
+Processing by EventsController#show as HTML
+  Parameters: {"id"=>"5"}
+Redirected to http://localhost:3000/events
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms | Allocations: 629)
+
+
+Started GET "/events" for ::1 at 2020-10-03 17:18:50 +0100
+Processing by EventsController#index as HTML
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/views/events/index.html.erb:5
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_filter.html.erb (Duration: 0.3ms | Allocations: 214)
+  Rendered events/index.html.erb within layouts/application (Duration: 4.8ms | Allocations: 1593)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 15ms (Views: 13.8ms | ActiveRecord: 0.3ms | Allocations: 6448)
+
+
+Started GET "/events/5" for ::1 at 2020-10-03 17:18:50 +0100
+Processing by EventsController#show as HTML
+  Parameters: {"id"=>"5"}
+Redirected to http://localhost:3000/events
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms | Allocations: 625)
+
+
+Started GET "/events" for ::1 at 2020-10-03 17:18:50 +0100
+Processing by EventsController#index as HTML
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/views/events/index.html.erb:5
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_filter.html.erb (Duration: 0.2ms | Allocations: 214)
+  Rendered events/index.html.erb within layouts/application (Duration: 3.2ms | Allocations: 1593)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 13ms (Views: 11.7ms | ActiveRecord: 0.3ms | Allocations: 6447)
+
+
+Started GET "/users" for ::1 at 2020-10-03 17:18:52 +0100
+Processing by UsersController#index as HTML
+Completed 406 Not Acceptable in 4ms (ActiveRecord: 0.0ms | Allocations: 2251)
+
+
+  
+ActionController::MissingExactTemplate (UsersController#index is missing a template for request formats: text/html):
+  
+actionpack (6.0.3.3) lib/action_controller/metal/implicit_render.rb:45:in `default_render'
+actionpack (6.0.3.3) lib/action_controller/metal/basic_implicit_render.rb:6:in `block in send_action'
+actionpack (6.0.3.3) lib/action_controller/metal/basic_implicit_render.rb:6:in `tap'
+actionpack (6.0.3.3) lib/action_controller/metal/basic_implicit_render.rb:6:in `send_action'
+actionpack (6.0.3.3) lib/abstract_controller/base.rb:195:in `process_action'
+actionpack (6.0.3.3) lib/action_controller/metal/rendering.rb:30:in `process_action'
+actionpack (6.0.3.3) lib/abstract_controller/callbacks.rb:42:in `block in process_action'
+activesupport (6.0.3.3) lib/active_support/callbacks.rb:135:in `run_callbacks'
+actionpack (6.0.3.3) lib/abstract_controller/callbacks.rb:41:in `process_action'
+actionpack (6.0.3.3) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (6.0.3.3) lib/action_controller/metal/instrumentation.rb:33:in `block in process_action'
+activesupport (6.0.3.3) lib/active_support/notifications.rb:180:in `block in instrument'
+activesupport (6.0.3.3) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (6.0.3.3) lib/active_support/notifications.rb:180:in `instrument'
+actionpack (6.0.3.3) lib/action_controller/metal/instrumentation.rb:32:in `process_action'
+actionpack (6.0.3.3) lib/action_controller/metal/params_wrapper.rb:245:in `process_action'
+activerecord (6.0.3.3) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.0.3.3) lib/abstract_controller/base.rb:136:in `process'
+actionview (6.0.3.3) lib/action_view/rendering.rb:39:in `process'
+actionpack (6.0.3.3) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.0.3.3) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.0.3.3) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.0.3.3) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.0.3.3) lib/action_dispatch/journey/router.rb:49:in `block in serve'
+actionpack (6.0.3.3) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.0.3.3) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.0.3.3) lib/action_dispatch/routing/route_set.rb:834:in `call'
+rack (2.2.3) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+actionpack (6.0.3.3) lib/action_dispatch/http/content_security_policy.rb:18:in `call'
+rack (2.2.3) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.3) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (6.0.3.3) lib/action_dispatch/middleware/cookies.rb:648:in `call'
+activerecord (6.0.3.3) lib/active_record/migration.rb:567:in `call'
+actionpack (6.0.3.3) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.3) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.3) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.3) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (6.0.3.3) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+web-console (4.0.4) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.0.4) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.0.4) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.0.4) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.3.3) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.3) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.3) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.3) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.3) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.3) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.3) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.0.3.3) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.3) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.3) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.3) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.3) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+webpacker (4.3.0) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (6.0.3.3) lib/rails/engine.rb:527:in `call'
+puma (4.3.6) lib/puma/configuration.rb:228:in `call'
+puma (4.3.6) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.6) lib/puma/server.rb:472:in `process_client'
+puma (4.3.6) lib/puma/server.rb:328:in `block in run'
+puma (4.3.6) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/events/" for ::1 at 2020-10-03 17:18:54 +0100
+Processing by EventsController#index as HTML
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/views/events/index.html.erb:5
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_filter.html.erb (Duration: 0.4ms | Allocations: 214)
+  Rendered events/index.html.erb within layouts/application (Duration: 2.7ms | Allocations: 1592)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 11ms (Views: 10.2ms | ActiveRecord: 0.3ms | Allocations: 6428)
+
+
+Started GET "/events/4" for ::1 at 2020-10-03 17:18:55 +0100
+Processing by EventsController#show as HTML
+  Parameters: {"id"=>"4"}
+Redirected to http://localhost:3000/events
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms | Allocations: 628)
+
+
+Started GET "/events" for ::1 at 2020-10-03 17:18:55 +0100
+Processing by EventsController#index as HTML
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/views/events/index.html.erb:5
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_filter.html.erb (Duration: 0.5ms | Allocations: 214)
+  Rendered events/index.html.erb within layouts/application (Duration: 3.9ms | Allocations: 1593)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 15ms (Views: 13.3ms | ActiveRecord: 0.2ms | Allocations: 6447)
+
+

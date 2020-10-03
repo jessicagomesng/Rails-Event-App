@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
     # before_action :permitted, only: [:new, :create, :edit, :update, :destroy]
-    # before_action :set_event, only: [:show, :edit, :update, :destroy]
+    before_action :set_event, only: [:show, :edit, :update, :destroy]
 
     def new 
         if params[:location_id]
@@ -50,11 +50,11 @@ class EventsController < ApplicationController
     end
 
     def show 
-        @rsvp = Rsvp.find_or_initialize_by(:event_id => @event.id, :user_id => current_user.id) 
-        
         if !@event 
-            redirect_to events_path
             flash[:message] = "Sorry, that event cannot be found."
+            redirect_to events_path
+        else 
+            @rsvp = Rsvp.find_or_initialize_by(:event_id => @event.id, :user_id => current_user.id) 
         end 
     end
 
@@ -70,6 +70,10 @@ class EventsController < ApplicationController
     private 
     def event_params
         params.require(:event).permit(:filter, :status, :producer_id, :location_id, :name, :price, :image_url, :maximum_capacity, :minimum_age)
+    end 
+
+    def set_event
+        @event = Event.find_by_id(params[:id])
     end 
 
     def set_start_date 
