@@ -1,6 +1,6 @@
 class Event < ApplicationRecord
-    has_many :rsvsps 
-    has_many :users, through: :rsvsps
+    has_many :rsvps 
+    has_many :users, through: :rsvps
     belongs_to :producer
     belongs_to :location
 
@@ -12,7 +12,26 @@ class Event < ApplicationRecord
     validates_with MaximumCapacityValidator
     validates_with LocationIdValidator
 
-
     scope :upcoming, -> { where("start_date > ?", DateTime.now) } 
     scope :past, -> { where("end_date < ?", DateTime.now) }
+
+    def attending_users 
+        self.rsvps.attending.collect { |rsvp| User.find_by_id(rsvp.user_id) }
+    end 
+
+    def waiting_users 
+        self.rsvps.waiting.collect { |rsvp| User.find_by_id(rsvp.user_id) }
+    end 
+
+    def attendance_count
+        self.attending_users.count 
+    end 
+
+    def waiting_count 
+        self.waiting_users.count 
+    end 
+
+    def full?
+        self.attendance_count >= self.maximum_capacity 
+    end 
 end
