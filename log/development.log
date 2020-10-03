@@ -194,3 +194,186 @@ Processing by EventsController#new as HTML
 Completed 200 OK in 38ms (Views: 19.5ms | ActiveRecord: 1.6ms | Allocations: 23047)
 
 
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLocation Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "locations" WHERE "locations"."address" = ? LIMIT ?[0m  [["address", "1 Esplanade Drive, Singapore, 038981"], ["LIMIT", 1]]
+  [1m[36mLocation Create (6.0ms)[0m  [1m[32mINSERT INTO "locations" ("name", "address", "maximum_capacity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "Esplanade"], ["address", "1 Esplanade Drive, Singapore, 038981"], ["maximum_capacity", 1500], ["created_at", "2020-10-03 15:16:49.665430"], ["updated_at", "2020-10-03 15:16:49.665430"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLocation Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "locations" WHERE "locations"."address" = ? LIMIT ?[0m  [["address", "Savoy Ct, London WC2R 0ET"], ["LIMIT", 1]]
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO "locations" ("name", "address", "maximum_capacity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "Savoy Theatre"], ["address", "Savoy Ct, London WC2R 0ET"], ["maximum_capacity", 1158], ["created_at", "2020-10-03 15:16:49.686914"], ["updated_at", "2020-10-03 15:16:49.686914"]]
+  [1m[35m (1.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLocation Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "locations" WHERE "locations"."address" = ? LIMIT ?[0m  [["address", "8 Argyll St, Soho, London W1F 7TF"], ["LIMIT", 1]]
+  [1m[36mLocation Create (0.8ms)[0m  [1m[32mINSERT INTO "locations" ("name", "address", "maximum_capacity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "London Palladium"], ["address", "8 Argyll St, Soho, London W1F 7TF"], ["maximum_capacity", 2286], ["created_at", "2020-10-03 15:16:49.700210"], ["updated_at", "2020-10-03 15:16:49.700210"]]
+  [1m[35m (1.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/models/concerns/account_methods.rb:12:in `collect'
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/models/concerns/account_methods.rb:12:in `collect'
+  [1m[36mProducer Load (0.4ms)[0m  [1m[34mSELECT "producers".* FROM "producers"[0m
+  ↳ app/models/concerns/account_methods.rb:12:in `collect'
+  [1m[36mProducer Create (0.4ms)[0m  [1m[32mINSERT INTO "producers" ("email", "first_name", "last_name", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["email", "trafalgarent@trafalgar.com"], ["first_name", "Trafalgar"], ["last_name", "Entertainment"], ["password_digest", "$2a$12$.0MSwzTL6lNHtObKudQcZudyz8OOkI98me2xKV06r.zgD5o2XZbAS"], ["created_at", "2020-10-03 15:16:49.962905"], ["updated_at", "2020-10-03 15:16:49.962905"]]
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/models/concerns/account_methods.rb:12:in `collect'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/models/concerns/account_methods.rb:12:in `collect'
+  [1m[36mProducer Load (0.1ms)[0m  [1m[34mSELECT "producers".* FROM "producers"[0m
+  ↳ app/models/concerns/account_methods.rb:12:in `collect'
+  [1m[36mProducer Create (0.3ms)[0m  [1m[32mINSERT INTO "producers" ("email", "first_name", "last_name", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["email", "jtesori@gmail.com"], ["first_name", "Jeanine"], ["last_name", "Tesori"], ["password_digest", "$2a$12$0BxxPyqoaMUTTofqyu0pCO14o5d6dFgcl2Y6vggeYQklOP4xnPKdK"], ["created_at", "2020-10-03 15:16:50.204282"], ["updated_at", "2020-10-03 15:16:50.204282"]]
+  [1m[35m (2.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProducer Load (0.1ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mLocation Load (0.2ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mLocation Load (0.1ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/validators/maximum_capacity_validator.rb:4:in `validate'
+  [1m[36mLocation Load (0.1ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/validators/location_id_validator.rb:4:in `validate'
+  [1m[36mEvent Load (0.7ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."location_id" = ?[0m  [["location_id", 2]]
+  ↳ app/validators/location_id_validator.rb:11:in `detect'
+  [1m[36mEvent Create (0.4ms)[0m  [1m[32mINSERT INTO "events" ("producer_id", "location_id", "name", "start_date", "end_date", "price", "maximum_capacity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["producer_id", 2], ["location_id", 2], ["name", "Sunday in the Park with George"], ["start_date", "0021-06-27 19:30:00"], ["end_date", "0021-06-27 22:30:00"], ["price", 200.25], ["maximum_capacity", 1100], ["created_at", "2020-10-03 15:16:50.251866"], ["updated_at", "2020-10-03 15:16:50.251866"]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProducer Load (0.2ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mLocation Load (0.1ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mLocation Load (0.0ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/validators/maximum_capacity_validator.rb:4:in `validate'
+  [1m[36mLocation Load (0.0ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/validators/location_id_validator.rb:4:in `validate'
+  [1m[36mEvent Load (0.0ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."location_id" = ?[0m  [["location_id", 2]]
+  ↳ app/validators/location_id_validator.rb:11:in `detect'
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLocation Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "locations" WHERE "locations"."address" = ? LIMIT ?[0m  [["address", "1 Esplanade Drive, Singapore, 038981"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLocation Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "locations" WHERE "locations"."address" = ? LIMIT ?[0m  [["address", "Savoy Ct, London WC2R 0ET"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLocation Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "locations" WHERE "locations"."address" = ? LIMIT ?[0m  [["address", "8 Argyll St, Soho, London W1F 7TF"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/models/concerns/account_methods.rb:12:in `collect'
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/models/concerns/account_methods.rb:12:in `collect'
+  [1m[36mProducer Load (0.7ms)[0m  [1m[34mSELECT "producers".* FROM "producers"[0m
+  ↳ app/models/concerns/account_methods.rb:12:in `collect'
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/models/concerns/account_methods.rb:12:in `collect'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/models/concerns/account_methods.rb:12:in `collect'
+  [1m[36mProducer Load (0.0ms)[0m  [1m[34mSELECT "producers".* FROM "producers"[0m
+  ↳ app/models/concerns/account_methods.rb:12:in `collect'
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProducer Load (0.1ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mLocation Load (0.1ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mLocation Load (0.1ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/validators/maximum_capacity_validator.rb:4:in `validate'
+  [1m[36mLocation Load (0.0ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/validators/location_id_validator.rb:4:in `validate'
+  [1m[36mEvent Load (0.7ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."location_id" = ?[0m  [["location_id", 2]]
+  ↳ app/validators/location_id_validator.rb:11:in `detect'
+  [1m[36mEvent Create (0.9ms)[0m  [1m[32mINSERT INTO "events" ("producer_id", "location_id", "name", "start_date", "end_date", "price", "maximum_capacity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["producer_id", 2], ["location_id", 2], ["name", "Sunday in the Park with George"], ["start_date", "0021-06-27 19:30:00"], ["end_date", "0021-06-27 22:30:00"], ["price", 200.25], ["maximum_capacity", 1100], ["created_at", "2020-10-03 15:21:08.676085"], ["updated_at", "2020-10-03 15:21:08.676085"]]
+  [1m[35m (1.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProducer Load (0.1ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mLocation Load (0.0ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mLocation Load (0.0ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/validators/maximum_capacity_validator.rb:4:in `validate'
+  [1m[36mLocation Load (0.0ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/validators/location_id_validator.rb:4:in `validate'
+  [1m[36mEvent Load (0.0ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."location_id" = ?[0m  [["location_id", 2]]
+  ↳ app/validators/location_id_validator.rb:11:in `detect'
+  [1m[36mEvent Create (0.3ms)[0m  [1m[32mINSERT INTO "events" ("producer_id", "location_id", "name", "start_date", "end_date", "price", "maximum_capacity", "minimum_age", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["producer_id", 2], ["location_id", 2], ["name", "Miss Saigon"], ["start_date", "0021-07-08 19:30:00"], ["end_date", "0021-07-08 22:30:00"], ["price", 150.0], ["maximum_capacity", 1000], ["minimum_age", 10], ["created_at", "2020-10-03 15:21:08.687428"], ["updated_at", "2020-10-03 15:21:08.687428"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/models/concerns/account_methods.rb:12:in `collect'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/models/concerns/account_methods.rb:12:in `collect'
+  [1m[36mProducer Load (0.0ms)[0m  [1m[34mSELECT "producers".* FROM "producers"[0m
+  ↳ app/models/concerns/account_methods.rb:12:in `collect'
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("first_name", "last_name", "email", "password_digest", "birthday", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Peety"], ["last_name", "Pie"], ["email", "peetypie@gmail.com"], ["password_digest", "$2a$12$tRqioIAeq8ab5fxD4mGVL.csYqIjlpzVwu7A45gtMIgtbiQhtILN6"], ["birthday", 2003], ["created_at", "2020-10-03 15:21:08.918049"], ["updated_at", "2020-10-03 15:21:08.918049"]]
+  [1m[35m (2.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/models/concerns/account_methods.rb:12:in `collect'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/models/concerns/account_methods.rb:12:in `collect'
+  [1m[36mProducer Load (0.0ms)[0m  [1m[34mSELECT "producers".* FROM "producers"[0m
+  ↳ app/models/concerns/account_methods.rb:12:in `collect'
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("first_name", "last_name", "email", "password_digest", "birthday", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Chris"], ["last_name", "Anthony"], ["email", "canthony@gmail.com"], ["password_digest", "$2a$12$PpP2pXe7PdpBRIXRM0DPeeLqV8cwEwnrA9dJTlTEYfzXD2RhRliAm"], ["birthday", 1975], ["created_at", "2020-10-03 15:21:09.152966"], ["updated_at", "2020-10-03 15:21:09.152966"]]
+  [1m[35m (2.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/models/concerns/account_methods.rb:12:in `collect'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/models/concerns/account_methods.rb:12:in `collect'
+  [1m[36mProducer Load (0.0ms)[0m  [1m[34mSELECT "producers".* FROM "producers"[0m
+  ↳ app/models/concerns/account_methods.rb:12:in `collect'
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("first_name", "last_name", "email", "password_digest", "birthday", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Jess"], ["last_name", "Peluso"], ["email", "jesspeluso@gmail.com"], ["password_digest", "$2a$12$nKiOyD.NyziaOtRLc082F.Ymb62ohnDqVX0g1FcCpOjin9gSoKygW"], ["birthday", 1967], ["created_at", "2020-10-03 15:21:09.398672"], ["updated_at", "2020-10-03 15:21:09.398672"]]
+  [1m[35m (3.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mEvent Load (0.4ms)[0m  [1m[34mSELECT "events".* FROM "events" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mLocation Load (0.6ms)[0m  [1m[34mSELECT "locations".* FROM "locations" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "events"[0m
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mProducer Load (0.7ms)[0m  [1m[34mSELECT "producers".* FROM "producers" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mEvent Load (0.3ms)[0m  [1m[34mSELECT "events".* FROM "events" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mEvent Load (0.4ms)[0m  [1m[34mSELECT "events".* FROM "events" ORDER BY "events"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mEvent Destroy (1.2ms)[0m  [1m[31mDELETE FROM "events" WHERE "events"."id" = ?[0m  [["id", 1]]
+  [1m[35m (2.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mEvent Load (0.3ms)[0m  [1m[34mSELECT "events".* FROM "events" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mRsvp Load (0.3ms)[0m  [1m[34mSELECT "rsvps".* FROM "rsvps" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mRsvp Load (0.2ms)[0m  [1m[34mSELECT "rsvps".* FROM "rsvps" WHERE "rsvps"."status" = ? LIMIT ?[0m  [["status", "attending"], ["LIMIT", 11]]
+  [1m[36mRsvp Load (0.4ms)[0m  [1m[34mSELECT "rsvps".* FROM "rsvps" WHERE "rsvps"."status" = ? LIMIT ?[0m  [["status", "attending"], ["LIMIT", 11]]
+  [1m[36mRsvp Load (0.7ms)[0m  [1m[34mSELECT "rsvps".* FROM "rsvps" WHERE "rsvps"."status" = ? LIMIT ?[0m  [["status", "waiting"], ["LIMIT", 11]]
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE (start_date > '2020-10-03 15:23:16.698405') LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mEvent Load (0.5ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE (start_date > '2020-10-03 15:23:22.236097') LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mEvent Load (0.5ms)[0m  [1m[34mSELECT "events".* FROM "events" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE (end_date < '2020-10-03 15:23:30.800417') LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE (end_date < '2020-10-03 15:23:36.483722') LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mEvent Load (0.3ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mEvent Destroy (0.4ms)[0m  [1m[31mDELETE FROM "events" WHERE "events"."id" = ?[0m  [["id", 2]]
+  [1m[35m (2.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mEvent Destroy (0.3ms)[0m  [1m[31mDELETE FROM "events" WHERE "events"."id" = ?[0m  [["id", 3]]
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProducer Load (0.1ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mLocation Load (0.4ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mLocation Load (0.1ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mLocation Load (0.1ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."location_id" = ?[0m  [["location_id", 2]]
+  [1m[36mEvent Create (0.4ms)[0m  [1m[32mINSERT INTO "events" ("producer_id", "location_id", "name", "start_date", "end_date", "price", "maximum_capacity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["producer_id", 2], ["location_id", 2], ["name", "Sunday in the Park with George"], ["start_date", "2021-06-27 19:30:00"], ["end_date", "2021-06-27 22:30:00"], ["price", 200.25], ["maximum_capacity", 1100], ["created_at", "2020-10-03 15:25:09.944346"], ["updated_at", "2020-10-03 15:25:09.944346"]]
+  [1m[35m (1.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProducer Load (0.1ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mLocation Load (0.1ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mLocation Load (0.1ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mLocation Load (0.1ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."location_id" = ?[0m  [["location_id", 2]]
+  [1m[36mEvent Create (0.3ms)[0m  [1m[32mINSERT INTO "events" ("producer_id", "location_id", "name", "start_date", "end_date", "price", "maximum_capacity", "minimum_age", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["producer_id", 2], ["location_id", 2], ["name", "Miss Saigon"], ["start_date", "2021-07-08 19:30:00"], ["end_date", "2021-07-08 22:30:00"], ["price", 150.0], ["maximum_capacity", 1000], ["minimum_age", 10], ["created_at", "2020-10-03 15:25:09.954991"], ["updated_at", "2020-10-03 15:25:09.954991"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" LIMIT ?[0m  [["LIMIT", 11]]

@@ -22,16 +22,16 @@ events = Event.create([
         :location_id => 2, 
         :name => "Sunday in the Park with George", 
         :price => 200.25, 
-        :start_date => DateTime.new(21, 6, 27, 19, 30), 
-        :end_date => DateTime.new(21, 6, 27, 22, 30),
+        :start_date => DateTime.new(2021, 6, 27, 19, 30), 
+        :end_date => DateTime.new(2021, 6, 27, 22, 30),
         :maximum_capacity => 1100 }, 
     { 
         :producer_id => 2, 
         :location_id => 2, 
         :name => "Miss Saigon", 
         :price => 150.00, 
-        :start_date => DateTime.new(21, 7, 8, 19, 30), 
-        :end_date => DateTime.new(21, 7, 8, 22, 30),
+        :start_date => DateTime.new(2021, 7, 8, 19, 30), 
+        :end_date => DateTime.new(2021, 7, 8, 22, 30),
         :maximum_capacity => 1000,
         :minimum_age => 10 } 
 ])
