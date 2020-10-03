@@ -1,0 +1,7 @@
+<% if @rsvp.status != nil %> 
+    <p class="label">You are already <%= @rsvp.status %> this event.<br>
+    Would you like to remove your RSVP/waitlist request?</p>
+
+    <%= button_to "Yes", { :controller => :rsvps, :action => :destroy, :id => current_user.id }, :method => :delete, data: { confirm: "Are you sure? You will forfeit your RSVP/place in line." } %>
+<% else %>
+    <%= form_for(@rsvp) do |f| %>
