@@ -22,5 +22,13 @@ class SessionsController < ApplicationController
     end 
 
     def destroy 
+        if admin 
+            session.delete("producer_id")
+        else 
+            session.delete("user_id")
+        end 
+        
+        flash[:message] = "Logout successful."
+        redirect_to root_path
     end
 end
