@@ -1,0 +1,43 @@
+<h2><%= @event.name %></h2><br>
+
+<div class="show">
+    <% if @event.image_url != "" %>
+        <img src="<%= @event.image_url %>" alt="Image for <%= @event.name %>">
+    <% end %><br>
+
+    <p class="label">Venue:</p>
+    <p class="answer"><%= link_to @event.location.name, location_path(@event.location) %></p><br>
+    <p class="label">Address:</p> 
+    <p class="answer"><%= @event.location.address %></p><br>
+    <p class="label">Maximum capacity:</p> 
+    <p class="answer"><%= @event.maximum_capacity %></p><br>
+    <p class="label">Price:</p> 
+    <p class="answer">$<%= @event.price %></p><br>
+    <p class="label">Starts:</p> 
+    <p class="answer"><%= @event.start_date.strftime("%B %e, %Y at %H:%M") %></p><br> 
+    <p class="label">Ends:</p> 
+    <p class="answer"><%= @event.end_date.strftime("%B %e, %Y at %H:%M") %></p><br> 
+    <% if @event.minimum_age %>
+        <p class="label">Minimum age:</p> 
+        <p class="answer"><%= @event.minimum_age %></p>
+    <% end %><br>
+    <% if has_a_waiting_list(@event) %>
+        <p class="label">Waitlist:</p> 
+        <p class="answer"><%= @event.waiting_list_count %></p>
+    <% end %><br>
+
+    Produced by <%= link_to @event.producer.full_name, producer_path(@event.producer) %><br>
+</div><br>
+
+<div class="form">
+    <div class="button">
+        <% if !admin %>
+            <%= render :partial => "events/rsvp" %>
+        <% else %>
+            <%= if author_admin(@event) %>
+                <%= link_to "Edit/Delete Event", edit_event_path(@event), :class => "button" %>
+            <% end %>
+            <%= link_to "See All Users for this Event", event_users_path(@event), :class => 'button' %>
+        <% end %>
+    </div>
+</div>
