@@ -37,7 +37,7 @@ events = Event.create([
 ])
 
 users = User.create([
-    { :first_name => "Peety", :last_name => "Pie", :email => "peetypie@gmail.com", :birthday => 2021-16-02, :password => "hello", :password_confirmation => "hello" },
-    { :first_name => "Chris", :last_name => "Anthony", :email => "canthony@gmail.com", :birthday => 1983-07-01, :password => "testing", :password_confirmation => "testing" },
-    { :first_name => "Jess", :last_name => "Peluso", :email => "jesspeluso@gmail.com", :birthday => 1995-10-18, :password => "creator", :password_confirmation => "creator" },
+    { :first_name => "Peety", :last_name => "Pie", :email => "peetypie@gmail.com", :birthday => Date.new(2020, 12, 17), :password => "hello", :password_confirmation => "hello" },
+    { :first_name => "Chris", :last_name => "Anthony", :email => "canthony@gmail.com", :birthday => Date.new(1983, 7, 1), :password => "testing", :password_confirmation => "testing" },
+    { :first_name => "Jess", :last_name => "Peluso", :email => "jesspeluso@gmail.com", :birthday => Date.new(1995, 10, 18), :password => "creator", :password_confirmation => "creator" },
 ])
