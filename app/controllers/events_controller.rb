@@ -30,12 +30,17 @@ class EventsController < ApplicationController
         elsif params[:producer_id]
             @events = Producer.find_by_id(params[:producer_id]).events
         elsif params[:user_id]
-            @events = User.find_by_id(params[:user_id]).events
+            user = User.find_by_id(params[:user_id])
+            @events = user.events
 
             if params[:status] == "attending"
                 # @events = @events.attending
+                #want to be able to go @events = user.events.attending 
+                user = User.find_by_id(params[:id])
             elsif params[:status] == "waiting"
                 # @events = @events.waiting 
+                #want to be able to go @events = user.events.waiting 
+                #for users list, want to be able to go: #event.users.attending and event.users.waiting
             end 
 
         else 

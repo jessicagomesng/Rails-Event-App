@@ -22,4 +22,12 @@ class User < ApplicationRecord
 
         now.year - dob.year - (((now.month - dob.month) > 0 || (now.month >= dob.month && now.day >= dob.day)) ? 0 : 1)
     end 
+
+    def events_attending
+        self.rsvps.attending.collect { |rsvp| Event.find_by_id(rsvp.event_id) }
+    end
+
+    def events_waiting_for
+        self.rsvps.waiting.collect { |rsvp| Event.find_by_id(rsvp.event_id) }
+    end 
 end
