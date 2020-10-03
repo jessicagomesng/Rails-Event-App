@@ -1,0 +1,18 @@
+<div class="form">
+    <%= form_tag '', :method => :get do %>
+        <%= radio_button_tag 'filter', 'upcoming' %>
+        <%= label_tag 'upcoming' %>
+        <%= radio_button_tag 'filter', 'past' %>
+        <%= label_tag 'past' %>
+    <% if params[:user_id] %>
+        <%= radio_button_tag 'status', 'attending' %>
+        <%= label_tag 'attending' %>
+        <%= radio_button_tag 'status', 'waiting' %>
+        <%= label_tag 'waiting' %>
+    <% end %>
+    
+    <div class="button">
+        <%= submit_tag 'Filter Results' %>
+    </div>
+    <% end %>
+</div>

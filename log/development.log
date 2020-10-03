@@ -423,3 +423,99 @@ Completed 200 OK in 38ms (Views: 19.5ms | ActiveRecord: 1.6ms | Allocations: 230
   [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
   [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 1]]
   [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+Started GET "/events" for ::1 at 2020-10-03 16:41:24 +0100
+  [1m[35m (1.9ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by EventsController#index as HTML
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.5ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/views/events/index.html.erb:5
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mProducer Load (0.5ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_filter.html.erb (Duration: 1.2ms | Allocations: 399)
+  Rendered events/index.html.erb within layouts/application (Duration: 32.7ms | Allocations: 19254)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 125ms (Views: 97.5ms | ActiveRecord: 3.2ms | Allocations: 34747)
+
+
+Started GET "/events" for ::1 at 2020-10-03 16:42:40 +0100
+Processing by EventsController#index as HTML
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/views/events/index.html.erb:5
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mProducer Load (0.1ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_filter.html.erb (Duration: 0.6ms | Allocations: 446)
+  Rendered events/index.html.erb within layouts/application (Duration: 7.2ms | Allocations: 3084)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 31ms (Views: 29.0ms | ActiveRecord: 0.4ms | Allocations: 8844)
+
+
+Started GET "/events?filter=past&commit=Filter+Results" for ::1 at 2020-10-03 16:42:43 +0100
+Processing by EventsController#index as HTML
+  Parameters: {"filter"=>"past", "commit"=>"Filter Results"}
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.3ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE (end_date < '2020-10-03 15:42:43.258140')[0m
+  ↳ app/views/events/index.html.erb:5
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mProducer Load (0.1ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_filter.html.erb (Duration: 0.2ms | Allocations: 211)
+  Rendered events/index.html.erb within layouts/application (Duration: 4.8ms | Allocations: 2448)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 15ms (Views: 12.7ms | ActiveRecord: 0.6ms | Allocations: 7437)
+
+
+Started GET "/events?filter=upcoming&commit=Filter+Results" for ::1 at 2020-10-03 16:42:46 +0100
+Processing by EventsController#index as HTML
+  Parameters: {"filter"=>"upcoming", "commit"=>"Filter Results"}
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE (start_date > '2020-10-03 15:42:46.355040')[0m
+  ↳ app/views/events/index.html.erb:5
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mProducer Load (0.1ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_filter.html.erb (Duration: 0.7ms | Allocations: 209)
+  Rendered events/index.html.erb within layouts/application (Duration: 5.5ms | Allocations: 2527)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 14ms (Views: 12.3ms | ActiveRecord: 0.4ms | Allocations: 7444)
+
+
+Started GET "/events?filter=upcoming&commit=Filter+Results" for ::1 at 2020-10-03 16:43:33 +0100
+Processing by EventsController#index as HTML
+  Parameters: {"filter"=>"upcoming", "commit"=>"Filter Results"}
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE (start_date > '2020-10-03 15:43:33.991259')[0m
+  ↳ app/views/events/index.html.erb:5
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mProducer Load (0.1ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_filter.html.erb (Duration: 0.7ms | Allocations: 667)
+  Rendered events/index.html.erb within layouts/application (Duration: 6.6ms | Allocations: 3341)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 19ms (Views: 16.1ms | ActiveRecord: 0.4ms | Allocations: 9186)
+
+
+Started GET "/events?filter=upcoming&commit=Filter+Results" for ::1 at 2020-10-03 16:43:53 +0100
+Processing by EventsController#index as HTML
+  Parameters: {"filter"=>"upcoming", "commit"=>"Filter Results"}
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE (start_date > '2020-10-03 15:43:53.849176')[0m
+  ↳ app/views/events/index.html.erb:5
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mProducer Load (0.1ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered events/_filter.html.erb (Duration: 0.7ms | Allocations: 556)
+  Rendered events/index.html.erb within layouts/application (Duration: 5.9ms | Allocations: 3230)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 18ms (Views: 15.5ms | ActiveRecord: 0.5ms | Allocations: 9070)
+
+
