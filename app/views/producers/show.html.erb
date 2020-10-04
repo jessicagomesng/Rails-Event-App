@@ -1,0 +1,17 @@
+<h2><%= @producer.full_name %>'s Profile</h2><br>
+
+<div class="show">
+    <%= render :partial => "show", locals: { account_holder: @producer } %>
+    <div class="button">
+        <%= link_to "See #{@producer.first_name}'s events", producer_events_path(@producer), :class => "button" %><br>
+    </div>
+
+</div><br>
+
+<% if @producer == current_user %> #dry this 
+<div class="form">
+<div class="button">
+    <%= link_to "Edit/delete profile", edit_producer_path(@producer), :class => "button" %>
+</div>
+</div>
+<% end %>

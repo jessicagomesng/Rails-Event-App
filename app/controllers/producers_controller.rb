@@ -18,6 +18,7 @@ class ProducersController < ApplicationController
     end
 
     def index 
+        @producers = Producer.all
     end
 
     def show 

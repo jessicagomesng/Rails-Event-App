@@ -1,0 +1,9 @@
+<h2>All Producers</h2><br>
+
+<div class="index">
+    <ul>
+    <% @producers.all.each do |producer| %>
+        <li><%= link_to producer.full_name, producer_path(producer) %></li>
+    <% end %>
+    </ul>
+</div>
