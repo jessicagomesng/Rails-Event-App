@@ -1,0 +1,35 @@
+<h2><%= @location.name %></h2><br>
+
+<div class="show">
+
+<p class="label">Address:</p>
+<p class="answer"><%= @location.address %></p><br>
+<p class="label">Maximum capacity:</p>
+<p class="answer"><%= @location.maximum_capacity %></p><br><br>
+</div> <br><br>
+
+<h3>See Events at this Location</h3><br>
+<div class="form">
+    <%= form_tag "/locations/#{@location.id}/events", :method => :get do %>
+        <%= radio_button_tag 'filter', 'all' %>
+        <%= label_tag 'all' %>
+        <%= radio_button_tag 'filter', 'upcoming' %>
+        <%= label_tag 'upcoming' %>
+        <%= radio_button_tag 'filter', 'past' %>
+        <%= label_tag 'past' %>
+        <div class="button">
+            <%= submit_tag 'View Events' %>
+        </div>
+    <% end %>
+</div>
+<br>
+
+<% if admin %>
+<h3>Modify Location</h3><br>
+<div class="form">
+    <div class="button">
+    <%= link_to "Edit/Delete Location", edit_location_path(@location), :class => 'button' %>
+    <%= link_to "Create New Event at this Location", new_location_event_path(@location), :class => 'button' %>
+    </div>
+</div>
+<% end %><br>
