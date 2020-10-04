@@ -4,6 +4,15 @@ class UsersController < ApplicationController
     end
 
     def create
+        @user = User.new(user_params)
+
+        if @user.save
+            session[:user_id] = @user.id 
+            flash[:message] = "Account created successfully."
+            account_redirect 
+        else 
+            render :New 
+        end 
     end 
 
     def index 
