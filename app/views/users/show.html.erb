@@ -1,0 +1,21 @@
+<h2><%= @user.full_name %>'s Profile</h2><br>
+
+<div class="show">
+<%= render :partial => "show", locals: { account_holder: @user } %>
+
+<p class="label">Birthday:</p>
+<p class="answer"><%= @user.birthday %></p><br>
+<p class="label">Age:</p> 
+<p class="answer"><%= @user.age %></p><br>
+</div><br>
+
+<% if user_has_permission %>
+    <div class="form">
+    <div class="button">
+        <%= link_to "Edit/delete profile", edit_user_path(@user), :class => "button" %>
+    </div>
+    </div>
+<% end %>
+
+<br>
+

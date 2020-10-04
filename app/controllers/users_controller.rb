@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
     before_action :set_user, only: [:show, :edit, :update, :destroy]
+    helper_method :user_has_permission
 
     def new
         @user = User.new 
