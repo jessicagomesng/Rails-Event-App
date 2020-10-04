@@ -58,6 +58,7 @@ class EventsController < ApplicationController
     end
 
     def edit 
+        #write a method to check that the author is the producer
     end
 
     def update
