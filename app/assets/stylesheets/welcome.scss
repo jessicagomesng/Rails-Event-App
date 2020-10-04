@@ -1,3 +1,14 @@
 // Place all the styles related to the Welcome controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.home-screen-link {
+    font-family: caslon;
+    text-transform: lowercase;
+    font-size: 40px;
+    color: #000;
+}
+
+a.home-screen-link:hover {
+    font-size: 40px;
+}

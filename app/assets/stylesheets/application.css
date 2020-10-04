@@ -36,3 +36,15 @@
   font-weight: normal;
   font-style: normal;
 }
+
+.navbar {
+    width: 100%;
+    overflow: hidden;
+}
+
+.navbar a {
+    float: left;
+    padding: 0 0 40px 0;
+    width: 25%;
+    text-align: center;
+}

@@ -3749,3 +3749,22 @@ Processing by EventsController#index as HTML
 Completed 200 OK in 17ms (Views: 11.1ms | ActiveRecord: 0.8ms | Allocations: 9714)
 
 
+Started POST "/logout" for ::1 at 2020-10-04 13:26:28 +0100
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"N4PvXXvIaGECEjArzyIupVvLTT1GK+fMEekM5JiJcss9PnjBRE2yKpztjBAjNMsNYbs6IHF3E1+qX1+3gM2VMQ=="}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+Redirected to http://localhost:3000/
+Completed 302 Found in 38ms (ActiveRecord: 1.3ms | Allocations: 14265)
+
+
+Started GET "/" for ::1 at 2020-10-04 13:26:28 +0100
+Processing by WelcomeController#home as HTML
+  Rendering welcome/home.html.erb within layouts/welcome
+  Rendered welcome/home.html.erb within layouts/welcome (Duration: 2.3ms | Allocations: 600)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 154ms (Views: 146.5ms | ActiveRecord: 0.0ms | Allocations: 51255)
+
+
