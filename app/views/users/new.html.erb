@@ -1,0 +1,23 @@
+<h2>Sign Up as a New User</h2><br>
+
+<div class="form">
+    <%= form_for @user, class: "signup_form" do |f| %>
+        
+        <%= render partial: "users/form", locals: { account_holder: @user, f: f } %>
+        <%= f.label :email, "Email:" %>
+        <%= f.text_field :email %><br>
+        <%= f.label :birthday, "Birthday:" %>
+        <%= f.date_field :birthday, max: Date.today %><br>
+
+        <div class="button">
+            <%= f.submit "Sign Up" %>
+        </div>
+
+    <% end %> 
+</div>
+
+<div class="form">
+<div class="button">
+    <%= link_to('Log in with Facebook!', '/auth/facebook'), :class => "button" %>
+</div>
+</div>
