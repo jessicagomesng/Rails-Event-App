@@ -36,7 +36,7 @@ class EventsController < ApplicationController
             if params[:status] == "attending"
                 @events = user.events_attending
             elsif params[:status] == "waiting"
-                @events = user.events_waiting
+                @events = user.events_waiting_for
             end 
         else 
             @events = Event.all
