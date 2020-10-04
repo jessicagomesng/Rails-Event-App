@@ -37,7 +37,7 @@
             <% end %>
             <%= link_to "See All Users for this Event", event_users_path(@event), :class => 'button' %>
         <% else %>
-            <%= render :partial => "events/rsvp" %>
+            <%= render :partial => "rsvps/form" %>
         <% end %>
     </div>
 </div>

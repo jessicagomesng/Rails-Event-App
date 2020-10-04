@@ -1,0 +1,24 @@
+<%= form_for(@rsvp) do |f| %>
+    <% if @rsvp.errors.any? %>
+        <div id="error_explanation">
+        <p>Sorry, please fix the listed errors and try again.%></p>
+        <ul>
+            <% @rsvp.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+        </ul> 
+        </div>
+    <% end %>
+
+    <%= f.hidden_field :event_id %>
+    <%= f.hidden_field :user_id %>
+    <% if @event.full? %>
+        <p class="label">Sorry, this event is full! Would you like to join the waiting list?<br>
+        There are currently @event.waiting_count users in line.</p>
+        <%= f.hidden_field :status, :value => "waiting" %>
+    <% else %>
+        <p class="label">Would you like to attend this event?</p>
+        <%= f.hidden_field :status, :value => "attending" %>
+    <% end %>
+    <%= f.submit "Yes" %>
+<% end %>
