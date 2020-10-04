@@ -1,5 +1,6 @@
 class ProducersController < ApplicationController
     before_action :set_producer, only: [:show, :edit, :update, :destroy]
+    helper_method :producer_has_permission
     
     def new 
         @producer = Producer.new 
@@ -25,9 +26,19 @@ class ProducersController < ApplicationController
     end 
 
     def edit 
+        if !producer_has_permission
+            account_redirect 
+            flash[:message] = "Sorry, you do not have permission to access this page!" #dry this
+        end 
     end 
 
     def update 
+        if @producer.update(producer_params)
+            flash[:message] = "Profile updated successfully."
+            redirect_to producer_path(@producer)
+        else 
+            render :edit 
+        end 
     end 
     
     def destroy 
@@ -41,4 +52,8 @@ class ProducersController < ApplicationController
     def set_producer 
         @producer = Producer.find_by_id(params[:id])
     end
+
+    def producer_has_permission
+        @producer == current_user
+    end 
 end

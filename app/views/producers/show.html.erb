@@ -8,7 +8,7 @@
 
 </div><br>
 
-<% if @producer == current_user %> #dry this 
+<% if producer_has_permission %> 
 <div class="form">
 <div class="button">
     <%= link_to "Edit/delete profile", edit_producer_path(@producer), :class => "button" %>

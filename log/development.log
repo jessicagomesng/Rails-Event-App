@@ -3258,3 +3258,37 @@ Processing by ProducersController#new as HTML
 Completed 200 OK in 26ms (Views: 24.1ms | ActiveRecord: 0.0ms | Allocations: 12142)
 
 
+Started GET "/producers" for ::1 at 2020-10-04 13:02:52 +0100
+  [1m[35m (4.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+SyntaxError (/Users/jessicagomesng/Rails-Event-App/app/controllers/producers_controller.rb:48: syntax error, unexpected end-of-input, expecting keyword_end):
+  
+app/controllers/producers_controller.rb:48: syntax error, unexpected end-of-input, expecting keyword_end
+app/controllers/producers_controller.rb:48: syntax error, unexpected end-of-input, expecting keyword_end
+app/controllers/producers_controller.rb:48: syntax error, unexpected end-of-input, expecting keyword_end
+Started GET "/producers" for ::1 at 2020-10-04 13:02:57 +0100
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by ProducersController#index as HTML
+  Rendering producers/index.html.erb within layouts/application
+  [1m[36mProducer Load (0.5ms)[0m  [1m[34mSELECT "producers".* FROM "producers"[0m
+  ↳ app/views/producers/index.html.erb:5
+  Rendered producers/index.html.erb within layouts/application (Duration: 8.3ms | Allocations: 6641)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 35ms (Views: 25.8ms | ActiveRecord: 1.0ms | Allocations: 20035)
+
+
+Started GET "/producers/1" for ::1 at 2020-10-04 13:02:59 +0100
+Processing by ProducersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProducer Load (0.2ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/producers_controller.rb:43:in `set_producer'
+  Rendering producers/show.html.erb within layouts/application
+  Rendered users/_show.html.erb (Duration: 0.8ms | Allocations: 139)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered producers/show.html.erb within layouts/application (Duration: 17.7ms | Allocations: 9761)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 30ms (Views: 24.6ms | ActiveRecord: 1.0ms | Allocations: 16107)
+
+
