@@ -1,0 +1,13 @@
+<h2>All Location</h2><br>
+
+<div class="index">
+    <ul>
+    <% @locations.each do |location| %>
+        <li><%= link_to location.name, location_path(location) %></li> 
+    <% end %>
+    <% if admin %><br><br>
+        <li><%= link_to "Create Location", new_location_path, :id => 'create-new' %></li><br>
+        <p class="tooltip">View a location to make changes to it.</p>
+    <% end %>
+    </ul>
+</div>
