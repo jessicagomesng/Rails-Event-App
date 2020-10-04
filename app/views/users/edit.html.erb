@@ -1,0 +1,21 @@
+<h2>Edit Your User Info Below</h2> <br>
+
+<div class="form">
+
+    <%= form_for @user, class: "signup_form" do |f| %>
+
+    <%= render partial: "users/form", locals: { account_holder: @user, f: f } %><br>
+
+    <div class="button">
+        <%= f.submit "Update Profile" %>
+    </div>
+
+    <% end %> 
+</div>
+<br>
+
+<div class="form">
+    <div class="button">
+    <%= button_to("Delete Profile", { :controller => :users, :action => :destroy, :id => current_user.id }, :method => :delete, data: { confirm: "Are you sure? This cannot be undone" }) %>
+    </div>
+</div>

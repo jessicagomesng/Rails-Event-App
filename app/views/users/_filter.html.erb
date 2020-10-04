@@ -1,9 +1,9 @@
 <div class="form">
     <%= form_tag '', :method => :get do %>
         <%= radio_button_tag 'filter', 'attending' %>
-        <%= label_tag 'attending', "attending" %>
+        <%= label_tag 'attending', "Attending" %>
         <%= radio_button_tag 'filter', "waiting" %>
-        <%= label_tag 'waiting', "waiting" %><br>
+        <%= label_tag 'waiting', "Waiting" %><br>
 
         <div class="button">
             <%= submit_tag 'Filter Results' %>
