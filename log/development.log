@@ -3292,3 +3292,112 @@ Processing by ProducersController#show as HTML
 Completed 200 OK in 30ms (Views: 24.6ms | ActiveRecord: 1.0ms | Allocations: 16107)
 
 
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+Started GET "/users/5" for ::1 at 2020-10-04 13:06:49 +0100
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:73:in `set_user'
+  Rendering users/show.html.erb within layouts/application
+  Rendered users/_show.html.erb (Duration: 0.9ms | Allocations: 138)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered users/show.html.erb within layouts/application (Duration: 5.3ms | Allocations: 1563)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 69ms (Views: 42.7ms | ActiveRecord: 1.2ms | Allocations: 24258)
+
+
+Started GET "/users/5/edit" for ::1 at 2020-10-04 13:06:51 +0100
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:73:in `set_user'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendering users/edit.html.erb within layouts/application
+  Rendered users/edit.html.erb within layouts/application (Duration: 4.5ms | Allocations: 1754)
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 0.4ms | Allocations: 3836)
+
+
+  
+ActionView::SyntaxErrorInTemplate (Encountered a syntax error while rendering template: check <h2>Edit Your User Info Below</h2> <br>
+
+<div class="form">
+
+    <%= form_for @user, class: "signup_form" do |f| %>
+
+    <%= render partial: "users/form", :locals => { account_holder: @user, f: f } %><br>
+
+    <div class="button">
+        <%= f.submit "Update Profile" %>
+    </div>
+
+    <% end %> 
+</div>
+<br>
+
+<%= render :partial => "delete", :locals => { account_holder : @user } %>
+<div class="form">
+    <div class="button">
+    <%= button_to("Delete Profile", { :controller => :users, :action => :destroy, :id => current_user.id }, :method => :delete, data: { confirm: "Are you sure? This cannot be undone" }) %>
+    </div>
+</div>
+):
+1:    <h2>Edit Your User Info Below</h2> <br>
+2:    
+3:    <div class="form">
+4:    
+5:        <%= form_for @user, class: "signup_form" do |f| %>
+6:    
+7:        <%= render partial: "users/form", :locals => { account_holder: @user, f: f } %><br>
+8:    
+9:        <div class="button">
+10:            <%= f.submit "Update Profile" %>
+11:        </div>
+12:    
+13:        <% end %> 
+14:    </div>
+15:    <br>
+16:    
+17:    <%= render :partial => "delete", :locals => { account_holder : @user } %>
+18:    <div class="form">
+19:        <div class="button">
+20:        <%= button_to("Delete Profile", { :controller => :users, :action => :destroy, :id => current_user.id }, :method => :delete, data: { confirm: "Are you sure? This cannot be undone" }) %>
+21:        </div>
+22:    </div>
+  
+app/views/users/edit.html.erb:17: syntax error, unexpected ':', expecting =>
+app/views/users/edit.html.erb:24: syntax error, unexpected keyword_end, expecting ')'
+app/views/users/edit.html.erb:17: syntax error, unexpected ':', expecting =>
+app/views/users/edit.html.erb:24: syntax error, unexpected keyword_end, expecting ')'
+app/views/users/edit.html.erb:17: syntax error, unexpected ':', expecting =>
+app/views/users/edit.html.erb:24: syntax error, unexpected keyword_end, expecting ')'
+app/views/users/edit.html.erb:17: syntax error, unexpected ':', expecting =>
+app/views/users/edit.html.erb:24: syntax error, unexpected keyword_end, expecting ')'
+app/views/users/edit.html.erb:17: syntax error, unexpected ':', expecting =>
+app/views/users/edit.html.erb:24: syntax error, unexpected keyword_end, expecting ')'
+app/views/users/edit.html.erb:17: syntax error, unexpected ':', expecting =>
+app/views/users/edit.html.erb:24: syntax error, unexpected keyword_end, expecting ')'
+Started GET "/users/5/edit" for ::1 at 2020-10-04 13:07:05 +0100
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:73:in `set_user'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendering users/edit.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 8.7ms | Allocations: 1404)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered users/_delete.html.erb (Duration: 4.3ms | Allocations: 1580)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered users/edit.html.erb within layouts/application (Duration: 17.2ms | Allocations: 4726)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 33ms (Views: 29.0ms | ActiveRecord: 0.3ms | Allocations: 11634)
+
+

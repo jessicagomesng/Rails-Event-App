@@ -12,8 +12,4 @@
 </div>
 <br>
 
-<div class="form">
-    <div class="button">
-    <%= button_to("Delete Profile", { :controller => :producers, :action => :destroy, :id => current_user.id }, :method => :delete, data: { confirm: "Are you sure? This cannot be undone" }) %>
-    </div>
-</div>
+<%= render :partial => "delete", :locals => { account_holder: @producer } %>

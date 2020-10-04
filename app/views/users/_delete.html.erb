@@ -1,0 +1,5 @@
+<div class="form">
+    <div class="button">
+    <%= button_to("Delete Profile", { :controller => account_holder.class.name.downcase.pluralize.to_sym, :action => :destroy, :id => current_user.id }, :method => :delete, data: { confirm: "Are you sure? This cannot be undone" }) %>
+    </div>
+</div>
