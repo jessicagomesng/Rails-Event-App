@@ -7,5 +7,8 @@ class Rsvp < ApplicationRecord
 
     scope :attending, -> { where(:status => "attending") }
     scope :waiting, -> { where(:status => "waiting") }
+
+    includes ActiveModel::Validations 
+    validates_with UserIdValidator
 end
 
