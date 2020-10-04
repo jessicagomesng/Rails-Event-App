@@ -20,6 +20,12 @@ class SessionsController < ApplicationController
         end
     end 
 
+    def omniauth_user 
+        @user = User.from_omniauth(auth)
+        session[:user_id] = @user.id 
+        redirect_to account_path 
+    end
+
     def destroy 
         if admin 
             session.delete("producer_id")
@@ -30,6 +36,9 @@ class SessionsController < ApplicationController
         flash[:message] = "Logout successful."
         redirect_to root_path
     end
-
-    #need omniauth
+    
+    private 
+    def auth 
+        request.env['omniauth.auth']
+    end 
 end
