@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>RailsEventApp</title>
+    <title>EventBooker</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,20 @@
   </head>
 
   <body>
+  <header>
+  <% if logged_in %>
+      <div class="navbar">
+        <%= link_to "Account", account_path %>
+        <%= link_to "All Events", events_path %>
+        <% if admin %>
+          <%= link_to "My Events", producer_events_path(current_user) %>
+        <% else %>
+          <%= link_to "My Events", user_events_path(current_user) %>
+        <% end %>
+        <%= link_to "Log Out", logout_path, { :method => :post } %>
+      </div>
+  <% end %>
+  </header>
     <%= yield %>
   </body>
 </html>
