@@ -1,5 +1,6 @@
 class RsvpsController < ApplicationController
     def create 
+        #check this status = nil thing. Is this still setting as soon as the user visits the page? 
         rsvp = Rsvp.new(:user_id => current_user.id, :event_id => params[:rsvp][:event_id], :status => nil)
         @event = Event.find_by_id(params[:rsvp][:event_id])
         @user = User.find_by_id(params[:rsvp][:user_id])
@@ -20,5 +21,11 @@ class RsvpsController < ApplicationController
     end
 
     def destroy 
+        Rsvp.find_by_id(params[:id]).destroy 
+        flash[:message] = "You have successfully left this event."
+        redirect_to user_events_path(current_user)
     end 
+
+    def rsvp_params
+        params.require(:rsvp).permit(:user_id, :event_id, :status)
 end
