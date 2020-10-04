@@ -31,4 +31,6 @@ class SessionsController < ApplicationController
         flash[:message] = "Logout successful."
         redirect_to root_path
     end
+
+    #need omniauth
 end

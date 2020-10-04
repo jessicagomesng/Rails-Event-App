@@ -3,5 +3,6 @@ class WelcomeController < ApplicationController
     end
 
     def account 
+        render :layout => 'application'
     end
 end

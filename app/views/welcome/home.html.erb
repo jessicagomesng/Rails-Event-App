@@ -1,0 +1,23 @@
+<div class="grid-container">
+    <div id="maintitle">
+        <br>
+        <h1>Event Booker</h1>
+        <h6>Where great ideas are brought to life</h6><br>
+    </div>
+    <div class="item ">
+        <div>
+        <p class="home-screen-link">Sign Up</p>
+        <%= link_to "As a producer", new_producer_path %> &nbsp; &nbsp; &nbsp; &nbsp; <%= link_to "As a user", new_user_path %>
+        </div>
+    </div>
+    <div class="item">
+        <div>
+        <%= link_to "Log In", login_path, :class => "home-screen-link" %>
+        </div>
+    </div>
+    <div class="item">
+        <div>
+        <%= link_to "View Events", events_path, :class => "home-screen-link" %>
+        </div>
+    </div>
+</div>
