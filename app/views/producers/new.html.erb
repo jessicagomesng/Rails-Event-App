@@ -1,0 +1,15 @@
+<h2>Sign Up as a Producer Below:</h2> <br> 
+
+<div class="form">
+    <%= form_for @producer, class: "signup_form" do |f| %>
+
+        <%= render partial: "users/form", locals: { account_holder: @producer, f: f } %>
+        <%= f.label :email, "Email:" %>
+        <%= f.text_field :email %><br>
+
+        <div class="button">
+            <%= f.submit "Create Profile" %>
+        </div>
+
+    <% end %> 
+</div>
