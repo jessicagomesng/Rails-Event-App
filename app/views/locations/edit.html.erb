@@ -1,0 +1,13 @@
+<h2>Edit Location Info</h2><br>
+
+<div class="form">
+    <%= form_for(@location) do |f| %>
+
+        <%= render :partial => "form", :locals => { f: f } %>
+        
+        <div class="button">
+            <%= f.submit %>
+        </div>
+        
+    <% end %> 
+</div>
