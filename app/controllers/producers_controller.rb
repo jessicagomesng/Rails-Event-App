@@ -1,5 +1,5 @@
 class ProducersController < ApplicationController
-    before_action :set_producer only: [:show, :edit, :update, :destroy]
+    before_action :set_producer, only: [:show, :edit, :update, :destroy]
     
     def new 
         @producer = Producer.new 

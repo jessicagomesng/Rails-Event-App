@@ -3188,3 +3188,73 @@ Processing by UsersController#show as HTML
 Completed 200 OK in 13ms (Views: 11.0ms | ActiveRecord: 0.3ms | Allocations: 6122)
 
 
+Started GET "/producers" for ::1 at 2020-10-04 13:00:53 +0100
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+SyntaxError (/Users/jessicagomesng/Rails-Event-App/app/controllers/producers_controller.rb:2: syntax error, unexpected tIDENTIFIER, expecting keyword_end
+...efore_action :set_producer only: [:show, :edit, :update, :de...
+...                           ^~~~):
+  
+app/controllers/producers_controller.rb:2: syntax error, unexpected tIDENTIFIER, expecting keyword_end
+app/controllers/producers_controller.rb:2: syntax error, unexpected tIDENTIFIER, expecting keyword_end
+app/controllers/producers_controller.rb:2: syntax error, unexpected tIDENTIFIER, expecting keyword_end
+Started GET "/producers" for ::1 at 2020-10-04 13:01:02 +0100
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by ProducersController#index as HTML
+  Rendering producers/index.html.erb within layouts/application
+  [1m[36mProducer Load (0.7ms)[0m  [1m[34mSELECT "producers".* FROM "producers"[0m
+  ↳ app/views/producers/index.html.erb:5
+  Rendered producers/index.html.erb within layouts/application (Duration: 8.2ms | Allocations: 6639)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 33ms (Views: 23.9ms | ActiveRecord: 1.2ms | Allocations: 20030)
+
+
+Started GET "/producers/2" for ::1 at 2020-10-04 13:01:04 +0100
+Processing by ProducersController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mProducer Load (0.3ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/producers_controller.rb:42:in `set_producer'
+  Rendering producers/show.html.erb within layouts/application
+  Rendered producers/show.html.erb within layouts/application (Duration: 7.1ms | Allocations: 1766)
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 0.3ms | Allocations: 4081)
+
+
+  
+ActionView::Template::Error (Missing partial producers/_show, application/_show with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :jbuilder]}. Searched in:
+  * "/Users/jessicagomesng/Rails-Event-App/app/views"
+  * "/Users/jessicagomesng/.rvm/gems/ruby-2.5.1/gems/actiontext-6.0.3.3/app/views"
+  * "/Users/jessicagomesng/.rvm/gems/ruby-2.5.1/gems/actionmailbox-6.0.3.3/app/views"
+):
+    1: <h2><%= @producer.full_name %>'s Profile</h2><br>
+    2: 
+    3: <div class="show">
+    4:     <%= render :partial => "show", locals: { account_holder: @producer } %>
+    5:     <div class="button">
+    6:         <%= link_to "See #{@producer.first_name}'s events", producer_events_path(@producer), :class => "button" %><br>
+    7:     </div>
+  
+app/views/producers/show.html.erb:4
+Started GET "/producers/2" for ::1 at 2020-10-04 13:01:12 +0100
+Processing by ProducersController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mProducer Load (0.1ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/producers_controller.rb:42:in `set_producer'
+  Rendering producers/show.html.erb within layouts/application
+  Rendered users/_show.html.erb (Duration: 0.8ms | Allocations: 138)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered producers/show.html.erb within layouts/application (Duration: 14.5ms | Allocations: 9779)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 25ms (Views: 21.7ms | ActiveRecord: 1.1ms | Allocations: 16115)
+
+
+Started GET "/producers/new" for ::1 at 2020-10-04 13:01:30 +0100
+Processing by ProducersController#new as HTML
+  Rendering producers/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 13.4ms | Allocations: 5657)
+  Rendered producers/new.html.erb within layouts/application (Duration: 15.6ms | Allocations: 6470)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 26ms (Views: 24.1ms | ActiveRecord: 0.0ms | Allocations: 12142)
+
+
