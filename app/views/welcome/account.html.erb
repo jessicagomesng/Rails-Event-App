@@ -1,0 +1,27 @@
+<h2>Welcome to the Event Booker, <%= current_user.full_name %>!</h2><br>
+
+<div class="show">
+<h4>What would you like to do?</h4>
+    <div class="account-list">
+    <h5>Events</h5>
+        <% if admin %>
+        <li><%= link_to "Create a New Event", new_event_path %></li>
+        <li><%= link_to "My Events", producer_events_path(current_user) %></li>
+        <% else %>
+        <li><%= link_to "My Events", user_events_path(current_user) %></li>
+        <% end %>
+    <h5>Location</h5>
+        <% if admin %>
+        <li><%= link_to "Create a New Location", new_location_path %></li>
+        <% end %>
+        <li><%= link_to "View All Locations", locations_path %></li>
+    <h5>Profile</h5>
+        <% if admin %>
+        <li><%= link_to "Edit Profile Info", edit_producer_path(current_user) %></li>
+        <li><%= link_to "View Profile", producer_path(current_user) %></li>
+        <% else %>
+        <li><%= link_to "Edit Profile Info", edit_user_path(current_user) %></li>
+        <li><%= link_to "View Profile", user_path(current_user) %></li>
+        <% end %>
+    </div>
+</div>
