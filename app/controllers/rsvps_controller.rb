@@ -1,5 +1,6 @@
 class RsvpsController < ApplicationController
     def create 
+        binding.pry 
         #check this status = nil thing. Is this still setting as soon as the user visits the page? 
         # rsvp = Rsvp.new(:user_id => current_user.id, :event_id => params[:rsvp][:event_id], :status => nil)
         rsvp = Rsvp.new(rsvp_params)
@@ -28,6 +29,6 @@ class RsvpsController < ApplicationController
     end 
 
     def rsvp_params
-        params.require(:rsvp).permit(:user_id, :event_id, :status)
+        params.require(:rsvp).permit(:user_id, :event_id)
     end 
 end

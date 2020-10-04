@@ -1,4 +1,4 @@
-class UserIdValidator < ActiveModel::UserIdValidator
+class UserIdValidator < ActiveModel::Validator
     #validates a user's minimum age before rsvp
     def validate(record)
         event = Event.find_by_id(record.event_id)
