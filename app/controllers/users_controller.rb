@@ -16,6 +16,18 @@ class UsersController < ApplicationController
     end 
 
     def index 
+        if params[:event_id]
+            @event = Event.find_by_id(params[:event_id])
+            @users = @event.users 
+
+            if params[:filter] == "attending"
+                @users = @event.attending_users
+            elsif params[:filter] == "waiting"
+                @users = @event.waiting_users
+            end 
+        else 
+            @users = User.all 
+        end
     end 
 
     def show 
