@@ -13,3 +13,26 @@
  *= require_tree .
  *= require_self
  */
+ @font-face {
+    font-family: 'caslon';
+    src: url('./fonts/caslon/caslongraphiqueef-webfont.woff') format('woff'),
+         url('./fonts/caslon/caslongraphiqueef-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+  font-family: 'montserratbold';
+  src: url('./fonts/montserrat/montserrat-bold-webfont.woff2') format('woff2'),
+       url('./fonts/montserrat/montserrat-bold-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'montserratlight';
+  src: url('./fonts/montserrat/montserrat-light-webfont.woff2') format('woff2'),
+       url('./fonts/montserrat/montserrat-light-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
