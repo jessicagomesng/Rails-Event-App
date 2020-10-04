@@ -43,6 +43,7 @@ class ProducersController < ApplicationController
     
     def destroy 
         @producer.destroy
+        @producer.events.destroy_all
         flash[:message] = "Profile successfully deleted."
         redirect_to root_path
     end 
