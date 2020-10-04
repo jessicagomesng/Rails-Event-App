@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
     end 
 
     def account_redirect 
+        flash[:message] = "Sorry, you do not have permission to access this page!"
         redirect_to account_path if logged_in 
     end 
 end

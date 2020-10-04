@@ -30,7 +30,6 @@ class ProducersController < ApplicationController
     def edit 
         if !producer_has_permission
             account_redirect 
-            flash[:message] = "Sorry, you do not have permission to access this page!" #dry this
         end 
     end 
 
@@ -44,10 +43,12 @@ class ProducersController < ApplicationController
     end 
     
     def destroy 
-        @producer.destroy
-        @producer.events.destroy_all
-        flash[:message] = "Profile and events successfully deleted."
-        redirect_to root_path
+        if producer_has_permission
+            @producer.destroy
+            @producer.events.destroy_all
+            flash[:message] = "Profile and events successfully deleted."
+            redirect_to root_path
+        end 
     end 
 
     private
