@@ -1,0 +1,17 @@
+<% if @location.errors.any? %>
+<div id="error_explanation">
+    <h2>Sorry, please fix the <%= pluralize(@location.errors.count, "error") and try again %>:<h2>
+    <ul>
+        <% @location.errors.full_messages.each do |message| %>
+            <li><%= message %><li>
+        <% end %>
+    </ul>
+</div>
+<% end %>
+
+<%= f.label "Location Name" %>
+<%= f.text_field :name %><br>
+<%= f.label "Address" %>
+<%= f.text_area :address %><br>
+<%= f.label "Maximum Capacity" %>
+<%= f.number_field :maximum_capacity %><br>

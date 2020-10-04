@@ -1,6 +1,6 @@
 <% if @event.errors.any? %>
 <div id="error_explanation">
-<h3>Sorry, please try again. There were <%= pluralize(@event.errors.count, "error") %>:<h3>
+<h3>Sorry, please fix the <%= pluralize(@event.errors.count, "error") and try again %>:<h3>
 <ul>
     <% @event.errors.full_messages.each do |message| %>
         <li><%= message %></li>
