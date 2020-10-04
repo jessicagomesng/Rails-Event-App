@@ -1,5 +1,8 @@
 class ProducersController < ApplicationController
+    before_action :set_producer only: [:show, :edit, :update, :destroy]
+    
     def new 
+        @producer = Producer.new 
     end 
     
     def create 
@@ -18,5 +21,10 @@ class ProducersController < ApplicationController
     end 
     
     def destroy 
+    end 
+
+    private
+    def set_producer 
+        @producer = Producer.find_by_id(params[:id])
     end 
 end
