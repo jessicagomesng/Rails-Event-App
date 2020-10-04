@@ -1,0 +1,16 @@
+<h2>Edit Event</h2><br>
+
+<div class="form">
+    <%= form_for(@event) do |f| %>
+        <%= render :partial => "form", :locals => { f: f } %> 
+        <div class="button">
+        <%= f.submit %> 
+        </div>
+    <% end %>
+</div><br>
+
+<div class="form">
+    <div class="button">
+    <%= button_to("Delete Event", @event, :method => :delete, :data => { confirm: "Are you sure? This cannot be undone" }) %>
+    </div>
+</div>
