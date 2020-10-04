@@ -1,4 +1,6 @@
 class ProducersController < ApplicationController
+    skip_before_action :verified_user, only: [:new, :create]
+    before_action :account_redirect, only: [:new]
     before_action :set_producer, only: [:show, :edit, :update, :destroy]
     helper_method :producer_has_permission
     

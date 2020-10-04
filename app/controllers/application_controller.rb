@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
     end 
 
     def permitted
+        flash[:message] = "Sorry, only producers can access this feature."
         redirect_to account_path unless admin 
     end 
 

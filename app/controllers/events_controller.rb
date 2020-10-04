@@ -1,6 +1,4 @@
 class EventsController < ApplicationController
-    # before_action :permitted, only: [:new, :create, :edit, :update, :destroy]
-    #write permissions for each thing
     skip_before_action :verified_user, only: [:index]
     before_action :permitted, only: [:new, :create, :edit, :update, :destroy]
     before_action :set_event, only: [:show, :edit, :update, :destroy]

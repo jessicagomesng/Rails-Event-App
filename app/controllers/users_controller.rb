@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+    skip_before_action :verified_user, only: [:new, :create]
+    before_action :account_redirect, only: [:new]
+    before_action :permitted, only: [:index]
     before_action :set_user, only: [:show, :edit, :update, :destroy]
     helper_method :user_has_permission
 
