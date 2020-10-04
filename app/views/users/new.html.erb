@@ -14,10 +14,6 @@
         </div>
 
     <% end %> 
-</div>
+</div><br>
 
-<div class="form">
-<div class="button">
-    <%= link_to('Log in with Facebook!', '/auth/facebook'), :class => "button" %>
-</div>
-</div>
+<%= render :partial => "sessions/omniauth" %>

@@ -5014,3 +5014,179 @@ Processing by WelcomeController#account as HTML
 Completed 200 OK in 25ms (Views: 24.1ms | ActiveRecord: 0.3ms | Allocations: 12193)
 
 
+Started GET "/account" for ::1 at 2020-10-04 13:40:40 +0100
+  [1m[35m (3.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by WelcomeController#account as HTML
+  Rendering welcome/account.html.erb within layouts/application
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendered welcome/account.html.erb within layouts/application (Duration: 39.0ms | Allocations: 17653)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+Completed 200 OK in 122ms (Views: 116.6ms | ActiveRecord: 1.8ms | Allocations: 36347)
+
+
+Started POST "/logout" for ::1 at 2020-10-04 13:40:41 +0100
+Processing by SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"R/eBAllWsY6ZvEs4bvjhdvJsitRCOmbPQnFRW3XCtsxNShaeZtNrxQdD9wOC7gTeyBz9yXVmklz5xwIIbYZRNg=="}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+Redirected to http://localhost:3000/
+Completed 302 Found in 2ms (ActiveRecord: 0.1ms | Allocations: 1269)
+
+
+Started GET "/" for ::1 at 2020-10-04 13:40:41 +0100
+Processing by WelcomeController#home as HTML
+  Rendering welcome/home.html.erb within layouts/welcome
+  Rendered welcome/home.html.erb within layouts/welcome (Duration: 0.9ms | Allocations: 323)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 10ms (Views: 8.9ms | ActiveRecord: 0.0ms | Allocations: 6023)
+
+
+Started GET "/login" for ::1 at 2020-10-04 13:40:42 +0100
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/_omniauth.html.erb (Duration: 6.6ms | Allocations: 1821)
+  Rendered sessions/new.html.erb within layouts/application (Duration: 9.3ms | Allocations: 2675)
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 0.0ms | Allocations: 4032)
+
+
+  
+ActionView::SyntaxErrorInTemplate (Encountered a syntax error while rendering template: check <div class="form">
+<div class="button">
+    <%= link_to('Log in as a User with Facebook!', '/auth/facebook'), :class => "button" %>
+</div>
+</div>
+):
+1:    <div class="form">
+2:    <div class="button">
+3:        <%= link_to('Log in as a User with Facebook!', '/auth/facebook'), :class => "button" %>
+4:    </div>
+5:    </div>
+  
+app/views/sessions/_omniauth.html.erb:3: syntax error, unexpected ',', expecting ')'
+app/views/sessions/_omniauth.html.erb:3: syntax error, unexpected ',', expecting ')'
+app/views/sessions/_omniauth.html.erb:3: syntax error, unexpected ',', expecting ')'
+app/views/sessions/_omniauth.html.erb:3: syntax error, unexpected ',', expecting ')'
+app/views/sessions/_omniauth.html.erb:3: syntax error, unexpected ',', expecting ')'
+app/views/sessions/_omniauth.html.erb:3: syntax error, unexpected ',', expecting ')'
+app/views/sessions/new.html.erb:17
+Started GET "/login" for ::1 at 2020-10-04 13:41:51 +0100
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/_omniauth.html.erb (Duration: 0.9ms | Allocations: 1187)
+  Rendered sessions/new.html.erb within layouts/application (Duration: 3.0ms | Allocations: 1994)
+Completed 500 Internal Server Error in 7ms (ActiveRecord: 0.0ms | Allocations: 3504)
+
+
+  
+ActionView::SyntaxErrorInTemplate (Encountered a syntax error while rendering template: check <div class="form">
+<div class="button">
+    <%= link_to("Log in as a User with Facebook!", "/auth/facebook"), :class => "button" %>
+</div>
+</div>
+):
+1:    <div class="form">
+2:    <div class="button">
+3:        <%= link_to("Log in as a User with Facebook!", "/auth/facebook"), :class => "button" %>
+4:    </div>
+5:    </div>
+  
+app/views/sessions/_omniauth.html.erb:3: syntax error, unexpected ',', expecting ')'
+app/views/sessions/_omniauth.html.erb:3: syntax error, unexpected ',', expecting ')'
+app/views/sessions/_omniauth.html.erb:3: syntax error, unexpected ',', expecting ')'
+app/views/sessions/_omniauth.html.erb:3: syntax error, unexpected ',', expecting ')'
+app/views/sessions/_omniauth.html.erb:3: syntax error, unexpected ',', expecting ')'
+app/views/sessions/_omniauth.html.erb:3: syntax error, unexpected ',', expecting ')'
+app/views/sessions/new.html.erb:17
+Started GET "/login" for ::1 at 2020-10-04 13:42:03 +0100
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/_omniauth.html.erb (Duration: 0.3ms | Allocations: 144)
+  Rendered sessions/new.html.erb within layouts/application (Duration: 1.9ms | Allocations: 947)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mProducer Load (0.6ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+Completed 200 OK in 20ms (Views: 17.7ms | ActiveRecord: 0.9ms | Allocations: 9226)
+
+
+Started GET "/login" for ::1 at 2020-10-04 13:42:09 +0100
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/_omniauth.html.erb (Duration: 0.4ms | Allocations: 138)
+  Rendered sessions/new.html.erb within layouts/application (Duration: 2.2ms | Allocations: 942)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mProducer Load (0.2ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+Completed 200 OK in 19ms (Views: 17.3ms | ActiveRecord: 0.6ms | Allocations: 8836)
+
+
+Started POST "/logout" for ::1 at 2020-10-04 13:42:16 +0100
+Processing by SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"q6145f7dvO1dzr5oR519EkCEywvvCLa88NLhKGBSE/qhEO95wVhmpsMxAlOri5i6evS8FthUQi9LZLJ7eBb0AA=="}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mProducer Load (0.1ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+Redirected to http://localhost:3000/
+Completed 302 Found in 3ms (ActiveRecord: 0.3ms | Allocations: 2078)
+
+
+Started GET "/" for ::1 at 2020-10-04 13:42:16 +0100
+Processing by WelcomeController#home as HTML
+  Rendering welcome/home.html.erb within layouts/welcome
+  Rendered welcome/home.html.erb within layouts/welcome (Duration: 1.0ms | Allocations: 309)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 11ms (Views: 9.2ms | ActiveRecord: 0.0ms | Allocations: 6147)
+
+
+Started GET "/users/new" for ::1 at 2020-10-04 13:42:21 +0100
+Processing by UsersController#new as HTML
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 4.5ms | Allocations: 1388)
+  Rendered sessions/_omniauth.html.erb (Duration: 0.2ms | Allocations: 26)
+  Rendered users/new.html.erb within layouts/application (Duration: 10.0ms | Allocations: 2784)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mProducer Load (0.1ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+Completed 200 OK in 22ms (Views: 21.2ms | ActiveRecord: 0.2ms | Allocations: 10131)
+
+
+Started GET "/users/new" for ::1 at 2020-10-04 13:42:40 +0100
+Processing by UsersController#new as HTML
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 1.2ms | Allocations: 672)
+  Rendered sessions/_omniauth.html.erb (Duration: 0.3ms | Allocations: 137)
+  Rendered users/new.html.erb within layouts/application (Duration: 4.5ms | Allocations: 1879)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mProducer Load (0.1ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+Completed 200 OK in 17ms (Views: 16.0ms | ActiveRecord: 0.2ms | Allocations: 9737)
+
+
