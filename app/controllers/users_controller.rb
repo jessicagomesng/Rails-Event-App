@@ -33,10 +33,10 @@ class UsersController < ApplicationController
     end 
 
     def show 
-        if !user_has_permission || !admin || !@user
-            flash[:message] = "Sorry. You do not have permission to access this page!"
-            account_redirect 
-        end 
+        # if !user_has_permission || !admin || !@user
+        #     flash[:message] = "Sorry. You do not have permission to access this page!"
+        #     account_redirect 
+        # end 
     end
 
     def edit 
@@ -58,6 +58,9 @@ class UsersController < ApplicationController
     end 
 
     def destroy 
+        @user.destroy
+        flash[:message] = "User successfully deleted."
+        redirect_to root_path
     end 
 
     private 
