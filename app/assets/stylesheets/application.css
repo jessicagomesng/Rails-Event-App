@@ -48,3 +48,58 @@
     width: 25%;
     text-align: center;
 }
+
+body {
+    padding-top: 40px;
+    padding-bottom: 30px;
+    background-color: #F7F3E0;
+}
+  
+a {
+    font-family: 'montserratlight', arial, sans-serif;
+    font-size: 15px;
+    text-transform: uppercase;
+    color: gray;
+  }
+  
+  a:hover {
+    color: black;
+    font-family: 'times', serif;
+    font-style: italic;
+    font-size: 18px;
+    text-transform: lowercase;
+    cursor: crosshair;
+  }
+
+  h1 {
+    font-family: "caslon", Times, serif;
+    font-size: 90px;
+    letter-spacing: -4px;
+  }
+  
+  h2, h3 {
+      font-family: "caslon", Times, serif;
+      text-align: center;
+  }
+  
+  h2 {
+    font-size: 40px;
+  }
+  
+  h4 {
+    font-family: "caslon", Times, serif;
+    font-size: 20px;
+    padding-bottom: 20px;
+  }
+  
+  h5 {
+    font-family: 'montserratbold', arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  h6 {
+    font-family: 'montserratlight', arial, sans-serif;
+    font-size: 16px;
+    font-style: italic;
+  }

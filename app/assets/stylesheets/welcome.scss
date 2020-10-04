@@ -12,3 +12,34 @@
 a.home-screen-link:hover {
     font-size: 40px;
 }
+
+.grid-container {
+    position: relative;
+    top: 40px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 10px;
+    padding: 30px;
+  }
+  
+  .grid-container > div {
+    text-align: center;
+    font-size: 30px;
+  }
+  
+  .grid-container .item {
+    background-color: #F9F9F6;
+    /* border: 0.5px solid black; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 130px;
+  }
+  
+  .grid-container #maintitle {
+    grid-column: 1 / span 3;
+    text-align: right;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-right: 80px;
+  }
