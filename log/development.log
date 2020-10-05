@@ -5342,3 +5342,109 @@ Processing by WelcomeController#home as HTML
 Completed 200 OK in 11ms (Views: 9.6ms | ActiveRecord: 0.0ms | Allocations: 6049)
 
 
+Started GET "/users/new" for ::1 at 2020-10-05 16:43:46 +0100
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  [1m[36mProducer Load (0.5ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 5.2ms | Allocations: 1394)
+  Rendered sessions/_omniauth.html.erb (Duration: 0.8ms | Allocations: 147)
+  Rendered users/new.html.erb within layouts/application (Duration: 16.0ms | Allocations: 3385)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  [1m[36mCACHE Producer Load (0.0ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+Completed 200 OK in 495ms (Views: 403.6ms | ActiveRecord: 1.8ms | Allocations: 32671)
+
+
+Started GET "/login" for ::1 at 2020-10-05 16:45:41 +0100
+Processing by SessionsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  [1m[36mProducer Load (0.2ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/_omniauth.html.erb (Duration: 0.1ms | Allocations: 27)
+  Rendered sessions/new.html.erb within layouts/application (Duration: 4.4ms | Allocations: 709)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  [1m[36mCACHE Producer Load (0.0ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+Completed 200 OK in 45ms (Views: 38.7ms | ActiveRecord: 0.4ms | Allocations: 9427)
+
+
+Started GET "/producers/new" for ::1 at 2020-10-05 16:46:23 +0100
+Processing by ProducersController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  [1m[36mProducer Load (0.1ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  Rendering producers/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 0.8ms | Allocations: 351)
+  Rendered producers/new.html.erb within layouts/application (Duration: 3.1ms | Allocations: 988)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  [1m[36mCACHE Producer Load (0.0ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+Completed 200 OK in 39ms (Views: 21.7ms | ActiveRecord: 0.8ms | Allocations: 14409)
+
+
+Started GET "/producers/new" for ::1 at 2020-10-05 16:47:05 +0100
+Processing by ProducersController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  [1m[36mProducer Load (0.2ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  Rendering producers/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 1.6ms | Allocations: 672)
+  Rendered producers/new.html.erb within layouts/application (Duration: 3.2ms | Allocations: 1390)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  [1m[36mCACHE Producer Load (0.0ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+Completed 200 OK in 28ms (Views: 21.8ms | ActiveRecord: 0.4ms | Allocations: 10655)
+
+
+Started GET "/login" for ::1 at 2020-10-05 16:49:14 +0100
+Processing by SessionsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  [1m[36mProducer Load (0.2ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/_omniauth.html.erb (Duration: 0.9ms | Allocations: 138)
+  Rendered sessions/new.html.erb within layouts/application (Duration: 3.2ms | Allocations: 941)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  [1m[36mCACHE Producer Load (0.0ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+Completed 200 OK in 31ms (Views: 26.0ms | ActiveRecord: 0.4ms | Allocations: 9636)
+
+
+Started GET "/users/new" for ::1 at 2020-10-05 16:53:17 +0100
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  [1m[36mProducer Load (0.2ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 0.6ms | Allocations: 347)
+  Rendered sessions/_omniauth.html.erb (Duration: 0.1ms | Allocations: 26)
+  Rendered users/new.html.erb within layouts/application (Duration: 3.4ms | Allocations: 1165)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  [1m[36mCACHE Producer Load (0.0ms)[0m  [1m[34mSELECT "producers".* FROM "producers" WHERE "producers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+Completed 200 OK in 26ms (Views: 21.0ms | ActiveRecord: 0.3ms | Allocations: 9876)
+
+
