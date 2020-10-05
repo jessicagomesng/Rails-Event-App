@@ -152,7 +152,7 @@ a.button {
 }
 
 div.index {
-  background-color: #fff;
+  background-color: #F9F9F6;
   width: 700px;
   margin: auto;
   padding-left: 50px;
@@ -174,7 +174,7 @@ a#create-new {
 }
 
 div.show {
-  background-color: #fff;
+  background-color: #F9F9F6;
   width: 700px;
   margin: auto;
   padding-left: 50px;
@@ -225,4 +225,13 @@ p.answer {
   letter-spacing: 1px;
   text-transform: uppercase;
   padding: 5px;
+}
+
+#flash {
+  font-family: 'montserratlight', arial, sans-serif;
+  font-size: 13px;
+  padding: 4px;
+  text-align: center;
+  font-style: italic;
+  background-color: #F9F9F6;
 }
