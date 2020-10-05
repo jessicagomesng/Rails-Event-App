@@ -79,7 +79,6 @@ class UsersController < ApplicationController
     end
 
     def user_has_permission
-        #do i need this in producers? i can move it if so
         @user == current_user
     end 
 end
