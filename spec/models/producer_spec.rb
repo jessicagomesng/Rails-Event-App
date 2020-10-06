@@ -114,24 +114,8 @@ RSpec.describe Producer, :type => :model do
     expect(producer.locations.first).to eq(location)
   end 
 
-#   it "has a method 'age' that correctly returns the user's age according to their birthday" do 
-#     expect(user.age).to eq(30)
-#   end 
-
-#   it "has a method 'events_attending' that returns an array of all of the user's attending events" do 
-#     Rsvp.create(:user_id => user.id, :event_id => event.id, :status => "attending")
-#     expect(user.events_attending.count).to eq(1)
-#     expect(user.events_attending.first).to eq(event)
-#   end 
-
-#   it "has a method 'events_waiting_for' that returns an array of all of the user's events they are waiting for" do
-#     Rsvp.create(:user_id => user.id, :event_id => event_two.id, :status => "waiting")
-#     expect(user.events_waiting_for.count).to eq(1)
-#     expect(user.events_waiting_for.first).to eq(event_two)
-#   end
-
-#   it "has a method 'full_name' that returns the user's full name" do 
-#     expect(user.full_name).to eq("Maggie Peluski")
-#   end 
+  it "has a method 'full_name' that returns the producer's full name" do 
+    expect(producer.full_name).to eq("Jeffrey Seller")
+  end 
 
 end
