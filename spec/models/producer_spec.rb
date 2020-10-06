@@ -83,18 +83,36 @@ RSpec.describe Producer, :type => :model do
     expect(Producer.new(:first_name => "Scott", :last_name => "Rudin", :email => "mpeluski@peluski.com", :password => "password", :password_confirmation => "password")).not_to be_valid
   end
 
-#   it "has many rsvps" do
-#     first_rsvp = Rsvp.create(:user_id => user.id, :event_id => event.id, :status => "attending")
-#     second_rsvp = Rsvp.create(:user_id => user.id, :event_id => event_two.id, :status => "waiting")
-#     expect(user.rsvps.first).to eq(first_rsvp)
-#     expect(user.rsvps.last).to eq(second_rsvp)
-#   end
+  it "has many events" do 
+    event_one = Event.create(
+        :producer_id => producer.id, 
+        :location_id => location.id,
+        :name => "Party of a Lifetime",
+        :start_date => DateTime.new(2020, 12, 25),
+        :end_date => DateTime.new(2020, 12, 25, 23, 59),
+        :price => 50.00,
+        :maximum_capacity => 1000,
+        :minimum_age => 5
+    )
+    event_two = Event.create(
+            :producer_id => producer.id, 
+            :location_id => location.id,
+            :name => "New Year's Bash",
+            :start_date => DateTime.new(2021, 1, 1),
+            :end_date => DateTime.new(2021, 1, 1, 8),
+            :price => 300.00,
+            :maximum_capacity => 0,
+            :minimum_age => 21
+        )
+    
+    expect(producer.events.first).to eq(event_one)
+    expect(producer.events.last).to eq(event_two)
+  end 
 
-#   it "has many events through rsvps" do
-#     user.events << [event, event_two]
-#     expect(user.events.first).to eq(event)
-#     expect(user.events.last).to eq(event_two)
-#   end
+  it "has many locations through events" do 
+    producer.events << [event, event_two]
+    expect(producer.locations.first).to eq(location)
+  end 
 
 #   it "has a method 'age' that correctly returns the user's age according to their birthday" do 
 #     expect(user.age).to eq(30)
