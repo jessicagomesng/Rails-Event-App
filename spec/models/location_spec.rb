@@ -22,6 +22,16 @@ RSpec.describe Location, :type => :model do
     )
   }
 
+  let(:producer_two) {
+    Producer.create(
+        first_name: "Scott",
+        last_name: "Rudin",
+        password: "password",
+        password_confirmation: "password", 
+        email: "srudin@gmail.com"
+    )
+  }
+
   let(:location) {
     Location.create(
       :name => "North Pole",
@@ -45,7 +55,7 @@ RSpec.describe Location, :type => :model do
 
     let(:event_two) {
         event = Event.create(
-            :producer_id => producer.id, 
+            :producer_id => producer_two.id, 
             :location_id => location.id,
             :name => "New Year's Bash",
             :start_date => DateTime.new(2021, 1, 1),
@@ -74,19 +84,20 @@ RSpec.describe Location, :type => :model do
       )).not_to be_valid
   end 
 
-  it "is not valid without a password" do
-    expect(Producer.new(:first_name => "Jeffrey", :last_name => "Seller", :email => "jseller@gmail.com", :password_confirmation => "password")).not_to be_valid
+  it "is not valid without a maximum capacity" do
+    expect(Location.create(
+        :name => "North Pole",
+        :address => "Santa's Workshop, Antarctica",
+      )).not_to be_valid
   end
 
-  it "is not valid without an email" do
-    expect(Producer.new(:first_name => "Jeffrey", :last_name => "Seller", :password => "password", :password_confirmation => "password")).not_to be_valid
-  end
-
-  it "is not valid without a unique email" do
-    Producer.create(first_name: "Jeffrey", last_name: "Seller", password: "password", password_confirmation: "password", email: "jseller@gmail.com")
-    User.create(first_name: "Maggie", last_name: "Peluski", password: "heythere", password_confirmation: "heythere", email: "mpeluski@peluski.com", birthday: Date.new(1990, 10, 5))
-    expect(Producer.new(:first_name => "Scott", :last_name => "Rudin", :email => "jseller@gmail.com", :password => "password", :password_confirmation => "password")).not_to be_valid
-    expect(Producer.new(:first_name => "Scott", :last_name => "Rudin", :email => "mpeluski@peluski.com", :password => "password", :password_confirmation => "password")).not_to be_valid
+  it "is not valid without a unique address" do
+    Location.create(
+        :name => "North Pole",
+        :address => "Santa's Workshop, Antarctica",
+        :maximum_capacity => 1500
+      )    
+    expect(Location.new(:name => "Elf Village", :address => "Santa's Workshop, Antarctica", :maximum_capacity => 1000)).not_to be_valid
   end
 
   it "has many events" do 
@@ -111,17 +122,19 @@ RSpec.describe Location, :type => :model do
             :minimum_age => 21
         )
     
-    expect(producer.events.first).to eq(event_one)
-    expect(producer.events.last).to eq(event_two)
+    expect(location.events.first).to eq(event_one)
+    expect(location.events.last).to eq(event_two)
   end 
 
-  it "has many locations through events" do 
-    producer.events << [event, event_two]
-    expect(producer.locations.first).to eq(location)
+  it "has many users through events" do 
+    event.users << user 
+    location.events << event
+    expect(location.users.first).to eq(user)
   end 
 
-  it "has a method 'full_name' that returns the producer's full name" do 
-    expect(producer.full_name).to eq("Jeffrey Seller")
+  it "has many producers through events" do 
+    location.events << [event, event_two]
+    expect(location.producers.first).to eq(producer)
+    expect(location.producers.last).to eq(producer_two)
   end 
-
 end
