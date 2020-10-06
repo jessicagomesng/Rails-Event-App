@@ -1,6 +1,6 @@
 <p class="label">You are already <%= @rsvp.status %> this event.<br>
 <% if @rsvp.status ==  "waiting" %>
-<p class="label">You are number <%= @rsvp.user.place_in_line(@rsvp.event) %> for this event.</p>
+    <p class="label">You are number <%= @rsvp.user.place_in_line(@rsvp.event) %> on the waitlist.</p>
 <% end %>
 
     Would you like to remove your RSVP/waitlist request?</p>

@@ -12,6 +12,17 @@ RSpec.describe Event, :type => :model do
     )
   }
 
+  let(:user_two) {
+    User.create(
+        first_name: "Peety", 
+        last_name: "the Pup",
+        password: "greatest",
+        password_confirmation: "greatest",
+        email: "peet@peter.com",
+        birthday: Date.new(2000, 12, 17)
+    )
+  }
+
   let(:producer) {
     Producer.create(
         first_name: "Jeffrey",
@@ -262,56 +273,54 @@ RSpec.describe Event, :type => :model do
             :status => "waiting"
         )
         expect(event_two.waiting_users.count).to eq(1)
-        expect(event_one.waiting_users.first).to eq(user)
+        expect(event_two.waiting_users.first).to eq(user)
     end
 
     it "has a method 'attendance count' that counts all attending users" do 
+        rsvp_one = Rsvp.create(
+            :event_id => event_one.id,
+            :user_id => user.id, 
+            :status => "attending"
+        )
+        expect(event_one.attendance_count).to eq(1)
     end 
 
     it "has a method 'waiting count' that counts all waiting users" do 
+        rsvp_two = Rsvp.create(
+            :event_id => event_two.id,
+            :user_id => user.id, 
+            :status => "waiting"
+        )
+        expect(event_two.waiting_count).to eq(1)
     end 
     
+    it "has a method 'full?' that returns true/false if the event is full/not full" do 
+        expect(event_one.full?).to be_falsey
+        expect(event_two.full?).to be_truthy
+    end 
 
-#   it "is not valid without a unique email" do
-#     Producer.create(first_name: "Jeffrey", last_name: "Seller", password: "password", password_confirmation: "password", email: "jseller@gmail.com")
-#     User.create(first_name: "Maggie", last_name: "Peluski", password: "heythere", password_confirmation: "heythere", email: "mpeluski@peluski.com", birthday: Date.new(1990, 10, 5))
-#     expect(Producer.new(:first_name => "Scott", :last_name => "Rudin", :email => "jseller@gmail.com", :password => "password", :password_confirmation => "password")).not_to be_valid
-#     expect(Producer.new(:first_name => "Scott", :last_name => "Rudin", :email => "mpeluski@peluski.com", :password => "password", :password_confirmation => "password")).not_to be_valid
-#   end
+    it "has many rsvps" do
+        first_rsvp = Rsvp.create(:user_id => user.id, :event_id => event_one.id, :status => "attending")
+        second_rsvp = Rsvp.create(:user_id => user_two.id, :event_id => event_one.id, :status => "attending")
+        expect(event_one.rsvps.count).to eq(2)
+        expect(event_one.rsvps.first).to eq(first_rsvp)
+        expect(event_one.rsvps.last).to eq(second_rsvp)
+      end
 
-#   it "has many events" do 
-#     event_one = Event.create(
-#         :producer_id => producer.id, 
-#         :location_id => location.id,
-#         :name => "Party of a Lifetime",
-#         :start_date => DateTime.new(2020, 12, 25),
-#         :end_date => DateTime.new(2020, 12, 25, 23, 59),
-#         :price => 50.00,
-#         :maximum_capacity => 1000,
-#         :minimum_age => 5
-#     )
-#     event_two = Event.create(
-#             :producer_id => producer.id, 
-#             :location_id => location.id,
-#             :name => "New Year's Bash",
-#             :start_date => DateTime.new(2021, 1, 1),
-#             :end_date => DateTime.new(2021, 1, 1, 8),
-#             :price => 300.00,
-#             :maximum_capacity => 0,
-#             :minimum_age => 21
-#         )
+    it "has many users through rsvps" do 
+        first_rsvp = Rsvp.create(:user_id => user.id, :event_id => event_one.id, :status => "attending")
+        second_rsvp = Rsvp.create(:user_id => user_two.id, :event_id => event_one.id, :status => "attending")
+
+        expect(event_one.users.count).to eq(2)
+        expect(event_one.users.first).to eq(user)
+        expect(event_one.users.last).to eq(user_two)
+    end 
+
+    it "belongs to one producer" do 
+        expect(event_one.producer).to eq(producer)
+      end 
     
-#     expect(producer.events.first).to eq(event_one)
-#     expect(producer.events.last).to eq(event_two)
-#   end 
-
-#   it "has many locations through events" do 
-#     producer.events << [event, event_two]
-#     expect(producer.locations.first).to eq(location)
-#   end 
-
-#   it "has a method 'full_name' that returns the producer's full name" do 
-#     expect(producer.full_name).to eq("Jeffrey Seller")
-#   end 
-
+      it "belongs to one location" do 
+        expect(event_one.location).to eq(location)
+      end 
 end

@@ -121,4 +121,9 @@ RSpec.describe User, :type => :model do
     expect(user.full_name).to eq("Maggie Peluski")
   end 
 
+  it "has a method 'place_in_line' that enables him/her to see his/her place in line for an event" do 
+    Rsvp.create(:user_id => user.id, :event_id => event_two.id, :status => "waiting")
+    expect(user.place_in_line(event_two)).to eq(1)
+  end 
+
 end
