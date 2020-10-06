@@ -74,6 +74,8 @@ class UsersController < ApplicationController
         params.require(:user).permit(:filter, :first_name, :last_name, :birthday, :email, :password, :password_confirmation)
     end 
 
+    #do I need to add edit params so birthday & email cannot be altered?
+
     def set_user 
         @user = User.find_by_id(params[:id])
     end

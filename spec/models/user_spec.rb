@@ -81,6 +81,13 @@ RSpec.describe User, :type => :model do
     expect(User.new(:first_name => "Maggie", :last_name => "Peluski", :password => "heythere", :password_confirmation => "heythere", :email => "mpeluski@peluski.com")).not_to be_valid
   end
 
+  it "is not valid without a unique email" do
+    Producer.create(first_name: "Jeffrey", last_name: "Seller", password: "password", password_confirmation: "password", email: "jseller@gmail.com")
+    User.create(first_name: "Maggie", last_name: "Peluski", password: "heythere", password_confirmation: "heythere", email: "mpeluski@peluski.com", birthday: Date.new(1990, 10, 5))
+    expect(User.new(:first_name => "Peety", :last_name => "The Pup", :password => "cutiepie", :password_confirmation => "cutiepie", :email => "jseller@gmail.com", :birthday => Date.new(1990, 10, 5))).not_to be_valid
+    expect(User.new(:first_name => "Peety", :last_name => "The Pup", :password => "cutiepie", :password_confirmation => "cutiepie", :email => "mpeluski@peluski.com", :birthday => Date.new(1990, 10, 5))).not_to be_valid
+  end
+
   it "has many rsvps" do
     first_rsvp = Rsvp.create(:user_id => user.id, :event_id => event.id, :status => "attending")
     second_rsvp = Rsvp.create(:user_id => user.id, :event_id => event_two.id, :status => "waiting")
@@ -109,5 +116,9 @@ RSpec.describe User, :type => :model do
     expect(user.events_waiting_for.count).to eq(1)
     expect(user.events_waiting_for.first).to eq(event_two)
   end
+
+  it "has a method 'full_name' that returns the user's full name" do 
+    expect(user.full_name).to eq("Maggie Peluski")
+  end 
 
 end
