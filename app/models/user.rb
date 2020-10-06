@@ -31,6 +31,10 @@ class User < ApplicationRecord
         self.rsvps.waiting.collect { |rsvp| Event.find_by_id(rsvp.event_id) }
     end 
 
+    def place_in_line(event)
+        event.waiting_users.index { |waiting_user| waiting_user == self } + 1
+    end 
+
     def self.from_omniauth(auth)
         where(email: auth["info"]["email"]).first_or_create do |user|
             user.id = auth["uid"]
