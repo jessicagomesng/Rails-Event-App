@@ -14,7 +14,7 @@
         <%= f.hidden_field :user_id %>
         <% if @event.full? %>
             <p class="label">Sorry, this event is full! Would you like to join the waiting list?<br>
-            There are currently @event.waiting_count users in line.</p>
+            There are currently <%= @event.waiting_count %> users in line.</p>
         <% else %>
             <p class="label">Would you like to attend this event?</p>
         <% end %>

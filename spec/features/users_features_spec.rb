@@ -194,6 +194,12 @@ describe 'Feature Test: Create Rsvp', :type => :feature do
         click_link('All Events')
     end
 
+    it "links from the events index page to the events' show pages" do
+        click_link('All Events')
+        click_link("#{@event_one.name}")
+        expect(current_path).to eq("/events/#{@event_one.id}")
+    end
+
     it "has a link from the account page to all of the user's events they've RSVP'd to" do 
         expect(page).to have_content("My Events")
         visit("/events/#{@event_one.id}")
@@ -208,79 +214,66 @@ describe 'Feature Test: Create Rsvp', :type => :feature do
         expect(page).to_not have_content("edit")
         expect(page).to_not have_content("delete")
     end
+
+    it "has a button on the event show page to allow a user to RSVP" do 
+        click_link('All Events')
+        click_link("#{@event_one.name}")
+        expect(current_path).to eq("/events/#{@event_one.id}")
+        expect(page).to have_content("Would you like to attend this event?")
+        expect(page).to have_button("Yes")
+    end 
+
+    it "has a button on the event show page to allow a user to join the wait list if the event is full" do 
+        click_link('All Events')
+        click_link("#{@event_two.name}")
+        expect(current_path).to eq("/events/#{@event_two.id}")
+        expect(page).to have_content("Sorry, this event is full! Would you like to join the waiting list?")
+        expect(page).to have_button("Yes")
+    end 
+
+    it "tells the user the waiting list size if the event is full" do 
+        click_link('All Events')
+        click_link("#{@event_two.name}")
+        expect(current_path).to eq("/events/#{@event_two.id}")
+        expect(page).to have_content("There are currently #{@event_two.waiting_count} users in line.")
+    end 
+
+    it "clicking on 'Yes' redirects to the user's events page" do
+        click_link('All Events')
+        click_link("#{@event_one.name}")
+        click_button("Yes")
+        expect(current_path).to eq("/users/#{@user.id}/events")
+    end
+
+    #you can filter the user's events page by attending/waiting
+
+    it "when the user is old enough and the RSVP is successful, it displays a success message" do
+        click_link('All Events')
+        click_link("#{@event_one.name}")
+        click_button("Yes")
+        expect(page).to have_content("RSVP successful! You are attending this event.")
+        click_link('All Events')
+        click_link("#{@event_two.name}")
+        click_button("Yes")
+        expect(page).to have_content("You have successfully joined the waiting list.")
+    end
+
+    it "tells the user his/her place in line when they successfully join a waitlist" do
+        click_link('All Events')
+        click_link("#{@event_two.name}")
+        click_button("Yes")
+        expect(page).to have_content("You have successfully joined the waiting list. You are number #{@user.place_in_line(@event_two)} in line.")
+    end
+
+    it "when the user is too young, clicking on 'Yes' displays a sorry message" do
+        @user.update(:birthday => Date.new(2020, 1, 1))
+        click_link('All Events')
+        click_link("#{@event_two.name}")
+        click_button("Yes")
+        expect(page).to have_content("User must be at least #{@event_two.minimum_age} years old to attend this event.")
+    end
 end  
 
-
-
-#   it 'has titles of the rides on the attractions index page' do
-#     click_link('See attractions')
-#     expect(page).to have_content("#{@ferriswheel.name}")
-#     expect(page).to have_content("#{@rollercoaster.name}")
-#   end
-
-#   it "has links on the attractions index page to the attractions' show pages" do
-#     click_link('See attractions')
-#     expect(page).to have_content("Go on #{@ferriswheel.name}")
-#     expect(page).to have_content("Go on #{@rollercoaster.name}")
-#   end
-
-#   it "links from the attractions index page to the attractions' show pages" do
-#     click_link('See attractions')
-#     click_link("Go on #{@ferriswheel.name}")
-#     expect(current_path).to eq("/attractions/2")
-#   end
-
-#   it 'prevents users from editing/deleting a ride on the show page' do
-#     click_link('See attractions')
-#     click_link("Go on #{@ferriswheel.name}")
-#     expect(page).to_not have_content("edit")
-#     expect(page).to_not have_content("delete")
-#   end
-
-#   it "has a button from the attraction show page to go on the ride" do
-#     click_link('See attractions')
-#     click_link("Go on #{@ferriswheel.name}")
-#     expect(current_path).to eq("/attractions/2")
-#     expect(page).to have_button("Go on this ride")
-#   end
-
-#   it "clicking on 'Go on ride' redirects to user show page" do
-#     click_link('See attractions')
-#     click_link("Go on #{@ferriswheel.name}")
-#     click_button("Go on this ride")
-#     expect(current_path).to eq("/users/1")
-#   end
-
-#   it "clicking on 'Go on ride' updates the users ticket number" do
-#     click_link('See attractions')
-#     click_link("Go on #{@ferriswheel.name}")
-#     click_button("Go on this ride")
-#     expect(page).to have_content("Tickets: 13")
-#   end
-
-#   it "clicking on 'Go on ride' updates the users mood" do
-#     click_link('See attractions')
-#     click_link("Go on #{@teacups.name}")
-#     click_button("Go on this ride")
-#     expect(page).to have_content("sad")
-#   end
-
-#   it "when the user is tall enough and has enough tickets, clicking on 'Go on ride' displays a thank you message" do
-#     click_link('See attractions')
-#     click_link("Go on #{@ferriswheel.name}")
-#     click_button("Go on this ride")
-#     expect(page).to have_content("Thanks for riding the #{@ferriswheel.name}!")
-#   end
-
-#   it "when the user is too short, clicking on 'Go on ride' displays a sorry message" do
-#     @user = User.find_by(:name => "Amy Poehler")
-#     @user.update(:height => 10)
-#     click_link('See attractions')
-#     click_link("Go on #{@teacups.name}")
-#     click_button("Go on this ride")
-#     expect(page).to have_content("You are not tall enough to ride the #{@teacups.name}")
-#     expect(page).to have_content("happy")
-#   end
 
 #   it "when the user doesn't have enough tickets, clicking on 'Go on ride' displays a sorry message" do
 #     @user = User.find_by(:name => "Amy Poehler")
