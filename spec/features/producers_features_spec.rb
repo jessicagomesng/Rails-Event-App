@@ -1,11 +1,6 @@
 require_relative "../rails_helper.rb"
 describe 'Feature Test: Producer Signup', :type => :feature do
 
-# it successfully signs up as a user 
-# it on sign up, successfully adds a session hash
-# it successfully logs in as a user 
-# it on log in, successfully adds a session hash
-#it authenticates user/producer 
 #can only see their own show page 
 #welcome#account shows appropriate user info 
 #user and producer can only ecit their own profiles
@@ -102,7 +97,7 @@ describe 'Feature Test: Producer Signout', :type => :feature do
         expect(page.get_rack_session).to_not include("producer_id")
     end
 
-  end 
+end 
 
 
     

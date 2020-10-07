@@ -105,100 +105,112 @@ end
         click_link("Log Out")
         expect(page.get_rack_session).to_not include("user_id")
     end
+end 
 
-  end 
+describe 'Feature Test: User Show Page', :type => :feature do
+    it 'lets a user view his/her own show page' do
+      create_standard_user
+      visit '/login'
+      user_login
+      visit '/account'
+      click_on 'View Profile'
+      expect(page).to have_content("Maggie Peluski")
+    end
 
-#   it 'prevents user from viewing user show page and redirects to home page if not logged in' do
-#     create_standard_user
-#     visit '/users/1'
-#     expect(current_path).to eq('/')
-#     expect(page).to have_content("Sign Up")
-#   end
+    it "does not let a user view anyone else's show page" do
+        create_standard_user
+        create_underage_user
+        visit '/login'
+        user_login
+        visit '/users/2'
+        expect(current_path).to eq("/account")
+    end
+end
 
-#   it 'successfully signs up as admin' do
-#     visit '/users/new'
-#     expect(current_path).to eq('/users/new')
-#     # admin_signup method is defined in login_helper.rb
-#     admin_signup
-#     expect(current_path).to eq('/users/1')
-#     expect(page).to have_content("Walt Disney")
-#     expect(page).to have_content("ADMIN")
-#   end
+describe 'Feature Test: User Index Page', :type => :feature do
+    it "does not let a user view the users index page" do
+        create_standard_user
+        visit '/login'
+        user_login
+        visit '/users'
+        expect(current_path).to eq("/account")
+    end
+end
 
-#   it "on sign up for admin, successfully adds a session hash" do
-#     visit '/users/new'
-#     # admin_signup method is defined in login_helper.rb
-#     admin_signup
-#     expect(page.get_rack_session_key('user_id')).to_not be_nil
-#   end
+describe 'Feature Test: Create Rsvp', :type => :feature do
 
-#   it 'successfully logs in as admin' do
-#     create_standard_and_admin_user
-#     visit '/signin'
-#     expect(current_path).to eq('/signin')
-#     # admin_login method is defined in login_helper.rb
-#     admin_login
-#     expect(current_path).to eq('/users/2')
-#     expect(page).to have_content("Walt Disney")
-#     expect(page).to have_content("ADMIN")
-#   end
+    before :each do
+        @producer = Producer.create(
+            first_name: "Jeffrey",
+            last_name: "Seller",
+            password: "password",
+            password_confirmation: "password", 
+            email: "jseller@gmail.com"
+        )
 
-#   it "on log in, successfully adds a session hash to admins" do
-#     create_standard_and_admin_user
-#     visit '/signin'
-#     # admin_login method is defined in login_helper.rb
-#     admin_login
-#     expect(page.get_rack_session_key('user_id')).to_not be_nil
-#   end
+        @location = Location.create(
+            :name => "North Pole",
+            :address => "Santa's Workshop, Antarctica",
+            :maximum_capacity => 1500
+          )
 
-# end
+        @event_one = Event.create(
+            :producer_id => @producer.id, 
+            :location_id => @location.id,
+            :name => "Party of a Lifetime",
+            :start_date => DateTime.new(2020, 12, 25),
+            :end_date => DateTime.new(2020, 12, 25, 23, 59),
+            :price => 50.00,
+            :maximum_capacity => 1000,
+            :minimum_age => 5
+        )
+
+        @event_two = Event.create(
+            :producer_id => @producer.id, 
+            :location_id => @location.id,
+            :name => "New Year's Bash",
+            :start_date => DateTime.new(2021, 1, 1),
+            :end_date => DateTime.new(2021, 1, 1, 8),
+            :price => 300.00,
+            :maximum_capacity => 0,
+            :minimum_age => 21
+        )
+
+        @user = User.create(
+            first_name: "Maggie", 
+            last_name: "Peluski",
+            password: "heythere",
+            password_confirmation: "heythere",
+            email: "mpeluski@peluski.com",
+            birthday: Date.new(1990, 10, 5)
+        )
+
+        visit '/login'
+        user_login
+    end
+
+    it 'has a link from the account page to the events index page' do 
+        expect(page).to have_content("All Events")
+        click_link('All Events')
+    end
+
+    it "has a link from the account page to all of the user's events they've RSVP'd to" do 
+        expect(page).to have_content("My Events")
+        visit("/events/#{@event_one.id}")
+        click_button 'Yes'
+        click_link("My Events")
+        expect(page).to have_content("Party of a Lifetime")
+    end 
+
+    it 'prevents users from editing/deleting/adding RSVPs on the index page' do
+        click_link('My Events')
+        expect(current_path).to eq("/users/#{@user.id}/events")
+        expect(page).to_not have_content("edit")
+        expect(page).to_not have_content("delete")
+    end
+end  
 
 
-# describe 'Feature Test: Go on a Ride', :type => :feature do
-
-#   before :each do
-#     @rollercoaster = Attraction.create(
-#       :name => "Roller Coaster",
-#       :tickets => 5,
-#       :nausea_rating => 2,
-#       :happiness_rating => 4,
-#       :min_height => 32
-#     )
-#     @ferriswheel = Attraction.create(
-#       :name => "Ferris Wheel",
-#       :tickets => 2,
-#       :nausea_rating => 2,
-#       :happiness_rating => 1,
-#       :min_height => 28
-#     )
-#     @teacups = Attraction.create(
-#       :name => "Teacups",
-#       :tickets => 1,
-#       :nausea_rating => 5,
-#       :happiness_rating => 1,
-#       :min_height => 28
-#     )
-#     visit '/users/new'
-#     user_signup
-#   end
-
-#   it 'has a link from the user show page to the attractions index page' do
-#     expect(page).to have_content("See attractions")
-#     click_link('See attractions')
-#   end
-
-#   it 'links from the user show page to the attractions index page' do
-#     click_link('See attractions')
-#     expect(current_path).to eq('/attractions')
-#   end
-
-#   it 'prevents users from editing/deleting/adding rides on the index page' do
-#     click_link('See attractions')
-#     expect(current_path).to eq('/attractions')
-#     expect(page).to_not have_content("edit")
-#     expect(page).to_not have_content("delete")
-#     expect(page).to_not have_content("new attraction")
-#   end
 
 #   it 'has titles of the rides on the attractions index page' do
 #     click_link('See attractions')

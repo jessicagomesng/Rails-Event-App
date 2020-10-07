@@ -6,9 +6,9 @@
     <h5>Events</h5>
         <% if admin %>
         <li><%= link_to "Create a New Event", new_event_path %></li>
-        <li><%= link_to "My Events", producer_events_path(current_user) %></li>
+        <li><%= link_to "View My Events", producer_events_path(current_user) %></li>
         <% else %>
-        <li><%= link_to "My Events", user_events_path(current_user) %></li>
+        <li><%= link_to "View My Events", user_events_path(current_user) %></li>
         <% end %>
     <h5>Location</h5>
         <% if admin %>
