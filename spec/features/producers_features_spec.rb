@@ -37,7 +37,7 @@ describe 'Feature Test: Producer Signup', :type => :feature do
   it 'successfully logs in as a producer' do
     
     # user_login method is defined in login_helper.rb
-    create_standard_user
+    create_standard_producer
     visit '/login'
     expect(current_path).to eq('/login')
     producer_login
@@ -54,6 +54,13 @@ describe 'Feature Test: Producer Signup', :type => :feature do
     click_button('Sign In')
     expect(current_path).to eq('/login')
   end 
+
+    it 'prevents user from viewing account page and redirects to home page if not logged in' do
+        create_standard_user
+        visit '/account'
+        expect(current_path).to eq('/')
+        expect(page).to have_content("Sign Up")
+  end
 
 #   it "on log in, successfully adds a session hash" do
 #     create_standard_user
@@ -110,12 +117,13 @@ describe 'Feature Test: Producer Signup', :type => :feature do
 
 # describe 'Feature Test: User Signout', :type => :feature do
 
-#   it 'has a link to log out from the users/show page' do
-#     visit '/users/new'
-#     # user_signup method is defined in login_helper.rb
-#     user_signup
+#   it 'has a link to log out from the account page' do
+#     create_standard_user
+#     user_login
+#     visit '/account'
 #     expect(page).to have_content("Log Out")
 #   end
+# end 
 
 #   it 'redirects to home page after logging out' do
 #     visit '/users/new'

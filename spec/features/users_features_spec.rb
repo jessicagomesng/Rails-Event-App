@@ -31,19 +31,27 @@ describe 'Feature Test: User Signup', :type => :feature do
     visit '/users/new'
     # user_signup method is defined in login_helper.rb
     user_signup
-    # expect(page.get_rack_session_key('user_id')).to_not be_nil
+    expect(page.get_rack_session_key('user_id')).to_not be_nil
   end
 
-  it 'successfully logs in as a user' do
-    
-    # user_login method is defined in login_helper.rb
-    create_standard_user
-    visit '/login'
-    expect(current_path).to eq('/login')
-    user_login
-    expect(current_path).to eq('/account')
-    expect(page).to have_text("Welcome to the Event Booker, Maggie Peluski!")
-    expect(page).to have_content("What would you like to do?")
+    it 'successfully logs in as a user' do
+        
+        # user_login method is defined in login_helper.rb
+        create_standard_user
+        visit '/login'
+        expect(current_path).to eq('/login')
+        user_login
+        expect(current_path).to eq('/account')
+        expect(page).to have_text("Welcome to the Event Booker, Maggie Peluski!")
+        expect(page).to have_content("What would you like to do?")
+    end
+
+    it "on log in, successfully adds a session hash" do
+        create_standard_user
+        visit '/login'
+        # user_login method is defined in login_helper.rb
+        user_login
+        expect(page.get_rack_session_key('user_id')).to_not be_nil
   end
 
   it 'does not authenticate a user with the wrong password' do 
@@ -55,13 +63,35 @@ describe 'Feature Test: User Signup', :type => :feature do
     expect(current_path).to eq('/login')
   end 
 
-#   it "on log in, successfully adds a session hash" do
-#     create_standard_user
-#     visit '/signin'
-#     # user_login method is defined in login_helper.rb
-#     user_login
-#     expect(page.get_rack_session_key('user_id')).to_not be_nil
-#   end
+  describe 'Feature Test: User Signout', :type => :feature do
+
+    it 'has a link to log out from the account page' do
+      create_standard_user
+      visit '/login'
+      user_login
+      visit '/account'
+      expect(page).to have_content("Log Out")
+    end
+
+    it 'redirects to home page after logging out' do
+        create_standard_user
+        visit '/login'
+        # user_signup method is defined in login_helper.rb
+        user_login
+        click_link("Log Out")
+        expect(current_path).to eq('/')
+    end
+
+    it "successfully destroys session hash when 'Log Out' is clicked" do
+        create_standard_user
+        visit '/login'
+        # user_signup method is defined in login_helper.rb
+        user_login
+        click_link("Log Out")
+        expect(page.get_rack_session).to_not include("user_id")
+    end
+
+  end 
 
 #   it 'prevents user from viewing user show page and redirects to home page if not logged in' do
 #     create_standard_user
@@ -108,54 +138,6 @@ describe 'Feature Test: User Signup', :type => :feature do
 
 # end
 
-# describe 'Feature Test: User Signout', :type => :feature do
-
-#   it 'has a link to log out from the users/show page' do
-#     visit '/users/new'
-#     # user_signup method is defined in login_helper.rb
-#     user_signup
-#     expect(page).to have_content("Log Out")
-#   end
-
-#   it 'redirects to home page after logging out' do
-#     visit '/users/new'
-#     # user_signup method is defined in login_helper.rb
-#     user_signup
-#     click_link("Log Out")
-#     expect(current_path).to eq('/')
-#   end
-
-#   it "successfully destroys session hash when 'Log Out' is clicked" do
-#     visit '/users/new'
-#     # user_signup method is defined in login_helper.rb
-#     user_signup
-#     click_link("Log Out")
-#     expect(page.get_rack_session).to_not include("user_id")
-#   end
-
-#   it 'has a link to log out from the users/show page when user is an admin' do
-#     visit '/users/new'
-#     # admin_signup method is defined in login_helper.rb
-#     admin_signup
-#     expect(page).to have_content("Log Out")
-#   end
-
-#   it 'redirects to home page after admin logs out when user is an admin' do
-#     visit '/users/new'
-#     # admin_signup method is defined in login_helper.rb
-#     admin_signup
-#     click_link("Log Out")
-#     expect(current_path).to eq('/')
-#   end
-
-#   it "successfully destroys session hash when 'Log Out' is clicked as admin" do
-#     visit '/users/new'
-#     # admin_signup method is defined in login_helper.rb
-#     admin_signup
-#     click_link("Log Out")
-#     expect(page.get_rack_session).to_not include("user_id")
-#   end
-# end
 
 # describe 'Feature Test: Go on a Ride', :type => :feature do
 

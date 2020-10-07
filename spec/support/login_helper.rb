@@ -44,7 +44,6 @@ module LoginHelper
     def producer_login
         fill_in("email", :with => "jseller@gmail.com")
         fill_in("password", :with => "password")
-        check "producer"
         click_button('Sign In')
     end
   
