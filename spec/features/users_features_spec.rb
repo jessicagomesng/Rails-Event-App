@@ -1,15 +1,10 @@
 require_relative "../rails_helper.rb"
 describe 'Feature Test: User Signup', :type => :feature do
 
-
-#it does not let an underage user RSVP 
-#it automatically changes status based on the event's availability 
-#can only see their own show page 
 #user and producer can only ecit their own profiles
 #producer can edit any location
 #producer cannot edit any other events 
 #producer can view a list of users for that event
-#user can view a list of events and filter by attending/waiting
 #if not logged in, cannot access: events#show, users#index, users#show, users#edit, events#new, events#edit, locations#index, locations#show, locations#new, locations#edit, producers#show, producers#index, producers#edit, welcome#account
 #if not admin, cannot access: user#show, users#edit, users#index, events#new, events#edit, locations#new, locations#edit, producers#edit, 
 
@@ -176,6 +171,16 @@ describe 'Feature Test: Create Rsvp', :type => :feature do
             :minimum_age => 21
         )
 
+        @event_three = Event.create(
+            :producer_id => @producer.id, 
+            :location_id => @location.id,
+            :name => "Historic Party",
+            :start_date => DateTime.new(2019, 1, 1),
+            :end_date => DateTime.new(2019, 1, 1, 8),
+            :price => 20.00,
+            :maximum_capacity => 0
+        )
+
         @user = User.create(
             first_name: "Maggie", 
             last_name: "Peluski",
@@ -207,6 +212,70 @@ describe 'Feature Test: Create Rsvp', :type => :feature do
         click_link("My Events")
         expect(page).to have_content("Party of a Lifetime")
     end 
+
+    it "has an option on the user events index page to only view a user's upcoming events" do 
+        click_link('All Events')
+        click_link("#{@event_one.name}")
+        click_button("Yes")
+        click_link('All Events')
+        click_link("#{@event_three.name}")
+        click_button("Yes")
+        click_link("My Events")
+        expect(page).to have_content("#{@event_one.name}")
+        expect(page).to have_content("#{@event_three.name}")
+        choose('filter_upcoming')
+        click_button("Filter Results")
+        expect(page).to have_content("#{@event_one.name}")
+        expect(page).to_not have_content("#{@event_three.name}")
+    end
+
+    it "has an option on the user events index page to only view a user's past events" do 
+        click_link('All Events')
+        click_link("#{@event_one.name}")
+        click_button("Yes")
+        click_link('All Events')
+        click_link("#{@event_three.name}")
+        click_button("Yes")
+        click_link("My Events")
+        expect(page).to have_content("#{@event_one.name}")
+        expect(page).to have_content("#{@event_three.name}")
+        choose('filter_past')
+        click_button("Filter Results")
+        expect(page).to have_content("#{@event_three.name}")
+        expect(page).to_not have_content("#{@event_one.name}")
+    end
+
+    it "has an option on the user events index page to view the events a user is attending" do 
+        click_link('All Events')
+        click_link("#{@event_one.name}")
+        click_button("Yes")
+        click_link('All Events')
+        click_link("#{@event_two.name}")
+        click_button("Yes")
+        click_link("My Events")
+        expect(page).to have_content("#{@event_one.name}")
+        expect(page).to have_content("#{@event_two.name}")
+        choose('status_attending')
+        click_button("Filter Results")
+        expect(page).to have_content("#{@event_one.name}")
+        expect(page).to_not have_content("#{@event_two.name}")
+    end
+
+    it "has an option on the user events index page to view the events a user is waiting for" do 
+        click_link('All Events')
+        click_link("#{@event_one.name}")
+        click_button("Yes")
+        click_link('All Events')
+        click_link("#{@event_two.name}")
+        click_button("Yes")
+        click_link("My Events")
+        expect(page).to have_content("#{@event_one.name}")
+        expect(page).to have_content("#{@event_two.name}")
+        choose('status_waiting')
+        click_button("Filter Results")
+        expect(page).to have_content("#{@event_two.name}")
+        expect(page).to_not have_content("#{@event_one.name}")
+    end
 
     it 'prevents users from editing/deleting/adding RSVPs on the index page' do
         click_link('My Events')
@@ -244,9 +313,6 @@ describe 'Feature Test: Create Rsvp', :type => :feature do
         click_button("Yes")
         expect(current_path).to eq("/users/#{@user.id}/events")
     end
-
-    #you can filter the user's events page by attending/waiting
-    #can filter events by upcoming/past 
 
     it "when the user is old enough and the RSVP is successful, it displays a success message" do
         click_link('All Events')
