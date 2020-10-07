@@ -1,13 +1,10 @@
 require_relative "../rails_helper.rb"
 describe 'Feature Test: User Signup', :type => :feature do
 
-# it successfully signs up as a user 
-# it on sign up, successfully adds a session hash
-# it successfully logs in as a user 
-# it on log in, successfully adds a session hash
-#it authenticates user/producer 
+
+#it does not let an underage user RSVP 
+#it automatically changes status based on the event's availability 
 #can only see their own show page 
-#welcome#account shows appropriate user info 
 #user and producer can only ecit their own profiles
 #producer can edit any location
 #producer cannot edit any other events 
@@ -17,22 +14,23 @@ describe 'Feature Test: User Signup', :type => :feature do
 #if not admin, cannot access: user#show, users#edit, users#index, events#new, events#edit, locations#new, locations#edit, producers#edit, 
 
 
-  it 'successfully signs up as a user' do
-    visit '/users/new'
-    expect(current_path).to eq('/users/new')
-    # user_signup method is defined in login_helper.rb
-    user_signup
-    expect(current_path).to eq('/account')
-    expect(page).to have_text("Welcome to the Event Booker, Maggie Peluski!")
-    expect(page).to have_content("What would you like to do?")
-  end
+    it 'successfully signs up as a user' do
+        visit '/users/new'
+        expect(current_path).to eq('/users/new')
+        # user_signup method is defined in login_helper.rb
+        user_signup
+        expect(current_path).to eq('/account')
+        expect(page).to have_text("Welcome to the Event Booker, Maggie Peluski!")
+        expect(page).to have_content("What would you like to do?")
+    end
 
-  it "on sign up, successfully adds a session hash" do
-    visit '/users/new'
-    # user_signup method is defined in login_helper.rb
-    user_signup
-    expect(page.get_rack_session_key('user_id')).to_not be_nil
-  end
+    it "on sign up, successfully adds a session hash" do
+        visit '/users/new'
+        # user_signup method is defined in login_helper.rb
+        user_signup
+        expect(page.get_rack_session_key('user_id')).to_not be_nil
+        expect(page.get_rack_session).to_not include("producer_id")
+    end
 
     it 'successfully logs in as a user' do
         
@@ -52,16 +50,33 @@ describe 'Feature Test: User Signup', :type => :feature do
         # user_login method is defined in login_helper.rb
         user_login
         expect(page.get_rack_session_key('user_id')).to_not be_nil
-  end
+    end
 
-  it 'does not authenticate a user with the wrong password' do 
-    create_standard_user 
-    visit '/login'
-    fill_in("email", :with => "mpeluski@peluski.com")
-    fill_in("password", :with => "wrongpassword")
-    click_button('Sign In')
-    expect(current_path).to eq('/login')
-  end 
+    it 'does not authenticate a user with the wrong password' do 
+        create_standard_user 
+        visit '/login'
+        fill_in("email", :with => "mpeluski@peluski.com")
+        fill_in("password", :with => "wrongpassword")
+        click_button('Sign In')
+        expect(current_path).to eq('/login')
+    end 
+
+    it 'prevents user from viewing the root path and redirects to account page if logged in' do
+        create_standard_user
+        visit '/login'
+        user_login
+        visit '/'
+        expect(current_path).to eq('/account')
+    end
+
+    it 'prevents user from viewing the sign up page and redirects to account page if logged in' do
+        create_standard_user
+        visit '/login'
+        user_login
+        visit '/users/new'
+        expect(current_path).to eq('/account')
+    end
+end 
 
   describe 'Feature Test: User Signout', :type => :feature do
 
@@ -383,4 +398,4 @@ describe 'Feature Test: User Signup', :type => :feature do
 #     expect(current_path).to eq("/attractions/1")
 #     expect(page).to have_content("Nitro")
 #   end
-end
+
