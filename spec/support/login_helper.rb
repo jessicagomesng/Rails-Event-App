@@ -51,7 +51,7 @@ module LoginHelper
     def create_standard_user 
       @maggie = User.create(
         first_name: "Maggie", 
-        last_name: "Peluski"
+        last_name: "Peluski",
         password: "heythere",
         password_confirmation: "heythere",
         email: "mpeluski@peluski.com",
@@ -72,7 +72,7 @@ module LoginHelper
     def create_underage_user 
         @jack = User.create(
             first_name: "Jack", 
-            last_name: "Jack"
+            last_name: "Jack",
             password: "incredible",
             password_confirmation: "incredible",
             email: "jackjack@theincredibles.com",

@@ -42,7 +42,9 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'capybara'
+  gem "selenium-webdriver"
   gem 'database_cleaner'
+  gem "rack_session_access"
 end
 
 group :development do
