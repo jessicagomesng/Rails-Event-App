@@ -246,6 +246,7 @@ describe 'Feature Test: Create Rsvp', :type => :feature do
     end
 
     #you can filter the user's events page by attending/waiting
+    #can filter events by upcoming/past 
 
     it "when the user is old enough and the RSVP is successful, it displays a success message" do
         click_link('All Events')
@@ -272,30 +273,51 @@ describe 'Feature Test: Create Rsvp', :type => :feature do
         click_button("Yes")
         expect(page).to have_content("User must be at least #{@event_two.minimum_age} years old to attend this event.")
     end
+
+    it "automatically sets the RSVP status to 'attending' if the event is not full and the user is of age" do
+        click_link('All Events')
+        click_link("#{@event_one.name}")
+        click_button("Yes")
+        choose 'status_attending'
+        click_button("Filter Results")
+        expect(page).to have_content("#{@event_one.name}")
+    end 
+
+    it "automatically sets the RSVP status to 'waiting' if the event is not full and the user is of age" do
+        click_link('All Events')
+        click_link("#{@event_two.name}")
+        click_button("Yes")
+        choose 'status_waiting'
+        click_button("Filter Results")
+        expect(page).to have_content("#{@event_two.name}")
+    end 
+
+    it "allows the user to remove their RSVP if they have already RSVP'd" do 
+        click_link('All Events')
+        click_link("#{@event_one.name}")
+        click_button("Yes")
+        expect(page).to have_content("#{@event_one.name}")
+        click_link("#{@event_one.name}")
+        expect(page).to have_content("You are already attending this event.")
+        expect(page).to have_content("Would you like to remove your RSVP/waitlist request?")
+        click_button("Yes")
+        expect(current_path).to eq("/users/#{@user.id}/events")
+        expect(page).to_not have_content("#{@event_one.name}")
+    end 
+
+    it "tells the user their place in line if they are waiting and allows them to remove their RSVP" do 
+        click_link('All Events')
+        click_link("#{@event_two.name}")
+        click_button("Yes")
+        expect(page).to have_content("#{@event_two.name}")
+        click_link("#{@event_two.name}")
+        expect(page).to have_content("You are number #{@user.place_in_line(@event_two)} on the waitlist.")
+        expect(page).to have_content("Would you like to remove your RSVP/waitlist request?")
+        click_button("Yes")
+        expect(current_path).to eq("/users/#{@user.id}/events")
+        expect(page).to_not have_content("#{@event_two.name}")
+    end 
 end  
-
-
-#   it "when the user doesn't have enough tickets, clicking on 'Go on ride' displays a sorry message" do
-#     @user = User.find_by(:name => "Amy Poehler")
-#     @user.update(:tickets => 1)
-#     click_link('See attractions')
-#     click_link("Go on #{@ferriswheel.name}")
-#     click_button("Go on this ride")
-#     expect(page).to have_content("You do not have enough tickets to ride the #{@ferriswheel.name}")
-#     expect(page).to have_content("Tickets: 1")
-#   end
-
-#   it "when the user is too short and doesn't have enough tickets, clicking on 'Go on ride' displays a detailed sorry message" do
-#     @user = User.find_by(:name => "Amy Poehler")
-#     @user.update(:tickets => 1, :height => 30)
-#     click_link('See attractions')
-#     click_link("Go on #{@rollercoaster.name}")
-#     click_button("Go on this ride")
-#     expect(page).to have_content("You are not tall enough to ride the #{@rollercoaster.name}")
-#     expect(page).to have_content("You do not have enough tickets to ride the #{@rollercoaster.name}")
-#     expect(page).to have_content("Tickets: 1")
-#   end
-# end
 
 # describe 'Feature Test: Admin Flow', :type => :feature do
 

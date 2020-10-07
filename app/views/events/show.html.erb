@@ -23,7 +23,7 @@
     <% end %><br>
     <% if waiting_list(@event) %>
         <p class="label">Waitlist:</p> 
-        <p class="answer"><%= @event.waiting_list_count %></p>
+        <p class="answer"><%= @event.waiting_count %></p>
     <% end %><br>
 
     Produced by <%= link_to @event.producer.full_name, producer_path(@event.producer) %><br>
