@@ -38,15 +38,11 @@ class UsersController < ApplicationController
     end 
 
     def show 
-        if !user_has_permission || !admin
-            account_redirect 
-        end 
+        account_redirect unless (admin || user_has_permission)
     end
 
     def edit 
-        if !user_has_permission 
-            account_redirect
-        end 
+        account_redirect unless user_has_permission
     end 
 
     def update 
@@ -74,8 +70,6 @@ class UsersController < ApplicationController
     def edit_params
         params.require(:user).permit(:first_name, :last_name, :password, :password_confirmation)
     end 
-
-    #do I need to add edit params so birthday & email cannot be altered?
 
     def set_user 
         @user = User.find_by_id(params[:id])

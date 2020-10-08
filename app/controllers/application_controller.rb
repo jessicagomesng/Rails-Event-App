@@ -12,8 +12,10 @@ class ApplicationController < ActionController::Base
     end 
 
     def verified_user 
-        flash[:message] = "Sorry, you must be logged in to do that!"
-        redirect_to root_path unless logged_in 
+        if !logged_in 
+            flash[:message] = "Sorry, you must be logged in to do that!"
+            redirect_to root_path
+        end 
     end 
 
     def admin 
