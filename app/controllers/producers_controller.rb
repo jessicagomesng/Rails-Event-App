@@ -2,6 +2,7 @@ class ProducersController < ApplicationController
     skip_before_action :verified_user, only: [:new, :create]
     before_action :account_redirect, only: [:new]
     before_action :set_producer, only: [:show, :edit, :update, :destroy]
+    before_action :producer_not_found, only: [:show, :edit]
     helper_method :producer_has_permission
     
     def new 
@@ -14,7 +15,7 @@ class ProducersController < ApplicationController
         if @producer.save 
             session[:producer_id] = @producer.id
             flash[:message] = "Account created successfully."
-            account_redirect
+            redirect_to account_path
         else 
             render :new 
         end 
@@ -59,6 +60,13 @@ class ProducersController < ApplicationController
     def set_producer 
         @producer = Producer.find_by_id(params[:id])
     end
+
+    def producer_not_found
+        if !@producer 
+            flash[:message] = "Sorry, that producer cannot be found."
+            redirect_to producers_path 
+        end 
+    end 
 
     def producer_has_permission
         @producer == current_user

@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
         if account_holder && account_holder.authenticate(params[:password])
             session[(account_holder.class.name.downcase + "_id").to_sym] = account_holder.id
             flash[:message] = "Successfully logged in!"
-            account_redirect
+            redirect_to account_path
         else 
             flash[:message] = "Please try again."
             redirect_to login_path  

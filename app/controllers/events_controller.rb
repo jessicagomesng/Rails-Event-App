@@ -2,6 +2,7 @@ class EventsController < ApplicationController
     skip_before_action :verified_user, only: [:index]
     before_action :permitted, only: [:new, :create, :edit, :update, :destroy]
     before_action :set_event, only: [:show, :edit, :update, :destroy]
+    before_action :event_not_found, only: [:show, :edit]
 
     def new 
         if params[:location_id]
@@ -50,16 +51,13 @@ class EventsController < ApplicationController
     end
 
     def show 
-        if !@event 
-            flash[:message] = "Sorry, that event cannot be found."
-            redirect_to events_path
-        else 
-            @rsvp = Rsvp.find_or_initialize_by(:event_id => @event.id, :user_id => current_user.id) 
-        end 
+        @rsvp = Rsvp.find_or_initialize_by(:event_id => @event.id, :user_id => current_user.id) 
     end
 
     def edit 
-        #write a method to check that the author is the producer
+        if @event.producer_id != current_user.id 
+            account_redirect 
+        end
     end
 
     def update
@@ -87,6 +85,13 @@ class EventsController < ApplicationController
 
     def set_event
         @event = Event.find_by_id(params[:id])
+    end 
+
+    def event_not_found 
+        if !@event 
+            flash[:message] = "Sorry, that event cannot be found."
+            redirect_to events_path
+        end 
     end 
 
     def set_dates 

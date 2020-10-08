@@ -1,6 +1,7 @@
 class LocationsController < ApplicationController
     before_action :permitted, only: [:new, :create, :edit, :update]
     before_action :set_location, only: [:show, :edit, :update]
+    before_action :location_not_found, only: [:show, :edit]
     
     def new
         @location = Location.new
@@ -41,5 +42,12 @@ class LocationsController < ApplicationController
 
     def set_location
         @location = Location.find_by_id(params[:id])
+    end 
+
+    def location_not_found 
+        if !@location 
+            flash[:message] = "Sorry, that location cannot be found."
+            redirect_to locations_path
+        end 
     end 
 end

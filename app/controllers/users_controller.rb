@@ -3,6 +3,7 @@ class UsersController < ApplicationController
     before_action :account_redirect, only: [:new]
     before_action :permitted, only: [:index]
     before_action :set_user, only: [:show, :edit, :update, :destroy]
+    before_action :user_not_found, only: [:show, :edit]
     helper_method :user_has_permission
 
     def new
@@ -15,7 +16,7 @@ class UsersController < ApplicationController
         if @user.save
             session[:user_id] = @user.id 
             flash[:message] = "Account created successfully."
-            account_redirect 
+            redirect_to account_path
         else 
             render :New 
         end 
@@ -37,23 +38,19 @@ class UsersController < ApplicationController
     end 
 
     def show 
-        if @user && (user_has_permission || admin)
-        else 
+        if !user_has_permission || !admin
             account_redirect 
         end 
     end
 
     def edit 
-        if @user && user_has_permission 
-        else 
+        if !user_has_permission 
             account_redirect
         end 
     end 
 
     def update 
-        @user = current_user    
-
-        if @user.update(user_params)
+        if @user.update(edit_params)
             flash[:message] = "User info updated successfully."
             redirect_to user_path(@user)
         else 
@@ -62,7 +59,7 @@ class UsersController < ApplicationController
     end 
 
     def destroy 
-        if @user && user_has_permission 
+        if user_has_permission 
             @user.destroy
             flash[:message] = "User successfully deleted."
             redirect_to root_path
@@ -74,11 +71,22 @@ class UsersController < ApplicationController
         params.require(:user).permit(:filter, :first_name, :last_name, :birthday, :email, :password, :password_confirmation)
     end 
 
+    def edit_params
+        params.require(:user).permit(:first_name, :last_name, :password, :password_confirmation)
+    end 
+
     #do I need to add edit params so birthday & email cannot be altered?
 
     def set_user 
         @user = User.find_by_id(params[:id])
     end
+
+    def user_not_found 
+        if !@user 
+            flash[:message] = "Sorry, that user cannot be found."
+            redirect_to users_path  
+        end 
+    end 
 
     def user_has_permission
         @user == current_user
