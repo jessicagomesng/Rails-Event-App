@@ -1,11 +1,11 @@
 class ProducersController < ApplicationController
     skip_before_action :verified_user, only: [:new, :create]
-    before_action :account_redirect, only: [:new]
     before_action :set_producer, only: [:show, :edit, :update, :destroy]
     before_action :producer_not_found, only: [:show, :edit]
     helper_method :producer_has_permission
     
     def new 
+        redirect_to account_path unless !logged_in
         @producer = Producer.new 
     end 
     

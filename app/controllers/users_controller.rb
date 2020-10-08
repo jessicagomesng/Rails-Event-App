@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     helper_method :user_has_permission
 
     def new
+        redirect_to account_path unless !logged_in
         @user = User.new 
     end
 
