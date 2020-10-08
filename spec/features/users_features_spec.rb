@@ -1,7 +1,7 @@
 require_relative "../rails_helper.rb"
 describe 'Feature Test: User Signup', :type => :feature do
 
-#user and producer can only ecit their own profiles
+#producer can only ecit their own profiles
 #producer can edit any location
 #producer cannot edit any other events 
 #producer can view a list of users for that event
@@ -120,6 +120,36 @@ describe 'Feature Test: User Show Page', :type => :feature do
         visit '/users/2'
         expect(current_path).to eq("/account")
     end
+
+    it "lets the user edit his/her show page" do
+        create_standard_user
+        visit '/login'
+        user_login
+        click_on 'Edit Profile Info'
+        fill_in("user[first_name]", :with => "Maggie")
+        fill_in("user[last_name]", :with => "Changed")
+        fill_in("user[password]", :with => "heythere")
+        fill_in("user[password_confirmation]", :with => "heythere")
+        click_on "Update Profile"
+        expect(page).to have_content("Maggie Changed")
+    end 
+
+    it "does not let the user edit anyone else's show page" do 
+        create_standard_user
+        @underage_user = User.create( 
+        first_name: "Jack", 
+        last_name: "Jack",
+        password: "incredible",
+        password_confirmation: "incredible",
+        email: "jackjack@theincredibles.com",
+        birthday: Date.new(2020, 2, 5)
+        )
+        visit '/login'
+        user_login
+        visit("users/#{@underage_user.id}/edit")
+        expect(page.current_path).to eq("/account")
+        expect(page).to have_content("Sorry, you do not have permission to access this page!")
+    end 
 end
 
 describe 'Feature Test: User Index Page', :type => :feature do
