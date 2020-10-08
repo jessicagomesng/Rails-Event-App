@@ -29,9 +29,7 @@ class ProducersController < ApplicationController
     end 
 
     def edit 
-        if !producer_has_permission
-            account_redirect 
-        end 
+        account_redirect unless producer_has_permission
     end 
 
     def update 

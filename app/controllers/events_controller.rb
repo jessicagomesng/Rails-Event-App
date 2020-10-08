@@ -55,9 +55,7 @@ class EventsController < ApplicationController
     end
 
     def edit 
-        if @event.producer_id != current_user.id 
-            account_redirect 
-        end
+        account_redirect unless (@event.producer_id == current_user.id)
     end
 
     def update
