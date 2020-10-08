@@ -102,7 +102,7 @@ end
     end
 end 
 
-describe 'Feature Test: User Show Page', :type => :feature do
+describe 'Feature Test: User Flow', :type => :feature do
     it 'lets a user view his/her own show page' do
       create_standard_user
       visit '/login'
@@ -174,9 +174,22 @@ describe 'Feature Test: User Show Page', :type => :feature do
         expect(page.current_path).to eq("/account")
         expect(page).to have_content("Sorry, you do not have permission to access this page!")
     end 
-end
 
-describe 'Feature Test: User Index Page', :type => :feature do
+    it "edit page lets a user delete his/her page" do 
+        create_standard_user
+        create_standard_producer
+        visit '/login'
+        user_login
+        click_on 'Edit Profile Info'
+        click_button "Delete Profile"
+        expect(page.current_path).to eq('/')
+        expect(page).to have_content('User and RSVPs successfully deleted.')
+        visit('/login')
+        producer_login
+        visit("/users")
+        expect(page).to_not have_content("Maggie Peluski")
+    end 
+
     it "does not let a user view the users index page" do
         create_standard_user
         visit '/login'
@@ -492,41 +505,17 @@ describe 'Feature Test: Create Rsvp', :type => :feature do
         expect(page).to_not have_content("#{@event_two.name}")
     end 
 
-        #can delete
-        #if a producer deletes his/her profile, all of their associated events are also deleted 
+    it "deleting profile deletes all associated RSVPs" do 
+        @rsvp = Rsvp.create(:event_id => @event_one.id, :user_id => @user.id, :status => "attending")
+        click_on 'Edit Profile Info'
+        click_button "Delete Profile"
+        visit("/login")
+        producer_login 
+        visit("/events/#{@event_one.id}/users")
+        expect(page).to_not have_content("Maggie Peluski")
+    end 
 end  
 
-# describe 'Feature Test: Admin Flow', :type => :feature do
-
-#   before :each do
-#     @rollercoaster = Attraction.create(
-#       :name => "Roller Coaster",
-#       :tickets => 5,
-#       :nausea_rating => 2,
-#       :happiness_rating => 4,
-#       :min_height => 32
-#     )
-#     @ferriswheel = Attraction.create(
-#       :name => "Ferris Wheel",
-#       :tickets => 2,
-#       :nausea_rating => 2,
-#       :happiness_rating => 1,
-#       :min_height => 28
-#     )
-#     @teacups = Attraction.create(
-#       :name => "Teacups",
-#       :tickets => 1,
-#       :nausea_rating => 5,
-#       :happiness_rating => 1,
-#       :min_height => 28
-#     )
-#     visit '/users/new'
-#     admin_signup
-#   end
-
-#   it 'displays admin when logged in as an admin on user show page' do
-#     expect(page).to have_content("ADMIN")
-#   end
 
 #   it 'links to the attractions from the users show page when logged in as a admin' do
 #     expect(page).to have_content("See attractions")
