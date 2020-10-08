@@ -57,7 +57,8 @@ class UsersController < ApplicationController
     def destroy 
         if user_has_permission 
             @user.destroy
-            flash[:message] = "User successfully deleted."
+            @user.rsvps.destroy_all
+            flash[:message] = "User and RSVPs successfully deleted."
             redirect_to root_path
         end
     end 

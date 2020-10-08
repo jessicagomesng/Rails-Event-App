@@ -112,6 +112,30 @@ describe 'Feature Test: User Show Page', :type => :feature do
       expect(page).to have_content("Maggie Peluski")
     end
 
+    it "contains a link to edit/delete if it is the user's show page" do 
+        create_standard_user
+        visit '/login'
+        user_login
+        click_on "View Profile"
+        expect(page).to have_content("Edit/delete profile")
+    end 
+
+    it "does not contain a link to edit/delete if an admin is viewing" do 
+        create_standard_producer
+        visit '/login'
+        producer_login
+        @user = User.create(
+            first_name: "Maggie", 
+            last_name: "Peluski",
+            password: "heythere",
+            password_confirmation: "heythere",
+            email: "mpeluski@peluski.com",
+            birthday: Date.new(1990, 10, 5)
+        )
+        visit("/users/#{@user.id}")
+        expect(page).to_not have_content("Edit/delete profile")
+    end
+
     it "does not let a user view anyone else's show page" do
         create_standard_user
         create_underage_user
@@ -160,6 +184,60 @@ describe 'Feature Test: User Index Page', :type => :feature do
         visit '/users'
         expect(current_path).to eq("/account")
     end
+
+    it "lets a producer view the users index page" do 
+        create_standard_producer
+        visit '/login'
+        producer_login
+        visit '/users'
+        expect(current_path).to eq("/users")
+        expect(page).to have_content("Users List")
+    end 
+
+    it "lets a producer view the users attending his/her event" do 
+        @producer = Producer.create(
+            first_name: "Jeffrey",
+            last_name: "Seller",
+            password: "password",
+            password_confirmation: "password", 
+            email: "jseller@gmail.com"
+        )
+
+        @user = User.create(
+            first_name: "Maggie", 
+            last_name: "Peluski",
+            password: "heythere",
+            password_confirmation: "heythere",
+            email: "mpeluski@peluski.com",
+            birthday: Date.new(1990, 10, 5)
+        )
+
+        @location = Location.create(
+            :name => "North Pole",
+            :address => "Santa's Workshop, Antarctica",
+            :maximum_capacity => 1500
+          )
+
+        @event_one = Event.create(
+            :producer_id => @producer.id, 
+            :location_id => @location.id,
+            :name => "Party of a Lifetime",
+            :start_date => DateTime.new(2020, 12, 25),
+            :end_date => DateTime.new(2020, 12, 25, 23, 59),
+            :price => 50.00,
+            :maximum_capacity => 1000,
+            :minimum_age => 5
+        )
+
+        @event_one.users << @user 
+
+        visit('/login')
+        producer_login 
+        visit "/events/#{@event_one.id}"
+        click_link "See All Users for this Event"
+        expect(page.current_path).to eq("/events/#{@event_one.id}/users")
+        expect(page).to have_content("Maggie Peluski")
+    end 
 end
 
 describe 'Feature Test: Create Rsvp', :type => :feature do
@@ -413,6 +491,9 @@ describe 'Feature Test: Create Rsvp', :type => :feature do
         expect(current_path).to eq("/users/#{@user.id}/events")
         expect(page).to_not have_content("#{@event_two.name}")
     end 
+
+        #can delete
+        #if a producer deletes his/her profile, all of their associated events are also deleted 
 end  
 
 # describe 'Feature Test: Admin Flow', :type => :feature do

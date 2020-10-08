@@ -96,6 +96,71 @@ describe 'Feature Test: Producer Signout', :type => :feature do
         click_link("Log Out")
         expect(page.get_rack_session).to_not include("producer_id")
     end
-
 end 
+
+    describe 'Feature Test: Producer Show Page', :type => :feature do
+        it 'lets a producer view his/her own show page' do
+          create_standard_producer
+          visit '/login'
+          producer_login
+          visit '/account'
+          click_on 'View Profile'
+          expect(page).to have_content("Jeffrey Seller")
+        end
+    
+        it "contains a link to edit/delete if it is the producer's show page" do 
+            create_standard_producer
+            visit '/login'
+            producer_login
+            click_on "View Profile"
+            expect(page).to have_content("Edit/delete profile")
+        end 
+    
+        it "does not contain a link to edit/delete if someone else is viewing" do 
+            create_standard_user
+            visit '/login'
+            user_login
+            @producer = Producer.create(
+                first_name: "Jeffrey",
+                last_name: "Seller",
+                password: "password",
+                password_confirmation: "password", 
+                email: "jseller@gmail.com"
+            )
+            visit("/producers/#{@producer.id}")
+            expect(page).to_not have_content("Edit/delete profile")
+        end
+    
+        it "lets the producer edit his/her show page" do
+            create_standard_producer
+            visit '/login'
+            producer_login
+            click_on 'Edit Profile Info'
+            fill_in("producer[first_name]", :with => "Jeffrey")
+            fill_in("producer[last_name]", :with => "Changed")
+            fill_in("producer[password]", :with => "password")
+            fill_in("producer[password_confirmation]", :with => "password")
+            click_on "Update Profile"
+            expect(page).to have_content("Jeffrey Changed")
+        end 
+    
+        it "does not let the user edit anyone else's show page" do 
+            create_standard_producer
+            @scott_producer = Producer.create(
+                first_name: "Scott",
+                last_name: "Rudin",
+                password: "password",
+                password_confirmation: "password", 
+                email: "srudin@gmail.com"
+            )
+            visit '/login'
+            producer_login
+            visit("producers/#{@scott_producer.id}/edit")
+            expect(page.current_path).to eq("/account")
+            expect(page).to have_content("Sorry, you do not have permission to access this page!")
+        end 
+        #can delete
+        #if a producer deletes his/her profile, all of their associated events are also deleted 
+    end
+
 
