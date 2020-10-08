@@ -273,16 +273,62 @@ end
             expect(page).to_not have_content("Party of a Lifetime")
         end 
 
+        it "allows a producer to delete his/her own event" do 
+            visit("/events/#{@event_one.id}")
+            click_link "Edit/Delete Event"
+            click_button "Delete Event"
+            expect(page.current_path).to eq("/producers/#{@producer.id}/events")
+            expect(page).to_not have_content("Party of a Lifetime")
+        end 
+
         it "does not allow a producer to edit anyone else's event" do 
             visit("/events/#{@event_two.id}/edit")
             expect(current_path).to eq("/account") 
             expect(page).to have_content("Sorry, you do not have permission to access this page!")
         end 
-        #can delete event
-        #can view a list of users attending event
-        #can filter said list by attending/waiting 
-        #can view his/her events
-        #index has an option to create a new event
+
+        it "allows a producer to view all events" do 
+            visit("/events")
+            expect(page).to have_content("Party of a Lifetime")
+            expect(page).to have_content("New Year's Bash")
+        end 
+
+        it "allows a producer to view his/her events" do 
+            click_link "My Events"
+            expect(page).to have_content("Party of a Lifetime")
+            expect(page).to_not have_content("New Year's Bash")
+        end 
+
+        it "lets a producer view the users attending his/her event" do 
+            visit "/events/#{@event_one.id}"
+            click_link "See All Users for this Event"
+            expect(page.current_path).to eq("/events/#{@event_one.id}/users")
+            expect(page).to have_content("Maggie Peluski")
+        end 
+
+        it "has an option on the user index page to only view attending users" do 
+            visit "/events/#{@event_one.id}"
+            click_link "See All Users for this Event"
+            expect(page.current_path).to eq("/events/#{@event_one.id}/users")
+            expect(page).to have_content("Maggie Peluski")
+            expect(page).to have_content("Peety the Pup")
+            choose('filter_attending')
+            click_button("Filter Results")
+            expect(page).to have_content("#{@user_one.full_name}")
+            expect(page).to_not have_content("#{@user_two.full_name}")
+        end
+
+        it "has an option on the user index page to only view waiting users" do 
+            visit "/events/#{@event_one.id}"
+            click_link "See All Users for this Event"
+            expect(page.current_path).to eq("/events/#{@event_one.id}/users")
+            expect(page).to have_content("#{@user_one.full_name}")
+            expect(page).to have_content("#{@user_two.full_name}")
+            choose('filter_waiting')
+            click_button("Filter Results")
+            expect(page).to have_content("#{@user_two.full_name}")
+            expect(page).to_not have_content("#{@user_one.full_name}")
+        end
     end 
 
     describe 'Feature Test: Location Flow', :type => :feature do
@@ -291,50 +337,7 @@ end
         #can create an event at a location
         #can view a list of locations
 
-    it "lets a producer view the users attending his/her event" do 
-        @producer = Producer.create(
-            first_name: "Jeffrey",
-            last_name: "Seller",
-            password: "password",
-            password_confirmation: "password", 
-            email: "jseller@gmail.com"
-        )
-
-        @user = User.create(
-            first_name: "Maggie", 
-            last_name: "Peluski",
-            password: "heythere",
-            password_confirmation: "heythere",
-            email: "mpeluski@peluski.com",
-            birthday: Date.new(1990, 10, 5)
-        )
-
-        @location = Location.create(
-            :name => "North Pole",
-            :address => "Santa's Workshop, Antarctica",
-            :maximum_capacity => 1500
-          )
-
-        @event_one = Event.create(
-            :producer_id => @producer.id, 
-            :location_id => @location.id,
-            :name => "Party of a Lifetime",
-            :start_date => DateTime.new(2020, 12, 25),
-            :end_date => DateTime.new(2020, 12, 25, 23, 59),
-            :price => 50.00,
-            :maximum_capacity => 1000,
-            :minimum_age => 5
-        )
-
-        @event_one.users << @user 
-
-        visit('/login')
-        producer_login 
-        visit "/events/#{@event_one.id}"
-        click_link "See All Users for this Event"
-        expect(page.current_path).to eq("/events/#{@event_one.id}/users")
-        expect(page).to have_content("Maggie Peluski")
-    end 
+    
 
     it "lets a producer view the users index page" do 
         create_standard_producer
