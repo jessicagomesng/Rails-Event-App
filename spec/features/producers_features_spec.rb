@@ -329,26 +329,81 @@ end
             expect(page).to have_content("#{@user_two.full_name}")
             expect(page).to_not have_content("#{@user_one.full_name}")
         end
+
+        it "lets a producer view the users index page" do #
+            visit '/users'
+            expect(current_path).to eq("/users")
+            expect(page).to have_content("Users List")
+        end 
+
+        it "deleting profile deletes all associated events" do 
+            click_on 'Edit Profile Info'
+            click_button "Delete Profile"
+            expect(page).to have_content("Profile and events successfully deleted.")
+            visit("/events")
+            expect(page).to_not have_content("Party of a Lifetime")
+            expect(page).to have_content("New Year's Bash")
+        end 
     end 
 
     describe 'Feature Test: Location Flow', :type => :feature do
-        #can create a location
-        #can edit a location
-        #can create an event at a location
-        #can view a list of locations
+        before :each do 
+            @location = Location.create(
+                :name => "North Pole",
+                :address => "Santa's Workshop, Antarctica",
+                :maximum_capacity => 1500
+              )
 
-    
+            create_standard_producer
+            visit '/login'
+            producer_login
+        end 
 
-    it "lets a producer view the users index page" do 
-        create_standard_producer
-        visit '/login'
-        producer_login
-        visit '/users'
-        expect(current_path).to eq("/users")
-        expect(page).to have_content("Users List")
-    end 
+        it "allows a producer to create a new location" do 
+            click_link "Create a New Location"
+            expect(page.current_path).to eq('/locations/new')
+            expect(page).to have_content("Register a New Location")
+        end 
 
-            #if a producer deletes his/her profile, all of their associated events are also deleted 
+        it "location show page contains a link to edit a location for any producer" do 
+            visit("/locations/#{@location.id}")
+            expect(page).to have_content("Edit Location")
+            click_on "Edit Location"
+            fill_in("location[name]", :with => "Changed Name")
+            click_on"Update Location"
+            expect(page.current_path).to eq("/locations/#{@location.id}")
+            expect(page).to have_content("Changed Name")
+            expect(page).to_not have_content("North Pole")
+            click_on "Log Out"
 
+            create_producer_two 
+            visit('/login')
+            producer_two_login
+            visit("/locations/#{@location.id}")
+            expect(page).to have_content("Edit Location")
+            click_on "Edit Location"
+            fill_in("location[name]", :with => "North Pole")
+            click_on"Update Location"
+            expect(page.current_path).to eq("/locations/#{@location.id}")
+            expect(page).to have_content("North Pole")
+            expect(page).to_not have_content("Changed Name")
+        end 
+
+        it "allows a producer to create an event at a location" do #
+            visit("/locations/#{@location.id}")
+            expect(page).to have_content("Create New Event at this Location")
+            click_on "Create New Event at this Location"
+            fill_in("event[name]", :with => "Poopy Party")
+            fill_in("event[start_date]", :with => "2020-12-26")
+            fill_in("start_time", :with => "09:00")
+            fill_in("event[end_date]", :with => "2020-12-26")
+            fill_in("end_time", :with => "09:20")
+            fill_in("event[price]", :with => "0")
+            fill_in("event[maximum_capacity]", :with => "1")
+            click_button "Create Event"
+            expect(page).to have_content("Poopy Party")
+            expect(page).to have_content("Produced by Jeffrey Seller")
+            expect(page).to have_content("#{@location.name}")
+        end 
 
 end 

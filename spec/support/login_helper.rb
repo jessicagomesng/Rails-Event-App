@@ -46,6 +46,12 @@ module LoginHelper
         fill_in("password", :with => "password")
         click_button('Sign In')
     end
+
+    def producer_two_login 
+        fill_in("email", :with => "srudin@gmail.com")
+        fill_in("password", :with => "password")
+        click_button('Sign In')
+    end 
   
     def create_standard_user 
       @maggie = User.create(
@@ -78,5 +84,16 @@ module LoginHelper
             birthday: Date.new(2020, 2, 5)
             )
     end 
+
+    def create_producer_two 
+        @scott_producer = Producer.create(
+            first_name: "Scott",
+            last_name: "Rudin",
+            password: "password",
+            password_confirmation: "password", 
+            email: "srudin@gmail.com"
+        )
+    end 
+
     
   end
