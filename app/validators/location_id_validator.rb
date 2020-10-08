@@ -11,7 +11,7 @@ class LocationIdValidator < ActiveModel::Validator
                 occupying_event = location.events.detect { |event|
                         (record_start <= event.start_date && record_end >= event.end_date) || record_start.between?(event.start_date, event.end_date) ||  record_end.between?(event.start_date, event.end_date) } 
 
-                if occupying_event && occupying_event.name != record.name 
+                if occupying_event && occupying_event.id != record.id 
                     record.errors[:location_id] << "is already occupied from #{occupying_event.start_date.strftime("%B %e, %Y at %H:%M")} to #{occupying_event.end_date.strftime("%B %e, %Y at %H:%M")} by #{occupying_event.name}." 
                 end 
             end 

@@ -1,12 +1,7 @@
 require_relative "../rails_helper.rb"
 describe 'Feature Test: User Signup', :type => :feature do
 
-#producer can only ecit their own profiles
-#producer can edit any location
-#producer cannot edit any other events 
-#producer can view a list of users for that event
 #if not logged in, cannot access: events#show, users#index, users#show, users#edit, events#new, events#edit, locations#index, locations#show, locations#new, locations#edit, producers#show, producers#index, producers#edit, welcome#account
-#if not admin, cannot access: user#show, users#edit, users#index, events#new, events#edit, locations#new, locations#edit, producers#edit, 
 
 
     it 'successfully signs up as a user' do
@@ -198,16 +193,19 @@ describe 'Feature Test: User Flow', :type => :feature do
         expect(current_path).to eq("/account")
     end
 
-    it "lets a producer view the users index page" do 
-        create_standard_producer
+    it "does not let a user create a new event" do 
+        create_standard_user
         visit '/login'
-        producer_login
-        visit '/users'
-        expect(current_path).to eq("/users")
-        expect(page).to have_content("Users List")
+        user_login
+        visit "/events/new"
+        expect(current_path).to eq("/account")
+        expect(page).to have_content("Sorry, only producers can access this feature.")
     end 
 
-    it "lets a producer view the users attending his/her event" do 
+    it "does not let a user edit an event" do 
+        create_standard_user
+        visit '/login'
+        user_login
         @producer = Producer.create(
             first_name: "Jeffrey",
             last_name: "Seller",
@@ -215,22 +213,11 @@ describe 'Feature Test: User Flow', :type => :feature do
             password_confirmation: "password", 
             email: "jseller@gmail.com"
         )
-
-        @user = User.create(
-            first_name: "Maggie", 
-            last_name: "Peluski",
-            password: "heythere",
-            password_confirmation: "heythere",
-            email: "mpeluski@peluski.com",
-            birthday: Date.new(1990, 10, 5)
-        )
-
         @location = Location.create(
             :name => "North Pole",
             :address => "Santa's Workshop, Antarctica",
             :maximum_capacity => 1500
-          )
-
+        )
         @event_one = Event.create(
             :producer_id => @producer.id, 
             :location_id => @location.id,
@@ -241,15 +228,53 @@ describe 'Feature Test: User Flow', :type => :feature do
             :maximum_capacity => 1000,
             :minimum_age => 5
         )
+        visit "/events/#{@event_one.id}/edit"
+        expect(current_path).to eq("/account")
+        expect(page).to have_content("Sorry, only producers can access this feature.")
+    end 
 
-        @event_one.users << @user 
+    it "does not let a user create a location" do 
+        create_standard_user
+        visit '/login'
+        user_login
+        visit "/locations/new"
+        expect(current_path).to eq("/account")
+        expect(page).to have_content("Sorry, only producers can access this feature.")
 
-        visit('/login')
-        producer_login 
-        visit "/events/#{@event_one.id}"
-        click_link "See All Users for this Event"
-        expect(page.current_path).to eq("/events/#{@event_one.id}/users")
-        expect(page).to have_content("Maggie Peluski")
+    end 
+
+    it "does not let a user edit a location" do 
+        create_standard_user
+        visit '/login'
+        user_login
+
+        @location = Location.create(
+            :name => "North Pole",
+            :address => "Santa's Workshop, Antarctica",
+            :maximum_capacity => 1500
+        )
+
+        visit "/locations/#{@location.id}/edit"
+        expect(current_path).to eq("/account")
+        expect(page).to have_content("Sorry, only producers can access this feature.")
+    end 
+
+    it "does not let a user edit a producer's show page" do 
+        create_standard_user
+        visit '/login'
+        user_login
+
+        @producer = Producer.create(
+            first_name: "Jeffrey",
+            last_name: "Seller",
+            password: "password",
+            password_confirmation: "password", 
+            email: "jseller@gmail.com"
+        )
+
+        visit "/producers/#{@producer.id}/edit"
+        expect(current_path).to eq("/account")
+        expect(page).to have_content("Sorry, you do not have permission to access this page!")
     end 
 end
 

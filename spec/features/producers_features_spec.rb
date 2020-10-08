@@ -1,17 +1,6 @@
 require_relative "../rails_helper.rb"
 describe 'Feature Test: Producer Signup', :type => :feature do
 
-#can only see their own show page 
-#welcome#account shows appropriate user info 
-#user and producer can only ecit their own profiles
-#producer can edit any location
-#producer cannot edit any other events 
-#producer can view a list of users for that event
-#user can view a list of events and filter by attending/waiting
-#if not logged in, cannot access: events#show, users#index, users#show, users#edit, events#new, events#edit, locations#index, locations#show, locations#new, locations#edit, producers#show, producers#index, producers#edit, welcome#account
-#if not admin, cannot access: user#show, users#edit, users#index, events#new, events#edit, locations#new, locations#edit, producers#edit, 
-
-
     it 'successfully signs up as a producer' do
         visit '/producers/new'
         expect(current_path).to eq('/producers/new')
@@ -98,7 +87,7 @@ describe 'Feature Test: Producer Signout', :type => :feature do
     end
 end 
 
-    describe 'Feature Test: Producer Show Page', :type => :feature do
+    describe 'Feature Test: Producer Account', :type => :feature do
         it 'lets a producer view his/her own show page' do
           create_standard_producer
           visit '/login'
@@ -135,7 +124,7 @@ end
             create_standard_producer
             visit '/login'
             producer_login
-            click_on 'Edit Profile Info'
+            click_link 'Edit Profile Info'
             fill_in("producer[first_name]", :with => "Jeffrey")
             fill_in("producer[last_name]", :with => "Changed")
             fill_in("producer[password]", :with => "password")
@@ -144,7 +133,7 @@ end
             expect(page).to have_content("Jeffrey Changed")
         end 
     
-        it "does not let the user edit anyone else's show page" do 
+        it "does not let the producer edit anyone else's show page" do 
             create_standard_producer
             @scott_producer = Producer.create(
                 first_name: "Scott",
@@ -159,8 +148,204 @@ end
             expect(page.current_path).to eq("/account")
             expect(page).to have_content("Sorry, you do not have permission to access this page!")
         end 
-        #can delete
-        #if a producer deletes his/her profile, all of their associated events are also deleted 
-    end
+
+        it "edit page lets a producer delete his/her page" do 
+            create_standard_producer
+            create_standard_user
+            visit '/login'
+            producer_login
+            click_on 'Edit Profile Info'
+            click_button "Delete Profile"
+            expect(page.current_path).to eq('/')
+            expect(page).to have_content('Profile and events successfully deleted.')
+            visit('/login')
+            user_login
+            visit("/producers")
+            expect(page).to_not have_content("Jeffrey Seller")
+        end 
+    end 
+
+    describe 'Feature Test: Producer Events', :type => :feature do
+        before :each do
+            @producer = Producer.create(
+                first_name: "Jeffrey",
+                last_name: "Seller",
+                password: "password",
+                password_confirmation: "password", 
+                email: "jseller@gmail.com"
+            )
+
+            @producer_two = Producer.create(
+                first_name: "Scott",
+                last_name: "Rudin",
+                password: "password",
+                password_confirmation: "password", 
+                email: "srudin@gmail.com"
+            )
+    
+            @location = Location.create(
+                :name => "North Pole",
+                :address => "Santa's Workshop, Antarctica",
+                :maximum_capacity => 1500
+              )
+    
+            @event_one = Event.create(
+                :producer_id => @producer.id, 
+                :location_id => @location.id,
+                :name => "Party of a Lifetime",
+                :start_date => DateTime.new(2020, 12, 25),
+                :end_date => DateTime.new(2020, 12, 25, 23, 59),
+                :price => 50.00,
+                :maximum_capacity => 1000,
+                :minimum_age => 1
+            )
+
+            @event_two = Event.create(
+                :producer_id => @producer_two.id, 
+                :location_id => @location.id,
+                :name => "New Year's Bash",
+                :start_date => DateTime.new(2021, 1, 1),
+                :end_date => DateTime.new(2021, 1, 1, 8),
+                :price => 300.00,
+                :maximum_capacity => 0,
+                :minimum_age => 21
+            )
+    
+            @user_one = User.create(
+                first_name: "Maggie", 
+                last_name: "Peluski",
+                password: "heythere",
+                password_confirmation: "heythere",
+                email: "mpeluski@peluski.com",
+                birthday: Date.new(1990, 10, 5)
+            )
+
+            @user_two = User.create(
+                first_name: "Peety", 
+                last_name: "the Pup",
+                password: "greatest",
+                password_confirmation: "greatest",
+                email: "peet@peter.com",
+                birthday: Date.new(2000, 12, 17)
+            )
+
+            @rsvp_one = Rsvp.create(
+                :event_id => @event_one.id,
+                :user_id => @user_one.id, 
+                :status => "attending"
+            )
+
+            @rsvp_two = Rsvp.create(
+                :event_id => @event_one.id,
+                :user_id => @user_two.id, 
+                :status => "waiting"
+            )
+    
+            visit '/login'
+            producer_login
+        end
+
+        it "allows a producer to create a new event" do 
+            click_link "Create a New Event"
+            expect(page.current_path).to eq('/events/new')
+            expect(page).to have_content("Create a New Event")
+        end 
+
+        it "event show page contains a link to edit/delete for the creator of that event" do 
+            visit("/events/#{@event_one.id}")
+            expect(page).to have_content("Edit/Delete Event")
+        end 
+
+        it "event show page does not contain a link to edit/delete if the producer did not create the event" do
+            visit("/events/#{@event_two.id}")
+            expect(page).to_not have_content("Edit/Delete Event") 
+        end 
+
+        it "allows a producer to edit his/her own event" do 
+            visit("/events/#{@event_one.id}")
+            click_link "Edit/Delete Event"
+            fill_in("event[name]", :with => "Second Bash")
+            fill_in("start_time", :with => "18:13")
+            fill_in("end_time", :with => "20:13")
+            click_button "Update Event"
+            expect(page.current_path).to eq("/events/#{@event_one.id}")
+            expect(page).to have_content("Second Bash")
+            expect(page).to_not have_content("Party of a Lifetime")
+        end 
+
+        it "does not allow a producer to edit anyone else's event" do 
+            visit("/events/#{@event_two.id}/edit")
+            expect(current_path).to eq("/account") 
+            expect(page).to have_content("Sorry, you do not have permission to access this page!")
+        end 
+        #can delete event
+        #can view a list of users attending event
+        #can filter said list by attending/waiting 
+        #can view his/her events
+        #index has an option to create a new event
+    end 
+
+    describe 'Feature Test: Location Flow', :type => :feature do
+        #can create a location
+        #can edit a location
+        #can create an event at a location
+        #can view a list of locations
+
+    it "lets a producer view the users attending his/her event" do 
+        @producer = Producer.create(
+            first_name: "Jeffrey",
+            last_name: "Seller",
+            password: "password",
+            password_confirmation: "password", 
+            email: "jseller@gmail.com"
+        )
+
+        @user = User.create(
+            first_name: "Maggie", 
+            last_name: "Peluski",
+            password: "heythere",
+            password_confirmation: "heythere",
+            email: "mpeluski@peluski.com",
+            birthday: Date.new(1990, 10, 5)
+        )
+
+        @location = Location.create(
+            :name => "North Pole",
+            :address => "Santa's Workshop, Antarctica",
+            :maximum_capacity => 1500
+          )
+
+        @event_one = Event.create(
+            :producer_id => @producer.id, 
+            :location_id => @location.id,
+            :name => "Party of a Lifetime",
+            :start_date => DateTime.new(2020, 12, 25),
+            :end_date => DateTime.new(2020, 12, 25, 23, 59),
+            :price => 50.00,
+            :maximum_capacity => 1000,
+            :minimum_age => 5
+        )
+
+        @event_one.users << @user 
+
+        visit('/login')
+        producer_login 
+        visit "/events/#{@event_one.id}"
+        click_link "See All Users for this Event"
+        expect(page.current_path).to eq("/events/#{@event_one.id}/users")
+        expect(page).to have_content("Maggie Peluski")
+    end 
+
+    it "lets a producer view the users index page" do 
+        create_standard_producer
+        visit '/login'
+        producer_login
+        visit '/users'
+        expect(current_path).to eq("/users")
+        expect(page).to have_content("Users List")
+    end 
+
+            #if a producer deletes his/her profile, all of their associated events are also deleted 
 
 
+end 
