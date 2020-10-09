@@ -1,8 +1,8 @@
 class SessionsController < ApplicationController
     skip_before_action :verified_user, only: [:new, :create, :omniauth_user]
-    before_action :account_redirect, only: [:new]
     
     def new 
+        redirect_to account_path if logged_in
     end 
 
     def create 

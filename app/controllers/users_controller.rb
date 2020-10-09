@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
     skip_before_action :verified_user, only: [:new, :create]
-    before_action :account_redirect, only: [:new]
     before_action :permitted, only: [:index]
     before_action :set_user, only: [:show, :edit, :update, :destroy]
     before_action :user_not_found, only: [:show, :edit]
@@ -25,14 +24,18 @@ class UsersController < ApplicationController
 
     def index 
         if params[:event_id]
-            @event = Event.find_by_id(params[:event_id])
-            @users = @event.users 
+            if @event = Event.find_by_id(params[:event_id])
+                @users = @event.users 
 
-            if params[:filter] == "attending"
-                @users = @event.attending_users
-            elsif params[:filter] == "waiting"
-                @users = @event.waiting_users
-            end 
+                if params[:filter] == "attending"
+                    @users = @event.attending_users
+                elsif params[:filter] == "waiting"
+                    @users = @event.waiting_users
+                end 
+            else 
+                flash[:message] = "Event not found. Please try again."
+                redirect_to events_path
+            end
         else 
             @users = User.all 
         end

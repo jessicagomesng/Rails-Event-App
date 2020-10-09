@@ -27,17 +27,33 @@ class EventsController < ApplicationController
 
     def index 
         if params[:location_id]
-            @events = Location.find_by_id(params[:location_id]).events 
+            if location = Location.find_by_id(params[:location_id])
+                @events = location.events
+            else 
+                flash[:message] = "Location not found. Please try again."
+                redirect_to events_path
+            end 
         elsif params[:producer_id]
-            @events = Producer.find_by_id(params[:producer_id]).events
+            verified_user
+            if producer = Producer.find_by_id(params[:producer_id])
+                @events = producer.events
+            else 
+                flash[:message] = "Producer not found. Please try again."
+                redirect_to events_path
+            end 
         elsif params[:user_id]
-            user = User.find_by_id(params[:user_id])
-            @events = user.events
+            verified_user
+            if user = User.find_by_id(params[:user_id])
+                @events = user.events
 
-            if params[:status] == "attending"
-                @events = user.events_attending
-            elsif params[:status] == "waiting"
-                @events = user.events_waiting_for
+                if params[:status] == "attending"
+                    @events = user.events_attending
+                elsif params[:status] == "waiting"
+                    @events = user.events_waiting_for
+                end 
+            else 
+                flash[:message] = "User not found. Please try again."
+                redirect_to events_path
             end 
         else 
             @events = Event.all
