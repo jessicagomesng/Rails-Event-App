@@ -15,24 +15,30 @@
  */
  @font-face {
     font-family: 'caslon';
-    src: url('./caslon/CaslonGraphiqueEF.woff') format('woff'),
-         url('./caslon/CaslonGraphiqueEf.woff2') format('woff2');
+    /* src: url('./caslon/CaslonGraphiqueEF.woff') format('woff'),
+         url('./caslon/CaslonGraphiqueEf.woff2') format('woff2'); */
+    src: url('CaslonGraphiqueEF.woff') format('woff'),
+         url('CaslonGraphiqueEF.woff2'), format('woff2');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
   font-family: 'montserratbold';
-  src: url('./montserrat/Montserrat-Bold.woff') format('woff2'),
-       url('./montserrat/Montserrat-Bold.woff2') format('woff');
+  /* src: url('./montserrat/Montserrat-Bold.woff') format('woff2'),
+       url('./montserrat/Montserrat-Bold.woff2') format('woff'); */
+  src: url('Montserrat-Bold.woff') format('woff'),
+       url('Montserrat-Bold.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'montserratlight';
-  src: url('./montserrat/Montserrat-Light.woff') format('woff2'),
-       url('./montserrat/Montserrat-Light.woff2') format('woff');
+  /* src: url('./montserrat/Montserrat-Light.woff') format('woff2'),
+       url('./montserrat/Montserrat-Light.woff2') format('woff'); */
+  src: url('Montserrat-Light.woff') format('woff'),
+       url('Montserrat-Light.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
