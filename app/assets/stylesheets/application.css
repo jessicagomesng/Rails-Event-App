@@ -15,24 +15,24 @@
  */
  @font-face {
     font-family: 'caslon';
-    src: url('./fonts/caslon/caslongraphiqueef-webfont.woff') format('woff'),
-         url('./fonts/caslon/caslongraphiqueef-webfont.woff2') format('woff2');
+    src: url('./caslon/CaslonGraphiqueEF.woff') format('woff'),
+         url('./caslon/CaslonGraphiqueEf.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
   font-family: 'montserratbold';
-  src: url('./fonts/montserrat/montserrat-bold-webfont.woff2') format('woff2'),
-       url('./fonts/montserrat/montserrat-bold-webfont.woff') format('woff');
+  src: url('./montserrat/Montserrat-Bold.woff') format('woff2'),
+       url('./montserrat/Montserrat-Bold.woff2') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'montserratlight';
-  src: url('./fonts/montserrat/montserrat-light-webfont.woff2') format('woff2'),
-       url('./fonts/montserrat/montserrat-light-webfont.woff') format('woff');
+  src: url('./montserrat/Montserrat-Light.woff') format('woff2'),
+       url('./montserrat/Montserrat-Light.woff2') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -60,6 +60,7 @@ a {
     font-size: 15px;
     text-transform: uppercase;
     color: gray;
+    text-decoration: none;
 }
 
 a:hover {
