@@ -6,10 +6,11 @@
         <li><%= link_to event.name, event_path(event) %></li>
     <% end %>
     <% if admin %><br><br>
-        <li><%= link_to "Create Event", new_event_path, :id => 'create-new' %></li><br>
+        <li style="list-style-type:none"><%= link_to "Create Event", new_event_path, :id => 'create-new' %></li><br>
         <p class="tooltip">View an event to make changes to it.</p>
     <% end %>
     </ul>
 </div><br>
+
 
 <%= render :partial => "filter" %>
