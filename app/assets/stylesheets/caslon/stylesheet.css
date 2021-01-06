@@ -1,9 +1,0 @@
-@font-face {
-    font-family: 'CaslonGraphiqueEF';
-    src: url('CaslonGraphiqueEF.woff2') format('woff2'),
-        url('CaslonGraphiqueEF.woff') format('woff');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-}
-
