@@ -11,6 +11,13 @@
         <li><%= link_to "View My Events", user_events_path(current_user) %></li>
         <% end %>
         <li><%= link_to "View All Events", events_path %></li>
+        <div class="search-bar"> 
+            <%= form_tag('/search', :method => :post) do %>
+            <%= label_tag :event, "Find an Event:", :class => "label" %>
+            <%= text_field_tag :event_name %>
+            <%= submit_tag 'Find Event' %>
+        <% end %>
+        </div> 
     <h5>Location</h5>
         <% if admin %>
         <li><%= link_to "Create a New Location", new_location_path %></li>

@@ -235,3 +235,12 @@ p.answer {
   font-style: italic;
   background-color: #F9F9F6;
 }
+
+div.search-bar {
+  text-align: left;
+  font-family: 'montserratlight', arial, sans-serif;
+  text-transform: uppercase;
+  font-size: 13px;
+  width: 700px; 
+  padding-left: 30px;
+}

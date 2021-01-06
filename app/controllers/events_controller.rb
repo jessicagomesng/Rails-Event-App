@@ -86,6 +86,18 @@ class EventsController < ApplicationController
         end 
     end 
 
+    def search 
+        # make this case insensitive 
+        event = Event.find_by(:name => params[:event_name])
+
+        if event 
+            redirect_to event_path(event) 
+        else 
+            flash[:message] = "Sorry, this event cannot be found."
+            redirect_to account_path 
+        end 
+    end 
+
     def destroy 
         @event.destroy
         flash[:message] = "Event deleted."
